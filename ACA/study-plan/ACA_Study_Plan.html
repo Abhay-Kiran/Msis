@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACA Study Plan</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1f2328;--muted:#5b6470;--accent:#1d5fa8;--line:#dcd8cf;--card:#ffffff;--hi:#fff3cd;--tag:#e8f0fb}
+@media (prefers-color-scheme:dark){:root{--bg:#16181c;--fg:#e6e6e6;--muted:#9aa3ad;--accent:#6aa9f0;--line:#33373d;--card:#1e2126;--hi:#3a3320;--tag:#1f2d40}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 Georgia,"Times New Roman",serif}
+main{max-width:980px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:1.9rem;margin:0 0 4px}
+h2{font-size:1.35rem;margin:40px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--accent);color:var(--accent)}
+h3{font-size:1.1rem;margin:24px 0 8px}
+.sub{color:var(--muted);margin:0 0 20px}
+nav{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin-bottom:8px}
+nav a{color:var(--accent);text-decoration:none;margin-right:16px;white-space:nowrap}
+.note{background:var(--hi);border-left:4px solid #d4a017;padding:10px 14px;border-radius:4px;margin:12px 0}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:.95rem;margin:8px 0}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--tag)}
+.pri{white-space:nowrap;color:#b8860b;font-weight:bold}
+.paper{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px 20px;margin:16px 0}
+.paper h3{margin-top:0}
+.paper ol li{margin-bottom:10px}
+.src{color:var(--muted);font-size:.9em}
+.co{display:inline-block;background:var(--tag);color:var(--accent);font-size:.8em;font-weight:bold;padding:1px 7px;border-radius:10px;margin-left:4px}
+.done{margin-right:6px}
+@media print{body{background:#fff;color:#000}nav{display:none}.paper{break-inside:avoid}h2{break-after:avoid}}
+</style>
+</head>
+<body>
+<main>
+<h1>Advanced Computer Architecture (ESE 5101)</h1>
+<p class="sub">Study plan &amp; practice papers — CO1 (L1–L12) + CO3 (L29–L35) · Textbook: Rafiquzzaman &amp; Chandra, <em>Modern Computer Architecture</em></p>
+
+<nav><a href="#scope">Scope</a><a href="#co3">CO3 topics</a><a href="#co1">CO1 topics</a><a href="#plan">Study plan</a><a href="#papers">Question papers</a><a href="#key">Answer key</a></nav>
+
+<h2 id="scope">1. Scope &amp; notes</h2>
+<p>All page numbers are the <strong>printed book page numbers</strong>, not PDF page numbers.</p>
+<div class="note"><strong>Not well covered in the textbook — use another source:</strong>
+<ul>
+<li><strong>ARM architecture &amp; components (L2), SoC, VLIW (L1):</strong> Furber, <em>ARM System-on-Chip Architecture</em> (ref. 10) or Sloss et al., <em>ARM System Developer's Guide</em> (ref. 12).</li>
+<li><strong>Data hazards, instruction hazards, influence on instruction sets, datapath &amp; control considerations (L30–L31):</strong> these titles match the pipelining chapter of Hamacher et al., <em>Computer Organization</em> 5th ed. (ref. 1), which as far as I know is Chapter 8. Rafiquzzaman only covers branch hazards and memory conflicts.</li>
+</ul></div>
+
+<h2 id="co3">2. CO3 (L29–L35) — important topics</h2>
+<p>Main source: Chapter 7, "Fundamentals of Parallel Processing", pp. 304–343.</p>
+<div class="wrap"><table>
+<tr><th>Lecture</th><th>Topic</th><th>Where to study</th><th>Priority</th></tr>
+<tr><td>L29</td><td>Why pipelining: segments, latches, space-time chart, pipeline clock T = max(T<sub>i</sub>) + L, bottleneck segment, speedup P(n) = mn/(n+m−1), throughput, efficiency</td><td><strong>7.5.1, pp. 315–317</strong> (Figs 7.14, 7.15); pipelining remark on p. 83</td><td class="pri">★★★ numericals certain</td></tr>
+<tr><td>L30</td><td>Instruction hazards from branches: extra clocks per branch, instructions per cycle = n/(1+c(n−1)), target prefetch, delayed branch (reordering, NOPs), memory-access conflicts, memory interleaving</td><td><strong>7.5.3, pp. 320–326</strong> (Figs 7.19–7.25). Data hazards: Hamacher Ch 8</td><td class="pri">★★★</td></tr>
+<tr><td>L31</td><td>Influence of instruction sets, datapath, control: RISC principles, single-cycle instructions, load/store only, delayed jump; single-, two- and three-bus datapaths</td><td>RISC <strong>2.5, pp. 50–56</strong> (delayed jump p. 54); bus organization <strong>Ch 4, pp. 134–137</strong> (Figs 4.9–4.11)</td><td class="pri">★★</td></tr>
+<tr><td>L32</td><td>Parallelism in a uniprocessor: I/O processor/DMA, multiple functional units (CDC 6600), fast adders/multipliers, instruction pipelining, cache/virtual memory, multiprogramming/time-sharing</td><td><strong>7.1–7.2, pp. 304–305</strong></td><td class="pri">★★★ easy marks</td></tr>
+<tr><td>L33</td><td>Multiprocessors: definition, sharing/interaction, four elements, tightly vs loosely coupled</td><td><strong>7.6, pp. 326–327</strong>; tightly/loosely coupled on <strong>p. 204</strong> and <strong>p. 307</strong></td><td class="pri">★★★</td></tr>
+<tr><td>L34</td><td>Parallel computer structures: pipeline computers; array processors (SIMD organization, master control unit, mask register, interconnection network); multiprocessor interconnects (single bus, multibus, crossbar, multiport memory — advantages/disadvantages)</td><td>Array processors <strong>7.4, pp. 308–309</strong>; interconnects <strong>7.6.1–7.6.4, pp. 328–334</strong> (Figs 7.27–7.34)</td><td class="pri">★★★ compare/contrast likely</td></tr>
+<tr><td>L35</td><td>Classification: Flynn's SISD/SIMD/MISD/MIMD with examples; Feng's and Handler's schemes (brief); applications</td><td><strong>7.3, pp. 306–308</strong> (Fig 7.2); super/vector computer applications <strong>1.5, p. 17</strong></td><td class="pri">★★★</td></tr>
+</table></div>
+<p><strong>Skip or skim:</strong> systolic &amp; wavefront arrays (7.4.1–7.4.2, pp. 310–315) belong to L36–L37; data-flow computers (7.7, pp. 334–339) are outside L29–L35. Do read arithmetic pipelines (7.5.2, pp. 317–320) quickly — the floating-point add pipeline (Fig 7.17) is used in Q7.12.</p>
+
+<h2 id="co1">3. CO1 (L1–L12) — topic map</h2>
+<div class="wrap"><table>
+<tr><th>Lecture</th><th>Topic</th><th>Pages</th></tr>
+<tr><td>L1</td><td>Von Neumann architecture</td><td>1–2 (Fig 1.1)</td></tr>
+<tr><td>L1</td><td>Harvard architecture</td><td>End-of-chapter Q1.2, p. 18</td></tr>
+<tr><td>L1</td><td>Stored-program computer, buses</td><td>7–10</td></tr>
+<tr><td>L1</td><td>Bus structures</td><td>Ch 4, pp. 134–137</td></tr>
+<tr><td>L1</td><td>RISC vs CISC (RISC I, register windows, Figs 2.19–2.20)</td><td>50–56</td></tr>
+<tr><td>L1–L2</td><td>SoC, VLIW, ARM</td><td>External sources</td></tr>
+<tr><td>L3</td><td>Instruction formats (3/2/1/0-address)</td><td>22–24</td></tr>
+<tr><td>L3</td><td>Accumulator, general-register and stack machines</td><td>10–16</td></tr>
+<tr><td>L3</td><td>Expanding opcode (Figs 2.4–2.6)</td><td>25–27</td></tr>
+<tr><td>L4</td><td>Register section, dedicated registers table</td><td>61–62</td></tr>
+<tr><td>L4</td><td>Shift types (Fig 3.2)</td><td>62–63</td></tr>
+<tr><td>L4</td><td>4-bit general-purpose register from cell S (Figs 3.3–3.6)</td><td>63–66</td></tr>
+<tr><td>L4</td><td>Flag register, Example 3.1, flag interpretation (Fig 3.10)</td><td>70–73</td></tr>
+<tr><td>L5</td><td>ALU design: arithmetic unit, logic unit, 4-function ALU (Figs 3.22–3.26)</td><td>84–88</td></tr>
+<tr><td>L5</td><td>AM2901 bit slice (lower priority)</td><td>88–94</td></tr>
+<tr><td>L6–L8</td><td>Full adder</td><td>74–75</td></tr>
+<tr><td>L6–L8</td><td>Ripple-carry adder, 33Δ derivation</td><td>75–76</td></tr>
+<tr><td>L6–L8</td><td>Carry look-ahead: G/P equations, 4-stage CLC, 16-bit adder in 12Δ</td><td>76–80</td></tr>
+<tr><td>L6–L8</td><td>Carry-save adder, Wallace tree, CSA levels formula</td><td>80–83</td></tr>
+<tr><td>L6–L8</td><td>Adder/subtractor</td><td>83–84</td></tr>
+<tr><td>L9</td><td>Combinational shifter</td><td>66–68</td></tr>
+<tr><td>L9</td><td>Barrel shifter (16×16, two-level, Figs 3.7–3.9)</td><td>68–71</td></tr>
+<tr><td>L9</td><td>Array (Braun) multiplier, T(n) = (4n−2)Δ</td><td>95–97</td></tr>
+<tr><td>L9</td><td>ROM multiplier</td><td>97</td></tr>
+<tr><td>L9</td><td>Wallace tree 8×8 multiplier</td><td>98–100</td></tr>
+<tr><td>L10–L11</td><td>Sequential add-shift multiplier and trace</td><td>100–103</td></tr>
+<tr><td>L10–L11</td><td>Signed multiplication</td><td>103</td></tr>
+<tr><td>L12</td><td>Booth's algorithm (string property, Fig 3.40, trace)</td><td>103–107</td></tr>
+<tr><td>L12</td><td>Modified Booth's algorithm</td><td>107–110</td></tr>
+</table></div>
+
+<h3>End-of-chapter questions to practise</h3>
+<ul>
+<li><strong>Ch 1 (pp. 18–21):</strong> Q1.2, 1.4, 1.5, 1.6</li>
+<li><strong>Ch 2 (pp. 56–59):</strong> Q2.1, 2.2, 2.4, 2.5, 2.6, 2.15</li>
+<li><strong>Ch 3 (pp. 121–125):</strong> Q3.1–3.9, 3.12–3.17, 3.21–3.26</li>
+<li><strong>Ch 7 (pp. 339–342):</strong> Q7.1–7.8, 7.12–7.20</li>
+</ul>
+
+<h2 id="plan">4. Study plan (10 sessions × ~2 hours)</h2>
+<div class="wrap"><table>
+<tr><th>✓</th><th>Session</th><th>Cover</th><th>Practise</th></tr>
+<tr><td><input type="checkbox" class="done"></td><td>1</td><td>Ch 1 pp. 1–2, 7–16; Von Neumann vs Harvard; RISC/CISC pp. 50–56; Ch 4 bus organizations pp. 134–137</td><td>Q1.2, Q1.5, Q2.15</td></tr>
+<tr><td><input type="checkbox" class="done"></td><td>2</td><td>Instruction formats pp. 22–27 (incl. expanding opcode); ARM overview from Furber</td><td>Q1.4, Q2.4, Q2.5, Q2.6</td></tr>
+<tr><td><input type="checkbox" class="done"></td><td>3</td><td>Registers, shifts, register cell, combinational &amp; barrel shifter, pp. 61–71</td><td>Q3.3, Q3.4</td></tr>
+<tr><td><input type="checkbox" class="done"></td><td>4</td><td>Flag register pp. 70–73; ALU pp. 84–88</td><td>Example 3.1, Q3.6, Q3.13, Q3.17</td></tr>
+<tr><td><input type="checkbox" class="done"></td><td>5</td><td>Adders pp. 74–84 — derive CLA equations and 33Δ vs 12Δ yourself</td><td>Q3.7, Q3.8, Q3.9, Q3.12</td></tr>
+<tr><td><input type="checkbox" class="done"></td><td>6</td><td>Multipliers pp. 94–103 (array, ROM, Wallace, sequential)</td><td>Q3.21, Q3.23, Q3.25</td></tr>
+<tr><td><input type="checkbox" class="done"></td><td>7</td><td>Booth's and modified Booth's pp. 103–110 — redo the p. 106 trace from scratch</td><td>Q3.26 (a) &amp; (b)</td></tr>
+<tr><td><input type="checkbox" class="done"></td><td>8</td><td>Ch 7 pp. 304–308 (uniprocessor parallelism, Flynn); multiprocessors pp. 326–334</td><td>Q7.3, Q7.6, Q7.18, Q7.19, Q7.20</td></tr>
+<tr><td><input type="checkbox" class="done"></td><td>9</td><td>Pipelines pp. 315–326; hazards from Hamacher Ch 8</td><td>Q7.7, Q7.12, Q7.14, Q7.15, Q7.16, Q7.17</td></tr>
+<tr><td><input type="checkbox" class="done"></td><td>10</td><td>Timed mock: one paper below in 90 minutes, then revise weak spots</td><td>—</td></tr>
+</table></div>
+
+<h2 id="papers">5. Practice question papers</h2>
+<p class="sub">50 marks each (5 × 10) · 90 minutes · Q1–3 theory &amp; design, Q4–5 application/numerical</p>
+
+<div class="paper"><h3>Paper A</h3><ol>
+<li>(a) Compare Von Neumann and Harvard architectures with block diagrams. (b) Evaluate D := A + B*C with three-, two-, one- and zero-address instructions. <span class="src">[Fig 1.1, Q1.2, pp. 12–15]</span><span class="co">CO1</span></li>
+<li>Derive the carry look-ahead equations C1–C4. Design a 16-bit adder using 4-bit CLA blocks and show its worst-case delay is 12Δ, compared with 33Δ for a ripple-carry adder. <span class="src">[pp. 75–78]</span><span class="co">CO1</span></li>
+<li>Classify computers using Flynn's scheme with one example each. Explain the organization of an SIMD array processor, including the role of the mask register. <span class="src">[pp. 306–309, Q7.8]</span><span class="co">CO3</span></li>
+<li>Multiply 110011 × 110110 (−13 × −10) using Booth's algorithm, showing the A, Q and q<sub>−1</sub> trace. <span class="src">[Q3.26a]</span><span class="co">CO1</span></li>
+<li>A 4-segment floating-point add pipeline has T1 = 40, T2 = 100, T3 = 180, T4 = 60 ns and latch delay 20 ns. Find (a) the clock period, (b) the time to add 1000 pairs, (c) the efficiency for 2000 pairs. <span class="src">[Q7.12]</span><span class="co">CO3</span></li>
+</ol></div>
+
+<div class="paper"><h3>Paper B</h3><ol>
+<li>With a neat diagram, design a 4-bit general-purpose register using the basic cell S. Show how logical, arithmetic and rotate right shifts are obtained through input R. <span class="src">[pp. 63–66]</span><span class="co">CO1</span></li>
+<li>Design a 16×16 barrel shifter as a two-level shifter and explain the rotation by 11 positions. <span class="src">[pp. 68–71, Q3.4]</span><span class="co">CO1</span></li>
+<li>List the ways parallelism is achieved in a uniprocessor system. Compare single-bus and crossbar interconnections for multiprocessors. <span class="src">[p. 305, pp. 328–331, Q7.19]</span><span class="co">CO3</span></li>
+<li>An instruction is 11 bits long with 4-bit address fields. Is it possible to have (i) 5 two-address, 45 one-address and 32 zero-address instructions; (ii) 7, 15 and 18? Justify using the expanding opcode technique. <span class="src">[Q2.4, Q2.5]</span><span class="co">CO1</span></li>
+<li>1000 instructions run on a 6-segment pipeline. (a) Find the average instructions per instruction cycle when c = 0.2. (b) What value of c allows at least 4 instructions per cycle? (c) Explain target prefetch and delayed branch. <span class="src">[Q7.14, Q7.15, pp. 322–325]</span><span class="co">CO3</span></li>
+</ol></div>
+
+<div class="paper"><h3>Paper C</h3><ol>
+<li>Design a 4-bit, four-function ALU (add, subtract, AND, XOR) using a parallel adder and multiplexers, and give its function table. <span class="src">[pp. 84–88, Figs 3.22–3.26]</span><span class="co">CO1</span></li>
+<li>Explain the carry-save adder and the Wallace tree. Show how an 8×8 multiplier is built from 4×4 multipliers and a Wallace tree. <span class="src">[pp. 80–83, 98–100]</span><span class="co">CO1</span></li>
+<li>Explain pipelining with a space-time diagram and derive expressions for speedup, throughput and efficiency. Explain how memory interleaving reduces memory-access conflicts. <span class="src">[pp. 315–317, 325–326, Q7.17]</span><span class="co">CO3</span></li>
+<li>(a) Multiply 10101 × 11001 using the add-shift method, showing the F, A, Q trace. <span class="src">[Q3.25]</span> (b) For A = 01100010 and B = 01000101, find the N, Z, V and C flags for A + B. <span class="src">[Example 3.1]</span><span class="co">CO1</span></li>
+<li>(a) A processor array has 4 floating-point processors, each taking 4 time units per result. Compare the time for 100 operations with a 4-segment pipeline of 1 time unit per segment. <span class="src">[Q7.7]</span> (b) Rewrite the program in Fig 7.20 for a 2-segment pipeline using delayed branch, first with a NOP and then by reordering. <span class="src">[pp. 323–325, Q7.16]</span><span class="co">CO3</span></li>
+</ol></div>
+
+<h2 id="key">6. Answer key for the numericals</h2>
+<div class="wrap"><table>
+<tr><th>Question</th><th>Answer</th></tr>
+<tr><td>Q7.12</td><td>(a) T = 180 + 20 = <strong>200 ns</strong> (b) (4 + 999) × 200 = <strong>200.6 µs</strong> (c) P = 8000/2003 ≈ 3.994, so E ≈ <strong>0.9985</strong></td></tr>
+<tr><td>Q7.14</td><td>(a) 6000 / (1005 + 1000) ≈ <strong>2.99</strong> (b) <strong>c ≤ ~0.1</strong> (0.099 exactly for s = 1000)</td></tr>
+<tr><td>Q7.7</td><td>Array: 25 rounds × 4 = <strong>100 units</strong>. Pipeline: 4 + 99 = <strong>103 units</strong>. The pipeline is not faster here.</td></tr>
+<tr><td>Q2.4</td><td><strong>Possible.</strong> 3-bit opcode → 8 patterns, 5 used, 3 spare → 48 one-address patterns, 45 used → 3 × 16 = 48 ≥ 32.</td></tr>
+<tr><td>Q2.5</td><td><strong>Not possible.</strong> 1 spare → 16 one-address, 15 used → 16 zero-address &lt; 18.</td></tr>
+<tr><td>Q2.6</td><td><strong>30</strong> one-address instructions (two one-address patterns reserved for the 24 zero-address instructions).</td></tr>
+<tr><td>Q3.25</td><td>21 × 25 = 525 = <strong>1000001101₂</strong></td></tr>
+<tr><td>Q3.26</td><td>−13 × −10 = +130 = <strong>000010000010₂</strong></td></tr>
+<tr><td>Q3.8 (10Δ design)</td><td>Add a second-level 4-stage CLC fed by the blocks' g/p outputs: G,P Δ + block g,p 2Δ + C4/C8/C12 2Δ + internal carries 2Δ + S15 3Δ = <strong>10Δ</strong></td></tr>
+</table></div>
+</main>
+</body>
+</html>

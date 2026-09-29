@@ -1,0 +1,263 @@
+ADC:
+---
+
+1. An ADC has a full-scale ±2.5 V input range (bipolar), 12-bit resolution, and uses straight binary coding for positive voltages (two’s-complement is not used).
+a) What is the LSB (quantization step) ΔV?
+b) What analog voltage corresponds to the digital code 0x800 (hex)? Show your working.
+
+---
+
+2. A 14-bit ADC is used to sample a full-scale sinewave.
+a) Compute the quantization SNR in dB (assume an ideal ADC and a full-scale sine).
+b) If the measured SNR of the system is 77.0 dB, compute the Effective Number Of Bits (ENOB).
+
+---
+
+3. Design requirement: digitize an audio signal (20 Hz–20 kHz) with dynamic range of 100 dB and where anti-aliasing must be minimal in the passband. Power budget is tight (battery-powered), throughput is 48 kS/s, and you need good DC accuracy for slow signals too. Which ADC architecture is most appropriate: SAR, delta-sigma (Σ–Δ), pipeline, or flash? Explain with reasons and pick a target resolution (bits) and sample rate.
+
+---
+
+4. A 10-stage pipelined ADC outputs 1 sample every clock cycle at a throughput of 10 MS/s. Each stage has a propagation delay of 8 ns. Estimate the pipeline latency (in samples and in time). Explain whether the pipeline can operate at 10 MS/s with those delays.
+
+---
+
+5.An 8-bit ADC with a unipolar input range of 0–2.56 V is used.
+a) Calculate the LSB size.
+b) What digital output (in decimal and binary) corresponds to an input of 1.28 V?
+c) What analog voltage corresponds to the digital code 11000000₂?
+
+---
+
+6. A 10-bit ADC is driven by a reference of 3.3 V. Determine the maximum quantization error in volts and percentage of full scale.
+
+---
+
+7. A 12-bit SAR ADC operates from a 3.3 V reference.
+a) Find its theoretical SNR.
+b) Find its ENOB if the measured SNR is 68 dB.
+c) Discuss why the ENOB is lower than the nominal resolution.
+
+---
+
+8. A sensor signal bandwidth is 40 kHz. You decide to sample it with an ADC.
+a) Determine a suitable minimum sampling frequency.
+b) If you want to oversample by 4×, what should be your actual sampling rate?
+c) What is the new Nyquist frequency after oversampling?
+
+---
+
+9. An ADC has an input range of 0–5 V, resolution 10 bits, and a sampling rate of 100 kS/s.
+a) What is the quantization noise RMS value?
+b) What is the theoretical quantization SNR for a full-scale sinewave input?
+c) What is the corresponding ENOB?
+
+---
+
+10. A SAR ADC uses a sample-and-hold capacitor of 20 pF and is driven through a source resistance of 5 kΩ.
+If the ADC must settle to within ±0.5 LSB for a 12-bit conversion (5 V range), find the minimum required acquisition time.
+
+---
+
+11. An ADC has a sampling jitter of 100 ps rms.
+Determine the maximum input frequency such that the jitter-induced SNR does not drop below 70 dB.
+(Use SNR_jitter ≈ –20 log₁₀(2π f_in t_j)).
+
+---
+
+12. A 16-bit ADC has a full-scale range of ±5 V.
+a) Calculate the LSB value.
+b) Determine the smallest detectable voltage change.
+c) If an amplifier introduces an offset of 2 mV, how many LSBs of offset error does this correspond to?
+
+---
+
+13. A 12-bit pipeline ADC samples at 20 MS/s. If it has 12 pipeline stages, compute the latency in samples and time. How would latency affect real-time feedback control systems?
+
+---
+
+14. Compare the SAR and ΔΣ ADC architectures for the following application:
+A low-speed precision sensor (0–10 Hz bandwidth) requiring 20-bit resolution and minimal power.
+Which one is better, and why?
+
+---
+
+15. A signal with a 5 kHz bandwidth is digitized using a 14-bit ADC at 200 kS/s.
+a) What is the theoretical SNR?
+b) If the noise floor measured is 82 dB, calculate the ENOB.
+c) Is oversampling improving the resolution in this case? Explain.
+
+---
+
+16. A 10-bit ADC is used to digitize a 0–10 V signal.
+a) What is the voltage represented by digital code 512?
+b) If the measured input is 4.97 V, what digital output should appear?
+c) What is the quantization error at this voltage?
+
+---
+
+17. An ADC with 8-bit resolution and 1 MHz sampling rate is used in a system.
+Determine the maximum input frequency that can be digitized without aliasing, and explain how an anti-aliasing filter helps.
+
+---
+
+18. A delta-sigma ADC oversamples a 10 kHz signal at 2 MHz (OSR = 100).
+a) How much improvement in SNR (in dB) do you expect due to oversampling alone?
+b) What additional improvement would you expect from first-order noise shaping?
+
+---
+
+19. A 12-bit ADC has a measured total harmonic distortion (THD) of –72 dB and noise floor of –74 dB.
+Compute the SINAD (Signal-to-Noise-and-Distortion Ratio) and ENOB of the ADC.
+
+---
+
+20. An ADC system must measure a 0–1 V signal with an accuracy of 200 µV.
+What minimum ADC resolution (in bits) is required?
+Assume unipolar straight binary output and no noise.
+
+---
+
+21. A 16-bit ADC with ±10 V range is used to measure a 2.5 V rms sinewave.
+Calculate the SNR limited by quantization noise, and determine if the ADC’s 96 dB theoretical SNR matches the input’s dynamic range.
+
+---
+
+22. An 8-bit flash ADC is designed for a 0–5 V range.
+a) How many comparators are required?
+b) What is the voltage difference between adjacent comparator thresholds?
+c) What are the trade-offs of flash ADCs compared to SAR?
+
+---
+
+23. You are designing a portable data logger for battery-powered operation.
+The system needs:
+1 kHz bandwidth
+18-bit resolution
+Low power consumption
+Which ADC type would you choose? Justify your choice in terms of power, noise, and required speed.
+
+---
+
+24. A 12-bit SAR ADC has a conversion time of 2 µs.
+a) What is the maximum sampling frequency possible?
+b) If the input signal frequency is 50 kHz, is this ADC fast enough?
+c) Suggest a suitable ADC type for 50 kHz operation if not.
+
+---
+
+25. A 12-bit ADC has a reference voltage of 2.5 V and operates at 200 kS/s.
+You measure a full-scale sine wave input and observe an SNR of 70 dB.
+a) Compute the theoretical SNR for an ideal 12-bit ADC.
+b) Compute ENOB from the measured SNR.
+
+---
+
+26. A 12-bit ADC with a 0–3.3 V range is used to measure a slowly varying temperature signal.
+a) What is the smallest detectable temperature change if 10 mV corresponds to 1 °C?
+b) How could averaging be used to improve resolution?
+
+---
+
+#DAC:
+
+---
+
+1. Resolution and LSB Calculation
+
+A 10-bit DAC has a full-scale output voltage range of 0–5 V.
+a) Determine the LSB (voltage step size).
+b) Calculate the analog output voltage corresponding to a digital input of 512 (decimal).
+c) What percentage of full scale does the digital input of 512 represent?
+d) Determine the maximum analog output voltage for the highest digital input code, 1023.
+e) Calculate the maximum quantization error of the DAC.
+
+---
+
+2. DAC Output Equation
+
+A 12-bit unipolar DAC uses a 2.5 V reference and outputs voltage according to
+
+Vout = (D / (2^12 - 1)) * Vref
+
+a) Compute VOUT for digital input  D=2048
+b) If the DAC were bipolar (±2.5 V range), what would  VOUT be for the same code?
+
+---
+
+3. Linearity and Accuracy
+
+A 12-bit DAC specifies Integral Non-Linearity (INL) = ±0.5 LSB and Differential Non-Linearity (DNL) = ±0.25 LSB.
+a) Explain the significance of INL and DNL.
+b) Calculate the maximum absolute output error (in volts) for a 0–10 V range.
+
+---
+
+4. DAC Settling Time and Sampling Rate
+
+A DAC has a settling time of 2 μs to within 0.5 LSB of final value.
+a) What is the maximum update rate (samples per second) achievable without distortion?
+b) If this DAC drives a waveform generator, what is the highest sine wave frequency that can be produced accurately? (Assume 10 points per cycle).
+
+---
+
+5. DAC Resolution vs Quantization Error
+
+A system uses a DAC with ±5 V output and 14-bit resolution.
+a) Calculate the smallest change in output voltage (LSB).
+b) What is the maximum quantization error in volts?
+c) Express this error as a percentage of full scale.
+
+---
+
+6. Current-Steering DAC
+
+Explain the principle of operation of a current-steering DAC.
+a) Draw and describe the basic structure.
+b) Compare its advantages and disadvantages relative to an R–2R ladder DAC in terms of speed, linearity, and area.
+
+---
+
+7. R–2R Ladder DAC Analysis
+
+A 4-bit R–2R ladder DAC uses resistors of R = 10 kΩ and 2R = 20 kΩ. The reference voltage is 5 V.
+a) Derive the output voltage expression in terms of digital inputs  b3b2b1b0.
+b) Calculate  VOUT for input 1010₂.
+c) How would the output change if VREF= 3.3 V?
+
+---
+
+8. Dynamic Performance
+
+A DAC with 12-bit resolution is used to reconstruct a 10 kHz sine wave from digital samples. The DAC update rate is 200 kS/s, and its glitch impulse area is specified as 5 nV·s.
+a) Define “glitch impulse.”
+b) Explain how this parameter affects the analog output signal quality.
+c) Suggest one circuit technique to minimize glitch effects.
+
+---
+
+9. DAC Power and Monotonicity
+
+A 16-bit DAC operating from a 3.3 V reference consumes 5 mW static power.
+a) What is meant by monotonicity in a DAC?
+b) If the DAC has a DNL error of +1.2 LSB at mid-scale, will it remain monotonic? Justify your answer.
+
+---
+
+10. DAC Interfacing and Control
+
+A microcontroller with an SPI interface is connected to a 12-bit DAC (SPI mode 0).
+a) If the SPI clock frequency is 10 MHz, how long does it take to transmit one 16-bit frame?
+b) What is the maximum theoretical update rate of the DAC through SPI?
+c) Discuss two ways to improve DAC update throughput in real-time systems.
+
+---
+
+11. DAC Output and Scaling
+
+An 8-bit R–2R DAC with  VREF=2.56 V is used in a microcontroller system.
+a) Derive an expression for VOUT.
+b) Calculate VOUT for input code D=1001 01102.
+c) Find the output change in mV when the digital input increases by 1 (i.e., 1 LSB).
+
+---
+
