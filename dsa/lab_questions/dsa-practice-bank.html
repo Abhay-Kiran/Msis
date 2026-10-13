@@ -1,0 +1,1373 @@
+<title>DSA Lab Practice Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column with a sticky section bar; code and visualisers break out to a wider measure. Stack 1 = cobalt, Stack 2 = amber everywhere. */
+:root {
+  --bg: #f4f6f9;
+  --surface: #ffffff;
+  --sunk: #e9edf3;
+  --fg: #18202d;
+  --muted: #5a6577;
+  --line: #d3dae4;
+  --accent: #2c56c9;
+  --accent-soft: #e2e9fb;
+  --amber: #b86a08;
+  --amber-soft: #fbeedb;
+  --good: #1f7a4d;
+  --bad: #b3261e;
+  --code-bg: #141b27;
+  --code-fg: #dce3ee;
+  --code-cm: #7f8ca3;
+  --code-kw: #8fb2ff;
+  --code-str: #f0c27b;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f141c; --surface: #161d28; --sunk: #1d2633; --fg: #e4e9f1; --muted: #9aa6b8; --line: #2b3646;
+    --accent: #7fa2ff; --accent-soft: #1d2a4a; --amber: #f0a53a; --amber-soft: #3a2a12;
+    --good: #5fcf96; --bad: #ff8a80; --code-bg: #0a0e15; --code-fg: #dce3ee; --code-cm: #7f8ca3; --code-kw: #8fb2ff; --code-str: #f0c27b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f141c; --surface: #161d28; --sunk: #1d2633; --fg: #e4e9f1; --muted: #9aa6b8; --line: #2b3646;
+  --accent: #7fa2ff; --accent-soft: #1d2a4a; --amber: #f0a53a; --amber-soft: #3a2a12;
+  --good: #5fcf96; --bad: #ff8a80; --code-bg: #0a0e15; --code-fg: #dce3ee; --code-cm: #7f8ca3; --code-kw: #8fb2ff; --code-str: #f0c27b;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 880px; margin: 0 auto; padding-inline: 18px; padding-block: 8px 80px; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.01em; }
+h3 { font-size: 1.2rem; font-weight: 600; margin-top: 8px; }
+p, li { max-width: 68ch; }
+code { font-family: var(--font-mono); font-size: 0.88em; background: var(--sunk); padding: 1px 5px; border-radius: 4px; }
+a { color: var(--accent); }
+.eyebrow { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+header.top { padding-block: 32px 20px; display: grid; gap: 12px; }
+.lede { color: var(--muted); font-size: 1.05rem; margin: 0; }
+.qcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 8px; }
+.qcard { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 4px; }
+.qcard b { font-family: var(--font-display); font-size: 1.05rem; }
+.qcard span { color: var(--muted); font-size: 0.92rem; }
+
+nav.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); margin-inline: -18px; padding: 8px 18px; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+nav.bar a { flex: none; text-decoration: none; color: var(--fg); font-size: 0.88rem; font-weight: 500; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); }
+nav.bar a:hover, nav.bar a:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
+
+section { padding-top: 44px; display: grid; gap: 14px; scroll-margin-top: 56px; }
+section > * { min-width: 0; }
+.sechead { display: grid; gap: 4px; border-bottom: 2px solid var(--fg); padding-bottom: 10px; }
+
+.note { background: var(--accent-soft); border-radius: 8px; padding: 12px 16px; }
+.note.warn { background: var(--amber-soft); }
+.note p { margin: 0; }
+.note p + p { margin-top: 6px; }
+
+.timeline { display: grid; gap: 0; border-left: 2px solid var(--line); margin-left: 6px; }
+.timeline div { padding: 6px 0 10px 18px; position: relative; }
+.timeline div::before { content: ""; position: absolute; left: -7px; top: 13px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+.timeline b { font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent); margin-right: 8px; font-variant-numeric: tabular-nums; }
+
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); background: var(--sunk); }
+tr:last-child td { border-bottom: 0; }
+td code { white-space: nowrap; }
+.mono { font-family: var(--font-mono); font-size: 0.86rem; font-variant-numeric: tabular-nums; }
+
+.codebox { border-radius: 10px; overflow: hidden; background: var(--code-bg); }
+.codebox .cb-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 14px; border-bottom: 1px solid #ffffff1a; }
+.codebox .cb-head span { font-family: var(--font-mono); font-size: 0.8rem; color: var(--code-cm); }
+.codebox button { font: 500 0.78rem var(--font-body); color: var(--code-fg); background: #ffffff14; border: 1px solid #ffffff2a; border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+.codebox button:hover, .codebox button:focus-visible { background: #ffffff2a; outline: none; }
+pre.code { margin: 0; padding: 14px 16px; overflow-x: auto; font-family: var(--font-mono); font-size: 0.84rem; line-height: 1.55; color: var(--code-fg); tab-size: 4; }
+pre.code .cm { color: var(--code-cm); font-style: italic; }
+pre.code .kw { color: var(--code-kw); }
+pre.code .st { color: var(--code-str); }
+pre.out { margin: 0; padding: 12px 16px; background: var(--sunk); border-radius: 8px; font-family: var(--font-mono); font-size: 0.82rem; overflow-x: auto; line-height: 1.5; }
+
+details { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+details > summary { cursor: pointer; padding: 11px 14px; font-weight: 600; list-style: none; display: flex; gap: 10px; align-items: baseline; }
+details > summary::-webkit-details-marker { display: none; }
+details > summary::before { content: "+"; font-family: var(--font-mono); color: var(--accent); width: 1ch; flex: none; }
+details[open] > summary::before { content: "−"; }
+details > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 8px; }
+details .body { padding: 0 14px 14px 36px; display: grid; gap: 10px; }
+details .body > * { min-width: 0; }
+details .body p { margin: 0; }
+.drill { display: grid; gap: 8px; }
+
+/* visualisers */
+.viz { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 12px; }
+.viz-title { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; align-items: baseline; }
+.viz-title b { font-family: var(--font-display); font-size: 1.05rem; }
+.cells { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; }
+.cell { border: 1.5px solid var(--line); border-radius: 6px; text-align: center; padding: 8px 0 4px; font-family: var(--font-mono); font-weight: 600; min-height: 56px; display: grid; align-content: space-between; background: var(--bg); transition: background .2s; }
+.cell small { font-size: 0.68rem; font-weight: 400; color: var(--muted); }
+.cell.s1 { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.cell.s2 { background: var(--amber-soft); border-color: var(--amber); color: var(--amber); }
+.ptrs { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; font-family: var(--font-mono); font-size: 0.68rem; text-align: center; min-height: 18px; }
+.ptrs .p1 { color: var(--accent); font-weight: 600; }
+.ptrs .p2 { color: var(--amber); font-weight: 600; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.btn { font: 600 0.88rem var(--font-body); padding: 7px 13px; border-radius: 7px; border: 1.5px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+.btn:hover, .btn:focus-visible { border-color: var(--accent); outline: none; }
+.btn.b1 { border-color: var(--accent); color: var(--accent); }
+.btn.b2 { border-color: var(--amber); color: var(--amber); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+input[type="text"] { font: 0.9rem var(--font-mono); padding: 7px 10px; border: 1.5px solid var(--line); border-radius: 7px; background: var(--bg); color: var(--fg); min-width: 0; flex: 1 1 200px; }
+input[type="text"]:focus-visible { outline: none; border-color: var(--accent); }
+.log { font-family: var(--font-mono); font-size: 0.82rem; background: var(--sunk); border-radius: 7px; padding: 8px 12px; min-height: 2.4em; }
+.log .ok { color: var(--good); } .log .err { color: var(--bad); }
+.seg { display: inline-flex; border: 1.5px solid var(--line); border-radius: 7px; overflow: hidden; }
+.seg button { font: 600 0.85rem var(--font-body); background: var(--surface); color: var(--muted); border: 0; padding: 7px 12px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.heaparr { display: flex; gap: 4px; flex-wrap: wrap; }
+.heaparr .cell { width: 52px; }
+.heaparr .cell.hot { background: var(--amber-soft); border-color: var(--amber); color: var(--amber); }
+.heaparr .cell.cur { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.treebox { overflow-x: auto; }
+.treebox svg { display: block; width: 100%; min-width: 360px; height: auto; }
+
+ol.qlist, ul.plain { padding-left: 1.3em; margin: 0; display: grid; gap: 6px; }
+.tag { font-family: var(--font-mono); font-size: 0.7rem; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); margin-left: 6px; white-space: nowrap; }
+.tag.hi { border-color: var(--bad); color: var(--bad); }
+.tag.md { border-color: var(--amber); color: var(--amber); }
+.tag.code { border-color: var(--good); color: var(--good); }
+footer { margin-top: 48px; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--line); padding-top: 14px; }
+@media (max-width: 520px) {
+  body { font-size: 15px; }
+  .cell { min-height: 48px; font-size: 0.85rem; }
+  details .body { padding-left: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+html { scroll-behavior: smooth; }
+</style>
+<style>
+.finding { background: var(--surface); border: 1.5px solid var(--accent); border-radius: 12px; padding: 16px 18px; display: grid; gap: 10px; }
+.finding h3 { margin: 0; }
+.finding p { margin: 0; }
+.mock { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 12px; }
+.timer { font-family: var(--font-mono); font-size: 2.4rem; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; line-height: 1; }
+.timer.low { color: var(--bad); }
+.mockq { display: grid; gap: 8px; }
+.mockq div { background: var(--sunk); border-radius: 8px; padding: 10px 14px; }
+.mockq b { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); display: block; letter-spacing: 0.06em; text-transform: uppercase; }
+.keypts { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.lesson { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+.src { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); white-space: nowrap; }
+summary .src { margin-left: auto; padding-left: 10px; }
+.desc { font-size: 0.88rem; color: var(--muted); margin: 0; }
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">ESE 5102 · Data Structures Lab · L1–L23</div>
+  <h1>Lab practice bank</h1>
+  <p class="lede">Every programmable topic from algorithm analysis to binary search trees, with questions drawn from the textbook your examiner appears to be using. All 13 programs were compiled with <code>gcc -Wall</code> and run; each output shown is from the actual run.</p>
+  <p class="desc">Covers the course plan's lesson list through L23. The MSE row in the assessment plan names performance measures, lists, queues, sorting and search; trees are included because you asked for them.</p>
+</header>
+
+<nav class="bar" aria-label="Sections">
+  <a href="#source">Source</a>
+  <a href="#mock">Mock lab</a>
+  <a href="#analysis">Analysis</a>
+  <a href="#lists">Linked lists</a>
+  <a href="#sq">Stacks &amp; queues</a>
+  <a href="#heaps">Heaps</a>
+  <a href="#sorting">Sorting</a>
+  <a href="#searching">Searching</a>
+  <a href="#trees">Trees</a>
+</nav>
+
+<section id="source">
+  <div class="sechead"><span class="eyebrow">Where the questions come from</span><h2>Both questions trace to CLRS</h2></div>
+  <div class="finding">
+    <h3>Today's batch was set from Cormen et al., <i>Introduction to Algorithms</i>, 3rd ed.</h3>
+    <p>It is reference 1 in your course plan. The two-stacks question is CLRS Exercise 10.1-2 almost word for word, including the <code>A[1..n]</code> notation, which is CLRS's own style. The heap question combines Section 6.2 (MAX-HEAPIFY), Exercise 6.2-2 (write MIN-HEAPIFY) and Section 6.3 (BUILD-MAX-HEAP).</p>
+    <p>So the best predictor for your batch is the rest of the CLRS exercises in the chapters your MSE covers. Below are the ones that can be asked as a program, each with a tested solution further down the page.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>CLRS</th><th>What it asks</th><th>Lesson</th><th>Odds</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">10.1-2</td><td>Two stacks in one array (today's Q1)</td><td class="lesson">L9</td><td><span class="tag">asked</span></td></tr>
+      <tr><td class="mono">6.2-2, 6.3</td><td>MIN/MAX-HEAPIFY, BUILD-HEAP (today's Q2)</td><td class="lesson">L11, L14</td><td><span class="tag">asked</span></td></tr>
+      <tr><td class="mono">10.1-4</td><td><a href="#p-cq">Queue with overflow and underflow detection (circular queue)</a></td><td class="lesson">L10, L12</td><td><span class="tag hi">high</span></td></tr>
+      <tr><td class="mono">10.1-5</td><td><a href="#p-deque">Deque in an array, four O(1) operations</a></td><td class="lesson">L10, L12</td><td><span class="tag hi">high</span></td></tr>
+      <tr><td class="mono">10.1-6</td><td><a href="#p-q2s">Queue using two stacks</a></td><td class="lesson">L9, L10</td><td><span class="tag hi">high</span></td></tr>
+      <tr><td class="mono">10.1-7</td><td><a href="#p-s2q">Stack using two queues</a></td><td class="lesson">L9, L10</td><td><span class="tag hi">high</span></td></tr>
+      <tr><td class="mono">6.5-3, 6.5</td><td><a href="#p-heapops">Priority queue: insert, extract, increase/decrease key</a></td><td class="lesson">L11</td><td><span class="tag hi">high</span></td></tr>
+      <tr><td class="mono">6.5-8</td><td><a href="#p-heapops">HEAP-DELETE(A, i) in O(lg n)</a></td><td class="lesson">L11</td><td><span class="tag md">medium</span></td></tr>
+      <tr><td class="mono">6.4</td><td>Heap sort (in the first guide)</td><td class="lesson">L14</td><td><span class="tag hi">high</span></td></tr>
+      <tr><td class="mono">10.2-2, 10.2-3</td><td><a href="#p-llsq">Stack and queue using a singly linked list</a></td><td class="lesson">L7, L9, L10</td><td><span class="tag md">medium</span></td></tr>
+      <tr><td class="mono">10.2-7</td><td><a href="#p-sll">Reverse a singly linked list, non-recursive, O(1) space</a></td><td class="lesson">L7</td><td><span class="tag hi">high</span></td></tr>
+      <tr><td class="mono">10.2</td><td><a href="#p-dll">Doubly linked list insert, delete, search</a></td><td class="lesson">L8</td><td><span class="tag md">medium</span></td></tr>
+      <tr><td class="mono">7.1, 7.3</td><td><a href="#p-quick">Quick sort and randomized quick sort</a></td><td class="lesson">L6, L13</td><td><span class="tag hi">high</span></td></tr>
+      <tr><td class="mono">2.3-2, 2-4</td><td><a href="#p-merge">Merge sort without sentinels; count inversions</a></td><td class="lesson">L15</td><td><span class="tag hi">high</span></td></tr>
+      <tr><td class="mono">2.3-5, 2.1-3</td><td><a href="#p-search">Binary search (iterative and recursive), linear search</a></td><td class="lesson">L16, L17</td><td><span class="tag md">medium</span></td></tr>
+      <tr><td class="mono">2.3-4, 2.3-7</td><td><a href="#p-rec">Recursive insertion sort; do two elements sum to x</a></td><td class="lesson">L3</td><td><span class="tag md">medium</span></td></tr>
+      <tr><td class="mono">5.3</td><td><a href="#p-rand">RANDOMIZE-IN-PLACE (random permutation)</a></td><td class="lesson">L6</td><td><span class="tag">low</span></td></tr>
+      <tr><td class="mono">10.4-2, 10.4-3, 12.1-3, 12.1-4</td><td><a href="#p-bst">Tree traversals, recursive and with a stack</a></td><td class="lesson">L20, L21</td><td><span class="tag md">medium</span></td></tr>
+      <tr><td class="mono">12.2-3, 12.3-1, 12.3</td><td><a href="#p-bst">BST insert (recursive), delete, predecessor, successor</a></td><td class="lesson">L22</td><td><span class="tag md">medium</span></td></tr>
+      <tr><td class="mono">not in CLRS</td><td><a href="#p-search">Fibonacci search</a> (from Horowitz/Sahni, your reference 4)</td><td class="lesson">L18</td><td><span class="tag md">medium</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="desc">The odds are my judgement: questions that are a natural sibling of today's two (array-based stacks, queues and heaps) rank higher. Your examiner may still add questions from other books, so the rest of the lesson plan is covered too.</p>
+</section>
+
+<section id="mock">
+  <div class="sechead"><span class="eyebrow">Simulate tomorrow</span><h2>Mock lab</h2></div>
+  <div class="mock">
+    <div class="controls">
+      <button class="btn b1" id="mkDraw">Draw two questions</button>
+      <button class="btn" id="mkStart">Start 15:00</button>
+      <button class="btn" id="mkReset">Reset timer</button>
+    </div>
+    <div class="timer" id="mkTimer" aria-live="polite">15:00</div>
+    <div class="mockq" id="mkQ"><div><b>How it works</b>Draw two questions, start the timer, and write both programs on paper (aim, algorithm, code, sample I/O). Then type and run them without looking at the solutions.</div></div>
+  </div>
+</section>
+
+<section id="analysis">
+  <div class="sechead"><span class="eyebrow">L1–L6 · Algorithm specification, performance, recurrences, randomized algorithms</span><h2>Analysis and recursion</h2></div>
+  <ul class="keypts">
+    <li>Count the dominant operation, then keep the highest-order term: two nested loops to n give Θ(n²); a loop that halves <code>i</code> gives Θ(lg n).</li>
+    <li>Master theorem for <code>T(n) = aT(n/b) + f(n)</code>: compare f(n) with n<sup>log_b a</sup>. Smaller → Θ(n<sup>log_b a</sup>). Equal → multiply by lg n. Larger (and regular) → Θ(f(n)).</li>
+    <li>Subtract-type recurrences like <code>T(n) = T(n−1) + n</code> are not master-theorem cases; unroll them as a sum.</li>
+    <li>Randomized algorithms make the expected running time independent of the input order, which is why randomized quick sort has no "bad input".</li>
+  </ul>
+  <h3>Practice: solve, then open</h3>
+  <div class="drill">
+    <details><summary><code>T(n) = 2T(n/2) + n</code> (merge sort)</summary><div class="body"><p>a = 2, b = 2, n<sup>log₂2</sup> = n, same as f(n) → <b>Θ(n lg n)</b>.</p></div></details>
+    <details><summary><code>T(n) = T(n/2) + 1</code> (binary search)</summary><div class="body"><p>n<sup>log₂1</sup> = 1, same as f(n) → <b>Θ(lg n)</b>.</p></div></details>
+    <details><summary><code>T(n) = T(n−1) + n</code> (recursive insertion sort, quick sort worst case)</summary><div class="body"><p>Unroll: n + (n−1) + … + 1 = n(n+1)/2 → <b>Θ(n²)</b>.</p></div></details>
+    <details><summary><code>T(n) = 2T(n−1) + 1</code> (Towers of Hanoi)</summary><div class="body"><p>Doubles each level, n levels → 2ⁿ − 1 → <b>Θ(2ⁿ)</b>.</p></div></details>
+    <details><summary><code>T(n) = 4T(n/2) + n</code></summary><div class="body"><p>n<sup>log₂4</sup> = n², bigger than f(n) = n → <b>Θ(n²)</b>.</p></div></details>
+    <details><summary><code>T(n) = 2T(n/2) + n²</code></summary><div class="body"><p>n<sup>log₂2</sup> = n, smaller than n² → <b>Θ(n²)</b>.</p></div></details>
+    <details><summary><code>T(n) = 7T(n/2) + n²</code> (Strassen)</summary><div class="body"><p>log₂7 ≈ 2.81 &gt; 2 → <b>Θ(n<sup>lg 7</sup>) ≈ Θ(n<sup>2.81</sup>)</b>.</p></div></details>
+    <details><summary>Complexity of: <code>for (i = 1; i &lt; n; i *= 2) for (j = 0; j &lt; n; j++) count++;</code></summary><div class="body"><p>Outer runs lg n times, inner n times each → <b>Θ(n lg n)</b>.</p></div></details>
+    <details><summary>Complexity of: <code>for (i = 0; i &lt; n; i++) for (j = i; j &lt; n; j++) count++;</code></summary><div class="body"><p>n + (n−1) + … + 1 = n(n+1)/2 → <b>Θ(n²)</b>.</p></div></details>
+  </div>
+
+  <h3>Programs</h3>
+  <details id="p-rec"><summary>Recursive insertion sort, and do two elements sum to x <span class="src">CLRS 2.3-4, 2.3-7</span></summary><div class="body">
+    <p>Recursive insertion sort sorts the first n−1 elements, then inserts the last one, giving T(n) = T(n−1) + Θ(n) = Θ(n²). For the two-sum test, sort first and then walk two pointers inward: if the sum is too small move the left pointer right, if too big move the right pointer left.</p>
+    <div class="codebox"><div class="cb-head"><span>recursion.c</span><button type="button">Copy</button></div><pre class="code"><span class="kw">#include</span> &lt;stdio.h&gt;
+
+<span class="cm">/* CLRS 2.3-4: recursive insertion sort.
+   Sort a[0..n-2] recursively, then insert a[n-1].  T(n) = T(n-1) + Θ(n) = Θ(n²) */</span>
+<span class="kw">void</span> insertionSortRec(<span class="kw">int</span> a[], <span class="kw">int</span> n) {
+    <span class="kw">int</span> key, j;
+    <span class="kw">if</span> (n &lt;= 1) <span class="kw">return</span>;
+    insertionSortRec(a, n - 1);
+    key = a[n - 1];
+    j = n - 2;
+    <span class="kw">while</span> (j &gt;= 0 &amp;&amp; a[j] &gt; key) { a[j + 1] = a[j]; j--; }
+    a[j + 1] = key;
+}
+
+<span class="cm">/* CLRS 2.3-7: do two elements sum to x? Sort first (Θ(n lg n) with merge sort),
+   then two pointers from both ends in Θ(n). */</span>
+<span class="kw">int</span> twoSum(<span class="kw">int</span> a[], <span class="kw">int</span> n, <span class="kw">int</span> x, <span class="kw">int</span> *p, <span class="kw">int</span> *q) {
+    <span class="kw">int</span> i = 0, j = n - 1;
+    <span class="kw">while</span> (i &lt; j) {
+        <span class="kw">if</span> (a[i] + a[j] == x) { *p = a[i]; *q = a[j]; <span class="kw">return</span> 1; }
+        <span class="kw">if</span> (a[i] + a[j] &lt; x) i++; <span class="kw">else</span> j--;
+    }
+    <span class="kw">return</span> 0;
+}
+
+<span class="kw">int</span> main(<span class="kw">void</span>) {
+    <span class="kw">int</span> a[100], n, i, x, p, q;
+    printf(<span class="st">"n: "</span>); scanf(<span class="st">"%d"</span>, &amp;n);
+    printf(<span class="st">"Elements: "</span>);
+    <span class="kw">for</span> (i = 0; i &lt; n; i++) scanf(<span class="st">"%d"</span>, &amp;a[i]);
+    printf(<span class="st">"Target sum x: "</span>); scanf(<span class="st">"%d"</span>, &amp;x);
+    insertionSortRec(a, n);
+    printf(<span class="st">"\nSorted: "</span>);
+    <span class="kw">for</span> (i = 0; i &lt; n; i++) printf(<span class="st">"%d "</span>, a[i]);
+    <span class="kw">if</span> (twoSum(a, n, x, &amp;p, &amp;q)) printf(<span class="st">"\nYes: %d + %d = %d\n"</span>, p, q, x);
+    <span class="kw">else</span> printf(<span class="st">"\nNo two elements sum to %d\n"</span>, x);
+    <span class="kw">return</span> 0;
+}</pre></div>
+    <p class="desc">Input 31 41 59 26 41 58, target 85</p><pre class="out">Sorted: 26 31 41 41 58 59
+Yes: 26 + 59 = 85</pre>
+    <p class="desc">Same input, target 200</p><pre class="out">Sorted: 26 31 41 41 58 59
+No two elements sum to 200</pre>
+  </div></details>
+  <details id="p-rand"><summary>Random permutation of an array <span class="src">CLRS 5.3</span></summary><div class="body">
+    <p>At step i, swap a[i] with a random element from a[i..n−1]. Picking from the whole array each time (a common mistake) does not give equally likely permutations.</p>
+    <div class="codebox"><div class="cb-head"><span>randperm.c</span><button type="button">Copy</button></div><pre class="code"><span class="kw">#include</span> &lt;stdio.h&gt;
+<span class="kw">#include</span> &lt;stdlib.h&gt;
+<span class="kw">#include</span> &lt;time.h&gt;
+
+<span class="cm">/* CLRS 5.3 RANDOMIZE-IN-PLACE (Fisher-Yates): every permutation equally likely, O(n) */</span>
+<span class="kw">void</span> randomizeInPlace(<span class="kw">int</span> a[], <span class="kw">int</span> n) {
+    <span class="kw">int</span> i, j, t;
+    <span class="kw">for</span> (i = 0; i &lt; n; i++) {
+        j = i + rand() % (n - i);     <span class="cm">/* random index in a[i..n-1] */</span>
+        t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+}
+
+<span class="kw">int</span> main(<span class="kw">void</span>) {
+    <span class="kw">int</span> a[100], n, i, run;
+    srand(time(NULL));
+    printf(<span class="st">"n: "</span>); scanf(<span class="st">"%d"</span>, &amp;n);
+    <span class="kw">for</span> (i = 0; i &lt; n; i++) a[i] = i + 1;
+    <span class="kw">for</span> (run = 1; run &lt;= 3; run++) {
+        randomizeInPlace(a, n);
+        printf(<span class="st">"Shuffle %d: "</span>, run);
+        <span class="kw">for</span> (i = 0; i &lt; n; i++) printf(<span class="st">"%d "</span>, a[i]);
+        printf(<span class="st">"\n"</span>);
+    }
+    <span class="kw">return</span> 0;
+}</pre></div>
+    <p class="desc">n = 8 (output is random, yours will differ)</p><pre class="out">Shuffle 1: 2 3 8 5 6 1 4 7
+Shuffle 2: 8 4 1 5 2 3 6 7
+Shuffle 3: 8 2 1 5 6 3 4 7</pre>
+  </div></details>
+</section>
+
+<section id="lists">
+  <div class="sechead"><span class="eyebrow">L7–L8 · Singly and doubly linked lists</span><h2>Linked lists</h2></div>
+  <ul class="keypts">
+    <li>Node: <code>struct node { int data; struct node *next; };</code>, allocated with <code>malloc(sizeof(struct node))</code>. Include <code>&lt;stdlib.h&gt;</code>.</li>
+    <li>Every insert and delete has a special case: the empty list, and changing the head. Draw the boxes and arrows before writing pointer code.</li>
+    <li>To delete in an SLL you need the node before it, so walk with two pointers <code>prev</code> and <code>p</code>. A DLL node already knows its <code>prev</code>.</li>
+    <li>Order matters when relinking: set the new node's pointers first, then change the existing nodes. Doing it the other way loses the rest of the list.</li>
+  </ul>
+  <h3>Try these first</h3>
+  <ol class="qlist">
+    <li>Insert at front, end and a given position; delete by value; search; display.</li>
+    <li>Reverse the list without recursion using O(1) extra space. Hint: three pointers prev, cur, next.</li>
+    <li>DLL: insert at both ends, delete a given value, print forwards and backwards.</li>
+    <li>Not solved here, but same pattern: find the middle node in one pass (slow and fast pointers); detect a loop; merge two sorted lists; circular SLL insert and delete (CLRS 10.2-5).</li>
+  </ol>
+  <details id="p-sll"><summary>Singly linked list with reverse <span class="src">CLRS 10.2, 10.2-7</span></summary><div class="body">
+    <div class="codebox"><div class="cb-head"><span>sll.c</span><button type="button">Copy</button></div><pre class="code"><span class="kw">#include</span> &lt;stdio.h&gt;
+<span class="kw">#include</span> &lt;stdlib.h&gt;
+
+<span class="kw">struct</span> node {
+    <span class="kw">int</span> data;
+    <span class="kw">struct</span> node *next;
+};
+<span class="kw">struct</span> node *head = NULL;
+
+<span class="kw">struct</span> node *newNode(<span class="kw">int</span> x) {
+    <span class="kw">struct</span> node *t = (<span class="kw">struct</span> node *)malloc(sizeof(<span class="kw">struct</span> node));
+    t-&gt;data = x;
+    t-&gt;next = NULL;
+    <span class="kw">return</span> t;
+}
+
+<span class="kw">void</span> insertFront(<span class="kw">int</span> x) {
+    <span class="kw">struct</span> node *t = newNode(x);
+    t-&gt;next = head;
+    head = t;
+}
+
+<span class="kw">void</span> insertEnd(<span class="kw">int</span> x) {
+    <span class="kw">struct</span> node *t = newNode(x), *p = head;
+    <span class="kw">if</span> (head == NULL) { head = t; <span class="kw">return</span>; }
+    <span class="kw">while</span> (p-&gt;next != NULL) p = p-&gt;next;
+    p-&gt;next = t;
+}
+
+<span class="cm">/* position 1 = front */</span>
+<span class="kw">void</span> insertAt(<span class="kw">int</span> x, <span class="kw">int</span> pos) {
+    <span class="kw">struct</span> node *t, *p = head;
+    <span class="kw">int</span> i;
+    <span class="kw">if</span> (pos == 1) { insertFront(x); <span class="kw">return</span>; }
+    <span class="kw">for</span> (i = 1; i &lt; pos - 1 &amp;&amp; p != NULL; i++) p = p-&gt;next;
+    <span class="kw">if</span> (p == NULL) { printf(<span class="st">"Invalid position\n"</span>); <span class="kw">return</span>; }
+    t = newNode(x);
+    t-&gt;next = p-&gt;next;
+    p-&gt;next = t;
+}
+
+<span class="kw">void</span> deleteKey(<span class="kw">int</span> x) {
+    <span class="kw">struct</span> node *p = head, *prev = NULL;
+    <span class="kw">while</span> (p != NULL &amp;&amp; p-&gt;data != x) { prev = p; p = p-&gt;next; }
+    <span class="kw">if</span> (p == NULL) { printf(<span class="st">"%d not found\n"</span>, x); <span class="kw">return</span>; }
+    <span class="kw">if</span> (prev == NULL) head = p-&gt;next;      <span class="cm">/* deleting the first node */</span>
+    <span class="kw">else</span> prev-&gt;next = p-&gt;next;
+    free(p);
+    printf(<span class="st">"Deleted %d\n"</span>, x);
+}
+
+<span class="kw">int</span> search(<span class="kw">int</span> x) {
+    <span class="kw">struct</span> node *p = head;
+    <span class="kw">int</span> pos = 1;
+    <span class="kw">while</span> (p != NULL) {
+        <span class="kw">if</span> (p-&gt;data == x) <span class="kw">return</span> pos;
+        p = p-&gt;next; pos++;
+    }
+    <span class="kw">return</span> -1;
+}
+
+<span class="cm">/* CLRS 10.2-7: non-recursive, O(n) time, O(1) extra space */</span>
+<span class="kw">void</span> reverse(<span class="kw">void</span>) {
+    <span class="kw">struct</span> node *prev = NULL, *cur = head, *nxt;
+    <span class="kw">while</span> (cur != NULL) {
+        nxt = cur-&gt;next;
+        cur-&gt;next = prev;
+        prev = cur;
+        cur = nxt;
+    }
+    head = prev;
+}
+
+<span class="kw">void</span> display(<span class="kw">void</span>) {
+    <span class="kw">struct</span> node *p = head;
+    <span class="kw">if</span> (p == NULL) { printf(<span class="st">"List empty\n"</span>); <span class="kw">return</span>; }
+    <span class="kw">while</span> (p != NULL) { printf(<span class="st">"%d -&gt; "</span>, p-&gt;data); p = p-&gt;next; }
+    printf(<span class="st">"NULL\n"</span>);
+}
+
+<span class="kw">int</span> main(<span class="kw">void</span>) {
+    <span class="kw">int</span> ch, x, pos;
+    <span class="kw">while</span> (1) {
+        printf(<span class="st">"1.InsFront 2.InsEnd 3.InsAt 4.Delete 5.Search 6.Reverse 7.Display 8.Exit: "</span>);
+        <span class="kw">if</span> (scanf(<span class="st">"%d"</span>, &amp;ch) != 1) <span class="kw">break</span>;
+        <span class="kw">switch</span> (ch) {
+        <span class="kw">case</span> 1: scanf(<span class="st">"%d"</span>, &amp;x); insertFront(x); <span class="kw">break</span>;
+        <span class="kw">case</span> 2: scanf(<span class="st">"%d"</span>, &amp;x); insertEnd(x); <span class="kw">break</span>;
+        <span class="kw">case</span> 3: scanf(<span class="st">"%d %d"</span>, &amp;x, &amp;pos); insertAt(x, pos); <span class="kw">break</span>;
+        <span class="kw">case</span> 4: scanf(<span class="st">"%d"</span>, &amp;x); deleteKey(x); <span class="kw">break</span>;
+        <span class="kw">case</span> 5: scanf(<span class="st">"%d"</span>, &amp;x); pos = search(x);
+                <span class="kw">if</span> (pos == -1) printf(<span class="st">"%d not found\n"</span>, x); <span class="kw">else</span> printf(<span class="st">"%d found at position %d\n"</span>, x, pos);
+                <span class="kw">break</span>;
+        <span class="kw">case</span> 6: reverse(); printf(<span class="st">"Reversed\n"</span>); <span class="kw">break</span>;
+        <span class="kw">case</span> 7: display(); <span class="kw">break</span>;
+        <span class="kw">case</span> 8: <span class="kw">return</span> 0;
+        }
+    }
+    <span class="kw">return</span> 0;
+}</pre></div>
+    <p class="desc">Insert front 20, 10; end 40; at pos 3 → 30; display; search 30; delete 10, 99; reverse; display</p><pre class="out">10 -&gt; 20 -&gt; 30 -&gt; 40 -&gt; NULL
+30 found at position 3
+Deleted 10
+99 not found
+Reversed
+40 -&gt; 30 -&gt; 20 -&gt; NULL</pre>
+  </div></details>
+  <details id="p-dll"><summary>Doubly linked list <span class="src">CLRS 10.2</span></summary><div class="body">
+    <p>Keeping a <code>tail</code> pointer makes insert-at-end O(1) and lets you print backwards. On delete, fix the neighbour on each side, or move <code>head</code>/<code>tail</code> if there is no neighbour.</p>
+    <div class="codebox"><div class="cb-head"><span>dll.c</span><button type="button">Copy</button></div><pre class="code"><span class="kw">#include</span> &lt;stdio.h&gt;
+<span class="kw">#include</span> &lt;stdlib.h&gt;
+
+<span class="kw">struct</span> node {
+    <span class="kw">int</span> data;
+    <span class="kw">struct</span> node *prev, *next;
+};
+<span class="kw">struct</span> node *head = NULL, *tail = NULL;
+
+<span class="kw">struct</span> node *newNode(<span class="kw">int</span> x) {
+    <span class="kw">struct</span> node *t = (<span class="kw">struct</span> node *)malloc(sizeof(<span class="kw">struct</span> node));
+    t-&gt;data = x;
+    t-&gt;prev = t-&gt;next = NULL;
+    <span class="kw">return</span> t;
+}
+
+<span class="kw">void</span> insertFront(<span class="kw">int</span> x) {
+    <span class="kw">struct</span> node *t = newNode(x);
+    <span class="kw">if</span> (head == NULL) { head = tail = t; <span class="kw">return</span>; }
+    t-&gt;next = head;
+    head-&gt;prev = t;
+    head = t;
+}
+
+<span class="kw">void</span> insertEnd(<span class="kw">int</span> x) {
+    <span class="kw">struct</span> node *t = newNode(x);
+    <span class="kw">if</span> (tail == NULL) { head = tail = t; <span class="kw">return</span>; }
+    t-&gt;prev = tail;
+    tail-&gt;next = t;
+    tail = t;
+}
+
+<span class="kw">void</span> deleteKey(<span class="kw">int</span> x) {
+    <span class="kw">struct</span> node *p = head;
+    <span class="kw">while</span> (p != NULL &amp;&amp; p-&gt;data != x) p = p-&gt;next;
+    <span class="kw">if</span> (p == NULL) { printf(<span class="st">"%d not found\n"</span>, x); <span class="kw">return</span>; }
+    <span class="kw">if</span> (p-&gt;prev != NULL) p-&gt;prev-&gt;next = p-&gt;next; <span class="kw">else</span> head = p-&gt;next;
+    <span class="kw">if</span> (p-&gt;next != NULL) p-&gt;next-&gt;prev = p-&gt;prev; <span class="kw">else</span> tail = p-&gt;prev;
+    free(p);
+    printf(<span class="st">"Deleted %d\n"</span>, x);
+}
+
+<span class="kw">void</span> displayForward(<span class="kw">void</span>) {
+    <span class="kw">struct</span> node *p = head;
+    printf(<span class="st">"Forward:  NULL &lt;-&gt; "</span>);
+    <span class="kw">while</span> (p != NULL) { printf(<span class="st">"%d &lt;-&gt; "</span>, p-&gt;data); p = p-&gt;next; }
+    printf(<span class="st">"NULL\n"</span>);
+}
+
+<span class="kw">void</span> displayBackward(<span class="kw">void</span>) {
+    <span class="kw">struct</span> node *p = tail;
+    printf(<span class="st">"Backward: NULL &lt;-&gt; "</span>);
+    <span class="kw">while</span> (p != NULL) { printf(<span class="st">"%d &lt;-&gt; "</span>, p-&gt;data); p = p-&gt;prev; }
+    printf(<span class="st">"NULL\n"</span>);
+}
+
+<span class="kw">int</span> main(<span class="kw">void</span>) {
+    <span class="kw">int</span> ch, x;
+    <span class="kw">while</span> (1) {
+        printf(<span class="st">"1.InsFront 2.InsEnd 3.Delete 4.Forward 5.Backward 6.Exit: "</span>);
+        <span class="kw">if</span> (scanf(<span class="st">"%d"</span>, &amp;ch) != 1) <span class="kw">break</span>;
+        <span class="kw">switch</span> (ch) {
+        <span class="kw">case</span> 1: scanf(<span class="st">"%d"</span>, &amp;x); insertFront(x); <span class="kw">break</span>;
+        <span class="kw">case</span> 2: scanf(<span class="st">"%d"</span>, &amp;x); insertEnd(x); <span class="kw">break</span>;
+        <span class="kw">case</span> 3: scanf(<span class="st">"%d"</span>, &amp;x); deleteKey(x); <span class="kw">break</span>;
+        <span class="kw">case</span> 4: displayForward(); <span class="kw">break</span>;
+        <span class="kw">case</span> 5: displayBackward(); <span class="kw">break</span>;
+        <span class="kw">case</span> 6: <span class="kw">return</span> 0;
+        }
+    }
+    <span class="kw">return</span> 0;
+}</pre></div>
+    <p class="desc">Insert end 20, 30; front 10; display both ways; delete 30 (the tail) and 10 (the head); display</p><pre class="out">Forward:  NULL &lt;-&gt; 10 &lt;-&gt; 20 &lt;-&gt; 30 &lt;-&gt; NULL
+Backward: NULL &lt;-&gt; 30 &lt;-&gt; 20 &lt;-&gt; 10 &lt;-&gt; NULL
+Deleted 30
+Deleted 10
+Forward:  NULL &lt;-&gt; 20 &lt;-&gt; NULL
+Backward: NULL &lt;-&gt; 20 &lt;-&gt; NULL</pre>
+  </div></details>
+  <h3>Viva quick-fire</h3>
+  <div class="drill">
+    <details><summary>Array vs linked list: when is each better?</summary><div class="body"><p>Arrays give O(1) access by index and better cache use. Linked lists give O(1) insert and delete once you have the node, and grow without a fixed size.</p></div></details>
+    <details><summary>Cost of deleting a given node in an SLL vs a DLL?</summary><div class="body"><p>SLL: O(n), because you must find the previous node. DLL: O(1), because the node has a prev pointer.</p></div></details>
+    <details><summary>What is a sentinel node (CLRS L.nil)?</summary><div class="body"><p>A dummy node that sits between head and tail of a circular DLL, so insert and delete never need the empty-list or end-of-list special cases.</p></div></details>
+  </div>
+</section>
+
+<section id="sq">
+  <div class="sechead"><span class="eyebrow">L9–L12 · Stacks, queues, circular queues</span><h2>Stacks and queues</h2></div>
+  <ul class="keypts">
+    <li>Stack is LIFO: push and pop at the same end. Queue is FIFO: enqueue at the rear, dequeue at the front.</li>
+    <li>A linear array queue wastes the slots in front of <code>front</code>. A circular queue wraps with <code>% N</code>.</li>
+    <li>Circular queue: empty when <code>front == -1</code>, full when <code>(rear + 1) % N == front</code>. Moving backwards use <code>(i − 1 + N) % N</code> so it never goes negative.</li>
+    <li>Check underflow before you pop or dequeue, in <code>main</code> or inside the function, every time.</li>
+  </ul>
+  <h3>Try these first</h3>
+  <ol class="qlist">
+    <li>Circular queue with overflow and underflow messages. Already in the first guide; rewrite it from memory.</li>
+    <li>Deque: insert and delete at both ends of a circular array, all O(1).</li>
+    <li>Queue using two stacks. Which operation is expensive?</li>
+    <li>Stack using two queues. Which operation is expensive?</li>
+    <li>Stack and queue as linked lists, both with O(1) operations.</li>
+    <li>Not solved here: balanced parentheses, infix to postfix, evaluate postfix, k stacks in one array.</li>
+  </ol>
+  <p class="desc">Circular queue code and the stacks-in-an-array guide: <a href="https://claude.ai/artifact/YG7kGgbsxG918wkoYxfKpU" target="_blank" rel="noopener">Stacks &amp; Heaps guide</a>.</p>
+  <details id="p-deque"><summary>Deque in a circular array <span class="src">CLRS 10.1-5</span></summary><div class="body">
+    <div class="codebox"><div class="cb-head"><span>deque.c</span><button type="button">Copy</button></div><pre class="code"><span class="kw">#include</span> &lt;stdio.h&gt;
+<span class="kw">#define</span> N 5
+
+<span class="cm">/* CLRS 10.1-5: deque in a circular array, all four operations O(1) */</span>
+<span class="kw">int</span> dq[N], front = -1, rear = -1;
+
+<span class="kw">int</span> isFull(<span class="kw">void</span>)  { <span class="kw">return</span> (rear + 1) % N == front; }
+<span class="kw">int</span> isEmpty(<span class="kw">void</span>) { <span class="kw">return</span> front == -1; }
+
+<span class="kw">void</span> insertFront(<span class="kw">int</span> x) {
+    <span class="kw">if</span> (isFull()) { printf(<span class="st">"Deque overflow\n"</span>); <span class="kw">return</span>; }
+    <span class="kw">if</span> (isEmpty()) front = rear = 0;
+    <span class="kw">else</span> front = (front - 1 + N) % N;     <span class="cm">/* +N keeps it non-negative */</span>
+    dq[front] = x;
+}
+
+<span class="kw">void</span> insertRear(<span class="kw">int</span> x) {
+    <span class="kw">if</span> (isFull()) { printf(<span class="st">"Deque overflow\n"</span>); <span class="kw">return</span>; }
+    <span class="kw">if</span> (isEmpty()) front = rear = 0;
+    <span class="kw">else</span> rear = (rear + 1) % N;
+    dq[rear] = x;
+}
+
+<span class="kw">int</span> deleteFront(<span class="kw">void</span>) {
+    <span class="kw">int</span> x = dq[front];
+    <span class="kw">if</span> (front == rear) front = rear = -1;
+    <span class="kw">else</span> front = (front + 1) % N;
+    <span class="kw">return</span> x;
+}
+
+<span class="kw">int</span> deleteRear(<span class="kw">void</span>) {
+    <span class="kw">int</span> x = dq[rear];
+    <span class="kw">if</span> (front == rear) front = rear = -1;
+    <span class="kw">else</span> rear = (rear - 1 + N) % N;
+    <span class="kw">return</span> x;
+}
+
+<span class="kw">void</span> display(<span class="kw">void</span>) {
+    <span class="kw">int</span> i;
+    <span class="kw">if</span> (isEmpty()) { printf(<span class="st">"Deque empty\n"</span>); <span class="kw">return</span>; }
+    <span class="kw">for</span> (i = front; ; i = (i + 1) % N) { printf(<span class="st">"%d "</span>, dq[i]); <span class="kw">if</span> (i == rear) <span class="kw">break</span>; }
+    printf(<span class="st">"\n"</span>);
+}
+
+<span class="kw">int</span> main(<span class="kw">void</span>) {
+    <span class="kw">int</span> ch, x;
+    <span class="kw">while</span> (1) {
+        printf(<span class="st">"1.InsFront 2.InsRear 3.DelFront 4.DelRear 5.Display 6.Exit: "</span>);
+        <span class="kw">if</span> (scanf(<span class="st">"%d"</span>, &amp;ch) != 1) <span class="kw">break</span>;
+        <span class="kw">switch</span> (ch) {
+        <span class="kw">case</span> 1: scanf(<span class="st">"%d"</span>, &amp;x); insertFront(x); <span class="kw">break</span>;
+        <span class="kw">case</span> 2: scanf(<span class="st">"%d"</span>, &amp;x); insertRear(x); <span class="kw">break</span>;
+        <span class="kw">case</span> 3: <span class="kw">if</span> (isEmpty()) printf(<span class="st">"Deque underflow\n"</span>); <span class="kw">else</span> printf(<span class="st">"Deleted %d\n"</span>, deleteFront()); <span class="kw">break</span>;
+        <span class="kw">case</span> 4: <span class="kw">if</span> (isEmpty()) printf(<span class="st">"Deque underflow\n"</span>); <span class="kw">else</span> printf(<span class="st">"Deleted %d\n"</span>, deleteRear()); <span class="kw">break</span>;
+        <span class="kw">case</span> 5: display(); <span class="kw">break</span>;
+        <span class="kw">case</span> 6: <span class="kw">return</span> 0;
+        }
+    }
+    <span class="kw">return</span> 0;
+}</pre></div>
+    <p class="desc">N = 5: rear 10, 20; front 5, 1; rear 30 (full); front 0 → overflow; delete both ends; display</p><pre class="out">1 5 10 20 30
+Deque overflow
+Deleted 1
+Deleted 30
+5 10 20
+Deleted 5
+Deleted 10
+Deleted 20
+Deque underflow
+Deque empty</pre>
+  </div></details>
+  <details id="p-q2s"><summary>Queue using two stacks <span class="src">CLRS 10.1-6</span></summary><div class="body">
+    <p>Push new elements onto s1. To dequeue, pop from s2; if s2 is empty, first pour all of s1 into s2, which reverses their order so the oldest is on top. Each element moves at most once, so dequeue is O(1) amortised and O(n) worst case.</p>
+    <div class="codebox"><div class="cb-head"><span>queue_two_stacks.c</span><button type="button">Copy</button></div><pre class="code"><span class="kw">#include</span> &lt;stdio.h&gt;
+<span class="kw">#define</span> N 50
+
+<span class="cm">/* CLRS 10.1-6: queue using two stacks.
+   s1 receives new elements; s2 holds elements in dequeue order.
+   Enqueue O(1); dequeue O(n) worst case, O(1) amortised. */</span>
+<span class="kw">int</span> s1[N], s2[N], top1 = -1, top2 = -1;
+
+<span class="kw">void</span> enqueue(<span class="kw">int</span> x) {
+    <span class="kw">if</span> (top1 == N - 1) { printf(<span class="st">"Queue overflow\n"</span>); <span class="kw">return</span>; }
+    s1[++top1] = x;
+}
+
+<span class="kw">int</span> dequeue(<span class="kw">void</span>) {
+    <span class="kw">if</span> (top2 == -1)                       <span class="cm">/* refill s2 only when it is empty */</span>
+        <span class="kw">while</span> (top1 != -1) s2[++top2] = s1[top1--];
+    <span class="kw">return</span> s2[top2--];
+}
+
+<span class="kw">int</span> main(<span class="kw">void</span>) {
+    <span class="kw">int</span> ch, x;
+    <span class="kw">while</span> (1) {
+        printf(<span class="st">"1.Enqueue 2.Dequeue 3.Exit: "</span>);
+        <span class="kw">if</span> (scanf(<span class="st">"%d"</span>, &amp;ch) != 1) <span class="kw">break</span>;
+        <span class="kw">switch</span> (ch) {
+        <span class="kw">case</span> 1: scanf(<span class="st">"%d"</span>, &amp;x); enqueue(x); <span class="kw">break</span>;
+        <span class="kw">case</span> 2: <span class="kw">if</span> (top1 == -1 &amp;&amp; top2 == -1) printf(<span class="st">"Queue underflow\n"</span>);
+                <span class="kw">else</span> printf(<span class="st">"Dequeued %d\n"</span>, dequeue());
+                <span class="kw">break</span>;
+        <span class="kw">case</span> 3: <span class="kw">return</span> 0;
+        }
+    }
+    <span class="kw">return</span> 0;
+}</pre></div>
+    <p class="desc">Enqueue 1, 2, 3; dequeue; enqueue 4; dequeue three times; one more dequeue</p><pre class="out">Dequeued 1
+Dequeued 2
+Dequeued 3
+Dequeued 4
+Queue underflow</pre>
+  </div></details>
+  <details id="p-s2q"><summary>Stack using two queues <span class="src">CLRS 10.1-7</span></summary><div class="body">
+    <p>Push enqueues into q1 in O(1). To pop, move all but the last element of q1 into q2; the last one is the top of the stack. Then q2 becomes the main queue. Pop is O(n).</p>
+    <div class="codebox"><div class="cb-head"><span>stack_two_queues.c</span><button type="button">Copy</button></div><pre class="code"><span class="kw">#include</span> &lt;stdio.h&gt;
+<span class="kw">#define</span> N 50
+
+<span class="cm">/* CLRS 10.1-7: stack using two queues.
+   Push O(1). Pop O(n): move all but the last element of q1 to q2,
+   remove the last one, then swap the roles of q1 and q2. */</span>
+<span class="kw">int</span> q1[N], q2[N], f1 = 0, r1 = 0, f2 = 0, r2 = 0;   <span class="cm">/* simple linear queues: [f, r) */</span>
+
+<span class="kw">void</span> push(<span class="kw">int</span> x) {
+    <span class="kw">if</span> (r1 == N) { printf(<span class="st">"Stack overflow\n"</span>); <span class="kw">return</span>; }
+    q1[r1++] = x;
+}
+
+<span class="kw">int</span> pop(<span class="kw">void</span>) {
+    <span class="kw">int</span> x, i;
+    <span class="kw">while</span> (r1 - f1 &gt; 1) q2[r2++] = q1[f1++];   <span class="cm">/* move n-1 elements */</span>
+    x = q1[f1++];                               <span class="cm">/* last one = top of stack */</span>
+    <span class="kw">for</span> (i = 0; i &lt; r2 - f2; i++) q1[i] = q2[f2 + i];   <span class="cm">/* q2 becomes q1 */</span>
+    r1 = r2 - f2; f1 = 0;
+    f2 = r2 = 0;
+    <span class="kw">return</span> x;
+}
+
+<span class="kw">int</span> main(<span class="kw">void</span>) {
+    <span class="kw">int</span> ch, x;
+    <span class="kw">while</span> (1) {
+        printf(<span class="st">"1.Push 2.Pop 3.Exit: "</span>);
+        <span class="kw">if</span> (scanf(<span class="st">"%d"</span>, &amp;ch) != 1) <span class="kw">break</span>;
+        <span class="kw">switch</span> (ch) {
+        <span class="kw">case</span> 1: scanf(<span class="st">"%d"</span>, &amp;x); push(x); <span class="kw">break</span>;
+        <span class="kw">case</span> 2: <span class="kw">if</span> (r1 == f1) printf(<span class="st">"Stack underflow\n"</span>); <span class="kw">else</span> printf(<span class="st">"Popped %d\n"</span>, pop()); <span class="kw">break</span>;
+        <span class="kw">case</span> 3: <span class="kw">return</span> 0;
+        }
+    }
+    <span class="kw">return</span> 0;
+}</pre></div>
+    <p class="desc">Push 1, 2, 3; pop; push 4; pop three times; one more pop</p><pre class="out">Popped 3
+Popped 4
+Popped 2
+Popped 1
+Stack underflow</pre>
+  </div></details>
+  <details id="p-llsq"><summary>Stack and queue using a linked list <span class="src">CLRS 10.2-2, 10.2-3</span></summary><div class="body">
+    <p>The stack pushes and pops at the head. The queue keeps a <code>rear</code> pointer so enqueue is O(1); when the last node leaves, set <code>rear</code> back to NULL too.</p>
+    <div class="codebox"><div class="cb-head"><span>ll_stack_queue.c</span><button type="button">Copy</button></div><pre class="code"><span class="kw">#include</span> &lt;stdio.h&gt;
+<span class="kw">#include</span> &lt;stdlib.h&gt;
+
+<span class="kw">struct</span> node { <span class="kw">int</span> data; <span class="kw">struct</span> node *next; };
+
+<span class="cm">/* ---- Stack: push and pop both at the head -&gt; O(1) (CLRS 10.2-2) ---- */</span>
+<span class="kw">struct</span> node *top = NULL;
+
+<span class="kw">void</span> push(<span class="kw">int</span> x) {
+    <span class="kw">struct</span> node *t = (<span class="kw">struct</span> node *)malloc(sizeof(<span class="kw">struct</span> node));
+    t-&gt;data = x;
+    t-&gt;next = top;
+    top = t;
+}
+
+<span class="kw">int</span> pop(<span class="kw">void</span>) {
+    <span class="kw">struct</span> node *t = top;
+    <span class="kw">int</span> x = t-&gt;data;
+    top = top-&gt;next;
+    free(t);
+    <span class="kw">return</span> x;
+}
+
+<span class="cm">/* ---- Queue: enqueue at rear, dequeue at front -&gt; O(1) (CLRS 10.2-3) ---- */</span>
+<span class="kw">struct</span> node *front = NULL, *rear = NULL;
+
+<span class="kw">void</span> enqueue(<span class="kw">int</span> x) {
+    <span class="kw">struct</span> node *t = (<span class="kw">struct</span> node *)malloc(sizeof(<span class="kw">struct</span> node));
+    t-&gt;data = x;
+    t-&gt;next = NULL;
+    <span class="kw">if</span> (rear == NULL) front = rear = t;
+    <span class="kw">else</span> { rear-&gt;next = t; rear = t; }
+}
+
+<span class="kw">int</span> dequeue(<span class="kw">void</span>) {
+    <span class="kw">struct</span> node *t = front;
+    <span class="kw">int</span> x = t-&gt;data;
+    front = front-&gt;next;
+    <span class="kw">if</span> (front == NULL) rear = NULL;   <span class="cm">/* queue became empty */</span>
+    free(t);
+    <span class="kw">return</span> x;
+}
+
+<span class="kw">int</span> main(<span class="kw">void</span>) {
+    <span class="kw">int</span> ch, x;
+    <span class="kw">while</span> (1) {
+        printf(<span class="st">"1.Push 2.Pop 3.Enqueue 4.Dequeue 5.Exit: "</span>);
+        <span class="kw">if</span> (scanf(<span class="st">"%d"</span>, &amp;ch) != 1) <span class="kw">break</span>;
+        <span class="kw">switch</span> (ch) {
+        <span class="kw">case</span> 1: scanf(<span class="st">"%d"</span>, &amp;x); push(x); printf(<span class="st">"Pushed %d\n"</span>, x); <span class="kw">break</span>;
+        <span class="kw">case</span> 2: <span class="kw">if</span> (top == NULL) printf(<span class="st">"Stack underflow\n"</span>); <span class="kw">else</span> printf(<span class="st">"Popped %d\n"</span>, pop()); <span class="kw">break</span>;
+        <span class="kw">case</span> 3: scanf(<span class="st">"%d"</span>, &amp;x); enqueue(x); printf(<span class="st">"Enqueued %d\n"</span>, x); <span class="kw">break</span>;
+        <span class="kw">case</span> 4: <span class="kw">if</span> (front == NULL) printf(<span class="st">"Queue underflow\n"</span>); <span class="kw">else</span> printf(<span class="st">"Dequeued %d\n"</span>, dequeue()); <span class="kw">break</span>;
+        <span class="kw">case</span> 5: <span class="kw">return</span> 0;
+        }
+    }
+    <span class="kw">return</span> 0;
+}</pre></div>
+    <p class="desc">Push 1, 2, 3; pop twice; enqueue 1, 2, 3; dequeue twice; then empty both</p><pre class="out">Pushed 1
+Pushed 2
+Pushed 3
+Popped 3
+Popped 2
+Enqueued 1
+Enqueued 2
+Enqueued 3
+Dequeued 1
+Dequeued 2
+Popped 1
+Stack underflow
+Dequeued 3
+Queue underflow</pre>
+  </div></details>
+</section>
+
+<section id="heaps">
+  <div class="sechead"><span class="eyebrow">L11, L14 · Priority queues and heaps</span><h2>Heap operations</h2></div>
+  <ul class="keypts">
+    <li>Two moves do all the work: sift down (MAX-HEAPIFY) when a value may be too small for its spot, sift up (HEAP-INCREASE-KEY) when it may be too big.</li>
+    <li>Insert = add at the end + sift up. Extract = move last element to the root + sift down. Both O(lg n).</li>
+    <li>CLRS uses 1-based arrays: parent <code>i/2</code>, children <code>2i</code> and <code>2i+1</code>. This program follows CLRS.</li>
+  </ul>
+  <h3>Try these first</h3>
+  <ol class="qlist">
+    <li>Max priority queue: insert, extract max, increase key, display.</li>
+    <li>Min priority queue version: extract min, decrease key (CLRS 6.5-3). Flip every comparison.</li>
+    <li>Delete the element at index i in O(lg n) (CLRS 6.5-8). Hint: the value you move in may need to go up or down.</li>
+    <li>Not solved here: implement a stack and a FIFO queue using a priority queue (6.5-7, give each element a counter as its key); merge k sorted lists with a min heap (6.5-9).</li>
+  </ol>
+  <details id="p-heapops"><summary>Max heap: insert, extract max, increase key, delete at index <span class="src">CLRS 6.5, 6.5-8</span></summary><div class="body">
+    <div class="codebox"><div class="cb-head"><span>heap_ops.c</span><button type="button">Copy</button></div><pre class="code"><span class="kw">#include</span> &lt;stdio.h&gt;
+<span class="kw">#define</span> MAX 50
+
+<span class="cm">/* Max heap, 1-based like CLRS ch.6. For a min heap flip every comparison (CLRS 6.5-3). */</span>
+<span class="kw">int</span> A[MAX + 1], n = 0;
+
+<span class="kw">void</span> swap(<span class="kw">int</span> *a, <span class="kw">int</span> *b) { <span class="kw">int</span> t = *a; *a = *b; *b = t; }
+
+<span class="kw">void</span> maxHeapify(<span class="kw">int</span> i) {                 <span class="cm">/* sift down, CLRS MAX-HEAPIFY */</span>
+    <span class="kw">int</span> l = 2 * i, r = 2 * i + 1, largest = i;
+    <span class="kw">if</span> (l &lt;= n &amp;&amp; A[l] &gt; A[largest]) largest = l;
+    <span class="kw">if</span> (r &lt;= n &amp;&amp; A[r] &gt; A[largest]) largest = r;
+    <span class="kw">if</span> (largest != i) { swap(&amp;A[i], &amp;A[largest]); maxHeapify(largest); }
+}
+
+<span class="kw">void</span> increaseKey(<span class="kw">int</span> i, <span class="kw">int</span> key) {       <span class="cm">/* sift up, CLRS HEAP-INCREASE-KEY */</span>
+    <span class="kw">if</span> (key &lt; A[i]) { printf(<span class="st">"New key is smaller than current key\n"</span>); <span class="kw">return</span>; }
+    A[i] = key;
+    <span class="kw">while</span> (i &gt; 1 &amp;&amp; A[i / 2] &lt; A[i]) { swap(&amp;A[i], &amp;A[i / 2]); i = i / 2; }
+}
+
+<span class="kw">void</span> insert(<span class="kw">int</span> key) {                   <span class="cm">/* CLRS MAX-HEAP-INSERT */</span>
+    <span class="kw">if</span> (n == MAX) { printf(<span class="st">"Heap overflow\n"</span>); <span class="kw">return</span>; }
+    n++;
+    A[n] = -32768;                       <span class="cm">/* "minus infinity", then raise it */</span>
+    increaseKey(n, key);
+}
+
+<span class="kw">int</span> extractMax(<span class="kw">void</span>) {                   <span class="cm">/* CLRS HEAP-EXTRACT-MAX */</span>
+    <span class="kw">int</span> max = A[1];
+    A[1] = A[n--];
+    maxHeapify(1);
+    <span class="kw">return</span> max;
+}
+
+<span class="kw">void</span> deleteAt(<span class="kw">int</span> i) {                   <span class="cm">/* CLRS 6.5-8: O(lg n) */</span>
+    <span class="kw">int</span> old = A[i];
+    A[i] = A[n--];
+    <span class="kw">if</span> (i &gt; n) <span class="kw">return</span>;                   <span class="cm">/* deleted the last element */</span>
+    <span class="kw">if</span> (A[i] &gt; old) {                    <span class="cm">/* moved-in value is bigger: sift up */</span>
+        <span class="kw">while</span> (i &gt; 1 &amp;&amp; A[i / 2] &lt; A[i]) { swap(&amp;A[i], &amp;A[i / 2]); i = i / 2; }
+    } <span class="kw">else</span> maxHeapify(i);                <span class="cm">/* otherwise sift down */</span>
+}
+
+<span class="kw">void</span> display(<span class="kw">void</span>) {
+    <span class="kw">int</span> i;
+    <span class="kw">for</span> (i = 1; i &lt;= n; i++) printf(<span class="st">"%d "</span>, A[i]);
+    printf(<span class="st">"\n"</span>);
+}
+
+<span class="kw">int</span> main(<span class="kw">void</span>) {
+    <span class="kw">int</span> ch, x, i;
+    <span class="kw">while</span> (1) {
+        printf(<span class="st">"1.Insert 2.ExtractMax 3.IncreaseKey 4.DeleteAt 5.Display 6.Exit: "</span>);
+        <span class="kw">if</span> (scanf(<span class="st">"%d"</span>, &amp;ch) != 1) <span class="kw">break</span>;
+        <span class="kw">switch</span> (ch) {
+        <span class="kw">case</span> 1: scanf(<span class="st">"%d"</span>, &amp;x); insert(x); <span class="kw">break</span>;
+        <span class="kw">case</span> 2: <span class="kw">if</span> (n &lt; 1) printf(<span class="st">"Heap underflow\n"</span>); <span class="kw">else</span> printf(<span class="st">"Max %d removed\n"</span>, extractMax()); <span class="kw">break</span>;
+        <span class="kw">case</span> 3: scanf(<span class="st">"%d %d"</span>, &amp;i, &amp;x);
+                <span class="kw">if</span> (i &lt; 1 || i &gt; n) printf(<span class="st">"Invalid index\n"</span>); <span class="kw">else</span> increaseKey(i, x);
+                <span class="kw">break</span>;
+        <span class="kw">case</span> 4: scanf(<span class="st">"%d"</span>, &amp;i);
+                <span class="kw">if</span> (i &lt; 1 || i &gt; n) printf(<span class="st">"Invalid index\n"</span>); <span class="kw">else</span> deleteAt(i);
+                <span class="kw">break</span>;
+        <span class="kw">case</span> 5: display(); <span class="kw">break</span>;
+        <span class="kw">case</span> 6: <span class="kw">return</span> 0;
+        }
+    }
+    <span class="kw">return</span> 0;
+}</pre></div>
+    <p class="desc">Insert 4 1 3 2 16 9 10 14 8 7 (CLRS fig 6.3 keys); display; extract max; increase A[9] to 15; delete A[2]; display after each step</p><pre class="out">16 14 10 8 7 3 9 1 4 2
+Max 16 removed
+14 8 10 4 7 3 9 1 2
+15 14 10 8 7 3 9 1 4
+15 8 10 4 7 3 9 1</pre>
+  </div></details>
+</section>
+
+<section id="sorting">
+  <div class="sechead"><span class="eyebrow">L13–L15 · Quick sort, heap sort, merge sort</span><h2>Sorting</h2></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Sort</th><th>Best</th><th>Average</th><th>Worst</th><th>Extra space</th><th>Stable</th></tr></thead>
+    <tbody>
+      <tr><td>Quick sort</td><td class="mono">n lg n</td><td class="mono">n lg n</td><td class="mono">n²</td><td class="mono">lg n (stack)</td><td>No</td></tr>
+      <tr><td>Merge sort</td><td class="mono">n lg n</td><td class="mono">n lg n</td><td class="mono">n lg n</td><td class="mono">n</td><td>Yes</td></tr>
+      <tr><td>Heap sort</td><td class="mono">n lg n</td><td class="mono">n lg n</td><td class="mono">n lg n</td><td class="mono">1</td><td>No</td></tr>
+      <tr><td>Insertion sort</td><td class="mono">n</td><td class="mono">n²</td><td class="mono">n²</td><td class="mono">1</td><td>Yes</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="keypts">
+    <li>Quick sort's worst case is an already sorted or reverse-sorted array with a last-element pivot. A random pivot fixes this in expectation.</li>
+    <li>Lomuto PARTITION: <code>i</code> marks the end of the "≤ pivot" region. Each <code>a[j] &lt;= x</code> grows that region by one swap. Finally put the pivot at <code>i+1</code>.</li>
+    <li>Merge sort does the work in MERGE. Without sentinels, stop when either half runs out, then copy the rest of the other half.</li>
+  </ul>
+  <h3>Try these first</h3>
+  <ol class="qlist">
+    <li>Quick sort with a count of comparisons. Run it on sorted input and on random input and compare.</li>
+    <li>Randomized quick sort.</li>
+    <li>Quick sort in descending order (CLRS 7.1-4): change one comparison.</li>
+    <li>Merge sort; then count inversions using it (CLRS problem 2-4).</li>
+    <li>Heap sort ascending and descending (in the first guide).</li>
+  </ol>
+  <details id="p-quick"><summary>Quick sort and randomized quick sort <span class="src">CLRS 7.1, 7.3</span></summary><div class="body">
+    <div class="codebox"><div class="cb-head"><span>quick.c</span><button type="button">Copy</button></div><pre class="code"><span class="kw">#include</span> &lt;stdio.h&gt;
+<span class="kw">#include</span> &lt;stdlib.h&gt;
+<span class="kw">#include</span> &lt;time.h&gt;
+
+<span class="kw">int</span> comparisons = 0;
+
+<span class="kw">void</span> swap(<span class="kw">int</span> *a, <span class="kw">int</span> *b) { <span class="kw">int</span> t = *a; *a = *b; *b = t; }
+
+<span class="cm">/* CLRS PARTITION (Lomuto): pivot = last element */</span>
+<span class="kw">int</span> partition(<span class="kw">int</span> a[], <span class="kw">int</span> p, <span class="kw">int</span> r) {
+    <span class="kw">int</span> x = a[r], i = p - 1, j;
+    <span class="kw">for</span> (j = p; j &lt; r; j++) {
+        comparisons++;
+        <span class="kw">if</span> (a[j] &lt;= x) {          <span class="cm">/* use &gt;= here for descending order (CLRS 7.1-4) */</span>
+            i++;
+            swap(&amp;a[i], &amp;a[j]);
+        }
+    }
+    swap(&amp;a[i + 1], &amp;a[r]);
+    <span class="kw">return</span> i + 1;
+}
+
+<span class="cm">/* CLRS RANDOMIZED-PARTITION: random pivot swapped to the end */</span>
+<span class="kw">int</span> randomizedPartition(<span class="kw">int</span> a[], <span class="kw">int</span> p, <span class="kw">int</span> r) {
+    <span class="kw">int</span> i = p + rand() % (r - p + 1);
+    swap(&amp;a[i], &amp;a[r]);
+    <span class="kw">return</span> partition(a, p, r);
+}
+
+<span class="kw">void</span> quickSort(<span class="kw">int</span> a[], <span class="kw">int</span> p, <span class="kw">int</span> r, <span class="kw">int</span> randomized) {
+    <span class="kw">int</span> q;
+    <span class="kw">if</span> (p &lt; r) {
+        q = randomized ? randomizedPartition(a, p, r) : partition(a, p, r);
+        quickSort(a, p, q - 1, randomized);
+        quickSort(a, q + 1, r, randomized);
+    }
+}
+
+<span class="kw">int</span> main(<span class="kw">void</span>) {
+    <span class="kw">int</span> a[100], n, i, mode;
+    srand(time(NULL));
+    printf(<span class="st">"n: "</span>); scanf(<span class="st">"%d"</span>, &amp;n);
+    printf(<span class="st">"Elements: "</span>);
+    <span class="kw">for</span> (i = 0; i &lt; n; i++) scanf(<span class="st">"%d"</span>, &amp;a[i]);
+    printf(<span class="st">"1.Normal 2.Randomized: "</span>); scanf(<span class="st">"%d"</span>, &amp;mode);
+    quickSort(a, 0, n - 1, mode == 2);
+    printf(<span class="st">"\nSorted: "</span>);
+    <span class="kw">for</span> (i = 0; i &lt; n; i++) printf(<span class="st">"%d "</span>, a[i]);
+    printf(<span class="st">"\nComparisons: %d\n"</span>, comparisons);
+    <span class="kw">return</span> 0;
+}</pre></div>
+    <p class="desc">Input 2 8 7 1 3 5 6 4 (CLRS fig 7.1), last-element pivot</p><pre class="out">Sorted: 1 2 3 4 5 6 7 8
+Comparisons: 15</pre>
+    <p class="desc">Reverse-sorted 12..1 with last-element pivot: worst case, n(n-1)/2 = 66 comparisons</p><pre class="out">Sorted: 1 2 3 4 5 6 7 8 9 10 11 12
+Comparisons: 66</pre>
+    <p class="desc">Same reverse-sorted input, randomized pivot (count changes every run)</p><pre class="out">Sorted: 1 2 3 4 5 6 7 8 9 10 11 12
+Comparisons: 36</pre>
+  </div></details>
+  <details id="p-merge"><summary>Merge sort without sentinels, with inversion count <span class="src">CLRS 2.3-2, 2-4</span></summary><div class="body">
+    <p>An inversion is a pair i &lt; j with a[i] &gt; a[j]. When MERGE takes R[j] before the remaining L[i..n1−1], every one of those L elements forms an inversion with R[j], so add <code>n1 − i</code>.</p>
+    <div class="codebox"><div class="cb-head"><span>merge.c</span><button type="button">Copy</button></div><pre class="code"><span class="kw">#include</span> &lt;stdio.h&gt;
+
+<span class="kw">long</span> inversions = 0;
+
+<span class="cm">/* CLRS 2.3-2: MERGE without sentinels. a[p..q] and a[q+1..r] are sorted. */</span>
+<span class="kw">void</span> merge(<span class="kw">int</span> a[], <span class="kw">int</span> p, <span class="kw">int</span> q, <span class="kw">int</span> r) {
+    <span class="kw">int</span> n1 = q - p + 1, n2 = r - q, i, j, k;
+    <span class="kw">int</span> L[100], R[100];
+    <span class="kw">for</span> (i = 0; i &lt; n1; i++) L[i] = a[p + i];
+    <span class="kw">for</span> (j = 0; j &lt; n2; j++) R[j] = a[q + 1 + j];
+    i = j = 0; k = p;
+    <span class="kw">while</span> (i &lt; n1 &amp;&amp; j &lt; n2) {
+        <span class="kw">if</span> (L[i] &lt;= R[j]) a[k++] = L[i++];
+        <span class="kw">else</span> {
+            a[k++] = R[j++];
+            inversions += n1 - i;     <span class="cm">/* CLRS problem 2-4: every remaining L[] &gt; R[j] */</span>
+        }
+    }
+    <span class="kw">while</span> (i &lt; n1) a[k++] = L[i++];   <span class="cm">/* copy whichever side is left over */</span>
+    <span class="kw">while</span> (j &lt; n2) a[k++] = R[j++];
+}
+
+<span class="kw">void</span> mergeSort(<span class="kw">int</span> a[], <span class="kw">int</span> p, <span class="kw">int</span> r) {
+    <span class="kw">int</span> q;
+    <span class="kw">if</span> (p &lt; r) {
+        q = (p + r) / 2;
+        mergeSort(a, p, q);
+        mergeSort(a, q + 1, r);
+        merge(a, p, q, r);
+    }
+}
+
+<span class="kw">int</span> main(<span class="kw">void</span>) {
+    <span class="kw">int</span> a[100], n, i;
+    printf(<span class="st">"n: "</span>); scanf(<span class="st">"%d"</span>, &amp;n);
+    printf(<span class="st">"Elements: "</span>);
+    <span class="kw">for</span> (i = 0; i &lt; n; i++) scanf(<span class="st">"%d"</span>, &amp;a[i]);
+    mergeSort(a, 0, n - 1);
+    printf(<span class="st">"\nSorted: "</span>);
+    <span class="kw">for</span> (i = 0; i &lt; n; i++) printf(<span class="st">"%d "</span>, a[i]);
+    printf(<span class="st">"\nInversions in input: %ld\n"</span>, inversions);
+    <span class="kw">return</span> 0;
+}</pre></div>
+    <p class="desc">Input 2 3 8 6 1 (CLRS problem 2-4: five inversions)</p><pre class="out">Sorted: 1 2 3 6 8
+Inversions in input: 5</pre>
+    <p class="desc">Input 3 41 52 26 38 57 9 49 (CLRS 2.3-1)</p><pre class="out">Sorted: 3 9 26 38 41 49 52 57
+Inversions in input: 11</pre>
+  </div></details>
+  <h3>Viva quick-fire</h3>
+  <div class="drill">
+    <details><summary>What does PARTITION return when all elements are equal (CLRS 7.1-2)?</summary><div class="body"><p>r, the last index, because every element satisfies <code>a[j] &lt;= x</code>. That makes every split n−1 and 0, so equal elements give Θ(n²).</p></div></details>
+    <details><summary>Why is merge sort preferred for linked lists?</summary><div class="body"><p>It needs only sequential access, and merging lists needs no extra array. Quick sort and heap sort rely on random access.</p></div></details>
+    <details><summary>Which sort would you use in a memory-limited embedded system?</summary><div class="body"><p>Heap sort: guaranteed O(n lg n) and O(1) extra memory, with no deep recursion.</p></div></details>
+  </div>
+</section>
+
+<section id="searching">
+  <div class="sechead"><span class="eyebrow">L16–L18 · Binary, linear, Fibonacci search</span><h2>Searching</h2></div>
+  <ul class="keypts">
+    <li>Linear search works on any array, Θ(n). Binary and Fibonacci search need a sorted array, Θ(lg n).</li>
+    <li>Binary search loop condition is <code>low &lt;= high</code>, not <code>&lt;</code>. Compute <code>mid = low + (high − low) / 2</code> to avoid integer overflow.</li>
+    <li>Fibonacci search splits at Fibonacci-number offsets instead of the middle. It uses only addition and subtraction, which once mattered on hardware without fast division.</li>
+  </ul>
+  <h3>Try these first</h3>
+  <ol class="qlist">
+    <li>Binary search, iterative and recursive, reporting the index or "not found".</li>
+    <li>Fibonacci search on the same array.</li>
+    <li>Count the comparisons each method makes for a key that is absent.</li>
+    <li>Not solved here: find the first occurrence of a repeated key with binary search; find the insertion position of a key.</li>
+  </ol>
+  <details id="p-search"><summary>Linear, binary (iterative and recursive) and Fibonacci search <span class="src">CLRS 2.1-3, 2.3-5</span></summary><div class="body">
+    <div class="codebox"><div class="cb-head"><span>search.c</span><button type="button">Copy</button></div><pre class="code"><span class="kw">#include</span> &lt;stdio.h&gt;
+
+<span class="kw">int</span> linearSearch(<span class="kw">int</span> a[], <span class="kw">int</span> n, <span class="kw">int</span> key) {           <span class="cm">/* CLRS 2.1-3 */</span>
+    <span class="kw">int</span> i;
+    <span class="kw">for</span> (i = 0; i &lt; n; i++) <span class="kw">if</span> (a[i] == key) <span class="kw">return</span> i;
+    <span class="kw">return</span> -1;
+}
+
+<span class="kw">int</span> binaryIter(<span class="kw">int</span> a[], <span class="kw">int</span> n, <span class="kw">int</span> key) {             <span class="cm">/* CLRS 2.3-5, needs sorted a[] */</span>
+    <span class="kw">int</span> low = 0, high = n - 1, mid;
+    <span class="kw">while</span> (low &lt;= high) {
+        mid = low + (high - low) / 2;                 <span class="cm">/* avoids overflow of low+high */</span>
+        <span class="kw">if</span> (a[mid] == key) <span class="kw">return</span> mid;
+        <span class="kw">else</span> <span class="kw">if</span> (a[mid] &lt; key) low = mid + 1;
+        <span class="kw">else</span> high = mid - 1;
+    }
+    <span class="kw">return</span> -1;
+}
+
+<span class="kw">int</span> binaryRec(<span class="kw">int</span> a[], <span class="kw">int</span> low, <span class="kw">int</span> high, <span class="kw">int</span> key) {
+    <span class="kw">int</span> mid;
+    <span class="kw">if</span> (low &gt; high) <span class="kw">return</span> -1;
+    mid = low + (high - low) / 2;
+    <span class="kw">if</span> (a[mid] == key) <span class="kw">return</span> mid;
+    <span class="kw">if</span> (a[mid] &lt; key) <span class="kw">return</span> binaryRec(a, mid + 1, high, key);
+    <span class="kw">return</span> binaryRec(a, low, mid - 1, key);
+}
+
+<span class="kw">int</span> min(<span class="kw">int</span> x, <span class="kw">int</span> y) { <span class="kw">return</span> x &lt; y ? x : y; }
+
+<span class="cm">/* Fibonacci search: split points come from Fibonacci numbers instead of halves */</span>
+<span class="kw">int</span> fibonacciSearch(<span class="kw">int</span> a[], <span class="kw">int</span> n, <span class="kw">int</span> key) {
+    <span class="kw">int</span> fm2 = 0, fm1 = 1, fm = fm2 + fm1, offset = -1, i;
+    <span class="kw">while</span> (fm &lt; n) { fm2 = fm1; fm1 = fm; fm = fm2 + fm1; }   <span class="cm">/* smallest Fib &gt;= n */</span>
+    <span class="kw">while</span> (fm &gt; 1) {
+        i = min(offset + fm2, n - 1);
+        <span class="kw">if</span> (a[i] &lt; key) { fm = fm1; fm1 = fm2; fm2 = fm - fm1; offset = i; }       <span class="cm">/* go right */</span>
+        <span class="kw">else</span> <span class="kw">if</span> (a[i] &gt; key) { fm = fm2; fm1 = fm1 - fm2; fm2 = fm - fm1; }        <span class="cm">/* go left */</span>
+        <span class="kw">else</span> <span class="kw">return</span> i;
+    }
+    <span class="kw">if</span> (fm1 &amp;&amp; offset + 1 &lt; n &amp;&amp; a[offset + 1] == key) <span class="kw">return</span> offset + 1;
+    <span class="kw">return</span> -1;
+}
+
+<span class="kw">int</span> main(<span class="kw">void</span>) {
+    <span class="kw">int</span> a[100], n, i, key, ch, pos = -1;
+    printf(<span class="st">"n: "</span>); scanf(<span class="st">"%d"</span>, &amp;n);
+    printf(<span class="st">"Elements (sorted for binary/Fibonacci): "</span>);
+    <span class="kw">for</span> (i = 0; i &lt; n; i++) scanf(<span class="st">"%d"</span>, &amp;a[i]);
+    printf(<span class="st">"Key: "</span>); scanf(<span class="st">"%d"</span>, &amp;key);
+    printf(<span class="st">"1.Linear 2.Binary iterative 3.Binary recursive 4.Fibonacci: "</span>); scanf(<span class="st">"%d"</span>, &amp;ch);
+    <span class="kw">switch</span> (ch) {
+    <span class="kw">case</span> 1: pos = linearSearch(a, n, key); <span class="kw">break</span>;
+    <span class="kw">case</span> 2: pos = binaryIter(a, n, key); <span class="kw">break</span>;
+    <span class="kw">case</span> 3: pos = binaryRec(a, 0, n - 1, key); <span class="kw">break</span>;
+    <span class="kw">case</span> 4: pos = fibonacciSearch(a, n, key); <span class="kw">break</span>;
+    }
+    <span class="kw">if</span> (pos == -1) printf(<span class="st">"\n%d not found\n"</span>, key);
+    <span class="kw">else</span> printf(<span class="st">"\n%d found at index %d\n"</span>, key, pos);
+    <span class="kw">return</span> 0;
+}</pre></div>
+    <p class="desc">Sorted 10 22 35 40 45 50 80 82 85 90 100, keys 85, 10, 100, 41, all four methods</p><pre class="out">Linear              key  85 → 85 found at index 8
+Linear              key  10 → 10 found at index 0
+Linear              key 100 → 100 found at index 10
+Linear              key  41 → 41 not found
+Binary (iterative)  key  85 → 85 found at index 8
+Binary (iterative)  key  10 → 10 found at index 0
+Binary (iterative)  key 100 → 100 found at index 10
+Binary (iterative)  key  41 → 41 not found
+Binary (recursive)  key  85 → 85 found at index 8
+Binary (recursive)  key  10 → 10 found at index 0
+Binary (recursive)  key 100 → 100 found at index 10
+Binary (recursive)  key  41 → 41 not found
+Fibonacci           key  85 → 85 found at index 8
+Fibonacci           key  10 → 10 found at index 0
+Fibonacci           key 100 → 100 found at index 10
+Fibonacci           key  41 → 41 not found</pre>
+  </div></details>
+  <details><summary>Trace Fibonacci search for key 85 in the 11-element array above</summary><div class="body">
+    <p>Smallest Fibonacci number ≥ 11 is 13, so fm = 13, fm1 = 8, fm2 = 5, offset = −1.</p>
+    <div class="tbl"><table><thead><tr><th>i = min(offset+fm2, 10)</th><th>a[i]</th><th>Action</th><th>fm, fm1, fm2, offset</th></tr></thead><tbody class="mono">
+      <tr><td>4</td><td>45</td><td>45 &lt; 85, go right</td><td>8, 5, 3, 4</td></tr>
+      <tr><td>7</td><td>82</td><td>82 &lt; 85, go right</td><td>5, 3, 2, 7</td></tr>
+      <tr><td>9</td><td>90</td><td>90 &gt; 85, go left</td><td>2, 1, 1, 7</td></tr>
+      <tr><td>8</td><td>85</td><td>found</td><td>index 8</td></tr>
+    </tbody></table></div>
+  </div></details>
+</section>
+
+<section id="trees">
+  <div class="sechead"><span class="eyebrow">L19–L23 · Tree terminology, binary trees, BSTs, balanced trees</span><h2>Trees</h2></div>
+  <ul class="keypts">
+    <li>BST property: everything in the left subtree is smaller than the node, everything in the right subtree is larger. Inorder traversal therefore prints keys in sorted order.</li>
+    <li>Delete has three cases: leaf (remove it), one child (link the child up), two children (copy the inorder successor's key, then delete the successor from the right subtree).</li>
+    <li>Successor: if there is a right subtree, its minimum. Otherwise the nearest ancestor for which the node is in the left subtree.</li>
+    <li>Height: this page counts edges, so a single node has height 0 and an empty tree −1. State your convention in the write-up.</li>
+    <li>Balanced trees (AVL) keep every node's balance factor in {−1, 0, 1} using LL, RR, LR and RL rotations, so height stays O(lg n). A full AVL program is unlikely in a 15-minute lab, but expect viva questions.</li>
+  </ul>
+  <h3>Try these first</h3>
+  <ol class="qlist">
+    <li>BST insert (recursive), search, inorder/preorder/postorder.</li>
+    <li>Inorder traversal without recursion, using a stack (CLRS 10.4-3, 12.1-3).</li>
+    <li>Delete a node with zero, one and two children.</li>
+    <li>Minimum, maximum, successor and predecessor (CLRS 12.2-3).</li>
+    <li>Height, number of nodes, number of leaves.</li>
+    <li>Not solved here: level-order traversal with a queue; mirror a tree; check whether a binary tree is a BST.</li>
+  </ol>
+  <details id="p-bst"><summary>Binary search tree: all operations and traversals <span class="src">CLRS 10.4, 12.1–12.3</span></summary><div class="body">
+    <p>The test uses the keys of CLRS Figure 12.2. The successor and predecessor functions walk down from the root, so the nodes need no parent pointer.</p>
+    <div class="codebox"><div class="cb-head"><span>bst.c</span><button type="button">Copy</button></div><pre class="code"><span class="kw">#include</span> &lt;stdio.h&gt;
+<span class="kw">#include</span> &lt;stdlib.h&gt;
+
+<span class="kw">struct</span> node {
+    <span class="kw">int</span> key;
+    <span class="kw">struct</span> node *left, *right;
+};
+
+<span class="kw">struct</span> node *newNode(<span class="kw">int</span> k) {
+    <span class="kw">struct</span> node *t = (<span class="kw">struct</span> node *)malloc(sizeof(<span class="kw">struct</span> node));
+    t-&gt;key = k;
+    t-&gt;left = t-&gt;right = NULL;
+    <span class="kw">return</span> t;
+}
+
+<span class="kw">struct</span> node *insert(<span class="kw">struct</span> node *root, <span class="kw">int</span> k) {        <span class="cm">/* recursive, CLRS 12.3-1 */</span>
+    <span class="kw">if</span> (root == NULL) <span class="kw">return</span> newNode(k);
+    <span class="kw">if</span> (k &lt; root-&gt;key) root-&gt;left = insert(root-&gt;left, k);
+    <span class="kw">else</span> <span class="kw">if</span> (k &gt; root-&gt;key) root-&gt;right = insert(root-&gt;right, k);
+    <span class="kw">return</span> root;                                         <span class="cm">/* duplicates ignored */</span>
+}
+
+<span class="kw">struct</span> node *search(<span class="kw">struct</span> node *root, <span class="kw">int</span> k) {
+    <span class="kw">while</span> (root != NULL &amp;&amp; root-&gt;key != k)
+        root = (k &lt; root-&gt;key) ? root-&gt;left : root-&gt;right;
+    <span class="kw">return</span> root;
+}
+
+<span class="kw">struct</span> node *minNode(<span class="kw">struct</span> node *t) { <span class="kw">while</span> (t-&gt;left != NULL) t = t-&gt;left; <span class="kw">return</span> t; }
+<span class="kw">struct</span> node *maxNode(<span class="kw">struct</span> node *t) { <span class="kw">while</span> (t-&gt;right != NULL) t = t-&gt;right; <span class="kw">return</span> t; }
+
+<span class="kw">struct</span> node *delete(<span class="kw">struct</span> node *root, <span class="kw">int</span> k) {
+    <span class="kw">struct</span> node *t;
+    <span class="kw">if</span> (root == NULL) { printf(<span class="st">"%d not found\n"</span>, k); <span class="kw">return</span> NULL; }
+    <span class="kw">if</span> (k &lt; root-&gt;key) root-&gt;left = delete(root-&gt;left, k);
+    <span class="kw">else</span> <span class="kw">if</span> (k &gt; root-&gt;key) root-&gt;right = delete(root-&gt;right, k);
+    <span class="kw">else</span> {
+        <span class="kw">if</span> (root-&gt;left == NULL) { t = root-&gt;right; free(root); <span class="kw">return</span> t; }    <span class="cm">/* 0 or 1 child */</span>
+        <span class="kw">if</span> (root-&gt;right == NULL) { t = root-&gt;left; free(root); <span class="kw">return</span> t; }
+        t = minNode(root-&gt;right);               <span class="cm">/* 2 children: copy inorder successor */</span>
+        root-&gt;key = t-&gt;key;
+        root-&gt;right = delete(root-&gt;right, t-&gt;key);
+    }
+    <span class="kw">return</span> root;
+}
+
+<span class="cm">/* successor without parent pointers: walk down from the root */</span>
+<span class="kw">struct</span> node *successor(<span class="kw">struct</span> node *root, <span class="kw">int</span> k) {
+    <span class="kw">struct</span> node *x = search(root, k), *succ = NULL;
+    <span class="kw">if</span> (x == NULL) <span class="kw">return</span> NULL;
+    <span class="kw">if</span> (x-&gt;right != NULL) <span class="kw">return</span> minNode(x-&gt;right);
+    <span class="kw">while</span> (root != x) {
+        <span class="kw">if</span> (k &lt; root-&gt;key) { succ = root; root = root-&gt;left; }  <span class="cm">/* last left turn */</span>
+        <span class="kw">else</span> root = root-&gt;right;
+    }
+    <span class="kw">return</span> succ;
+}
+
+<span class="kw">struct</span> node *predecessor(<span class="kw">struct</span> node *root, <span class="kw">int</span> k) {    <span class="cm">/* CLRS 12.2-3 */</span>
+    <span class="kw">struct</span> node *x = search(root, k), *pred = NULL;
+    <span class="kw">if</span> (x == NULL) <span class="kw">return</span> NULL;
+    <span class="kw">if</span> (x-&gt;left != NULL) <span class="kw">return</span> maxNode(x-&gt;left);
+    <span class="kw">while</span> (root != x) {
+        <span class="kw">if</span> (k &gt; root-&gt;key) { pred = root; root = root-&gt;right; }  <span class="cm">/* last right turn */</span>
+        <span class="kw">else</span> root = root-&gt;left;
+    }
+    <span class="kw">return</span> pred;
+}
+
+<span class="kw">void</span> inorder(<span class="kw">struct</span> node *t)   { <span class="kw">if</span> (t) { inorder(t-&gt;left); printf(<span class="st">"%d "</span>, t-&gt;key); inorder(t-&gt;right); } }
+<span class="kw">void</span> preorder(<span class="kw">struct</span> node *t)  { <span class="kw">if</span> (t) { printf(<span class="st">"%d "</span>, t-&gt;key); preorder(t-&gt;left); preorder(t-&gt;right); } }
+<span class="kw">void</span> postorder(<span class="kw">struct</span> node *t) { <span class="kw">if</span> (t) { postorder(t-&gt;left); postorder(t-&gt;right); printf(<span class="st">"%d "</span>, t-&gt;key); } }
+
+<span class="cm">/* CLRS 10.4-3 / 12.1-3: inorder without recursion, using an explicit stack */</span>
+<span class="kw">void</span> inorderIter(<span class="kw">struct</span> node *root) {
+    <span class="kw">struct</span> node *stack[100], *cur = root;
+    <span class="kw">int</span> top = -1;
+    <span class="kw">while</span> (cur != NULL || top != -1) {
+        <span class="kw">while</span> (cur != NULL) { stack[++top] = cur; cur = cur-&gt;left; }   <span class="cm">/* go left as far as possible */</span>
+        cur = stack[top--];
+        printf(<span class="st">"%d "</span>, cur-&gt;key);
+        cur = cur-&gt;right;
+    }
+}
+
+<span class="kw">int</span> height(<span class="kw">struct</span> node *t) {          <span class="cm">/* edges on longest root-leaf path; empty tree = -1 */</span>
+    <span class="kw">int</span> hl, hr;
+    <span class="kw">if</span> (t == NULL) <span class="kw">return</span> -1;
+    hl = height(t-&gt;left); hr = height(t-&gt;right);
+    <span class="kw">return</span> 1 + (hl &gt; hr ? hl : hr);
+}
+
+<span class="kw">int</span> countNodes(<span class="kw">struct</span> node *t)  { <span class="kw">return</span> t ? 1 + countNodes(t-&gt;left) + countNodes(t-&gt;right) : 0; }
+<span class="kw">int</span> countLeaves(<span class="kw">struct</span> node *t) {
+    <span class="kw">if</span> (t == NULL) <span class="kw">return</span> 0;
+    <span class="kw">if</span> (t-&gt;left == NULL &amp;&amp; t-&gt;right == NULL) <span class="kw">return</span> 1;
+    <span class="kw">return</span> countLeaves(t-&gt;left) + countLeaves(t-&gt;right);
+}
+
+<span class="kw">int</span> main(<span class="kw">void</span>) {
+    <span class="kw">struct</span> node *root = NULL, *r;
+    <span class="kw">int</span> ch, x;
+    <span class="kw">while</span> (1) {
+        printf(<span class="st">"1.Insert 2.Delete 3.Search 4.Traversals 5.Min/Max 6.Succ/Pred 7.Height/Count 8.Exit: "</span>);
+        <span class="kw">if</span> (scanf(<span class="st">"%d"</span>, &amp;ch) != 1) <span class="kw">break</span>;
+        <span class="kw">switch</span> (ch) {
+        <span class="kw">case</span> 1: scanf(<span class="st">"%d"</span>, &amp;x); root = insert(root, x); <span class="kw">break</span>;
+        <span class="kw">case</span> 2: scanf(<span class="st">"%d"</span>, &amp;x); root = delete(root, x); <span class="kw">break</span>;
+        <span class="kw">case</span> 3: scanf(<span class="st">"%d"</span>, &amp;x); printf(<span class="st">"%d %s\n"</span>, x, search(root, x) ? <span class="st">"found"</span> : <span class="st">"not found"</span>); <span class="kw">break</span>;
+        <span class="kw">case</span> 4: <span class="kw">if</span> (!root) { printf(<span class="st">"Tree empty\n"</span>); <span class="kw">break</span>; }
+                printf(<span class="st">"Inorder:   "</span>); inorder(root);
+                printf(<span class="st">"\nPreorder:  "</span>); preorder(root);
+                printf(<span class="st">"\nPostorder: "</span>); postorder(root);
+                printf(<span class="st">"\nInorder (iterative): "</span>); inorderIter(root); printf(<span class="st">"\n"</span>);
+                <span class="kw">break</span>;
+        <span class="kw">case</span> 5: <span class="kw">if</span> (!root) printf(<span class="st">"Tree empty\n"</span>);
+                <span class="kw">else</span> printf(<span class="st">"Min %d, Max %d\n"</span>, minNode(root)-&gt;key, maxNode(root)-&gt;key);
+                <span class="kw">break</span>;
+        <span class="kw">case</span> 6: scanf(<span class="st">"%d"</span>, &amp;x);
+                r = successor(root, x);   printf(<span class="st">"Successor of %d: "</span>, x);   <span class="kw">if</span> (r) printf(<span class="st">"%d\n"</span>, r-&gt;key); <span class="kw">else</span> printf(<span class="st">"none\n"</span>);
+                r = predecessor(root, x); printf(<span class="st">"Predecessor of %d: "</span>, x); <span class="kw">if</span> (r) printf(<span class="st">"%d\n"</span>, r-&gt;key); <span class="kw">else</span> printf(<span class="st">"none\n"</span>);
+                <span class="kw">break</span>;
+        <span class="kw">case</span> 7: printf(<span class="st">"Height %d, nodes %d, leaves %d\n"</span>, height(root), countNodes(root), countLeaves(root)); <span class="kw">break</span>;
+        <span class="kw">case</span> 8: <span class="kw">return</span> 0;
+        }
+    }
+    <span class="kw">return</span> 0;
+}</pre></div>
+    <p class="desc">Insert 15 6 18 3 7 17 20 2 4 13 9 (CLRS fig 12.2); traversals; min/max; succ/pred of 13 and 15; height; delete 6 (two children) and 15 (root); traversals</p><pre class="out">Inorder:   2 3 4 6 7 9 13 15 17 18 20
+Preorder:  15 6 3 2 4 7 13 9 18 17 20
+Postorder: 2 4 3 9 13 7 6 17 20 18 15
+Inorder (iterative): 2 3 4 6 7 9 13 15 17 18 20
+Min 2, Max 20
+Successor of 13: 15
+Predecessor of 13: 9
+Successor of 15: 17
+Predecessor of 15: 13
+Height 4, nodes 11, leaves 5
+Inorder:   2 3 4 7 9 13 17 18 20
+Preorder:  17 7 3 2 4 13 9 18 20
+Postorder: 2 4 3 9 13 7 20 18 17
+Inorder (iterative): 2 3 4 7 9 13 17 18 20
+6 not found
+Height 3, nodes 9, leaves 4</pre>
+  </div></details>
+  <h3>Viva quick-fire</h3>
+  <div class="drill">
+    <details><summary>Preorder 15 6 3 2 4 7 13 9 18 17 20. What is the postorder?</summary><div class="body"><p>For a BST, preorder alone fixes the tree (the inorder is just the sorted keys). Postorder: 2 4 3 9 13 7 6 17 20 18 15.</p></div></details>
+    <details><summary>Worst-case height of a BST with n nodes, and when does it happen?</summary><div class="body"><p>n − 1, when keys are inserted in sorted order and the tree degenerates into a list. Search then costs O(n). This is why balanced trees exist.</p></div></details>
+    <details><summary>Max nodes in a binary tree of height h? Min height for n nodes?</summary><div class="body"><p>2<sup>h+1</sup> − 1 nodes. Minimum height ⌊lg n⌋.</p></div></details>
+    <details><summary>Heap vs BST: which gives sorted output in O(n)? (CLRS 12.1-2)</summary><div class="body"><p>A BST, by inorder traversal. A heap only orders parent against child, so producing sorted output needs heap sort, O(n lg n).</p></div></details>
+    <details><summary>After inserting 10, 20, 30 into an AVL tree, which rotation happens?</summary><div class="body"><p>Node 10 has balance −2 with the imbalance in the right child's right subtree: an RR case, fixed by a single left rotation. 20 becomes the root.</p></div></details>
+  </div>
+</section>
+
+<footer>Programs compiled with gcc -Wall and run on the inputs described. Menu prompts are trimmed from the outputs for readability. CLRS exercise numbers refer to the 3rd edition listed in your course plan.</footer>
+</div>
+
+<script>
+(function () {
+  document.querySelectorAll('.codebox').forEach(function (box) {
+    var btn = box.querySelector('button'), pre = box.querySelector('pre');
+    btn.addEventListener('click', function () {
+      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1400); };
+      var fallback = function () { var r = document.createRange(); r.selectNodeContents(pre); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Selected, press Ctrl+C'; };
+      try { navigator.clipboard.writeText(pre.innerText).then(done, fallback); } catch (e) { fallback(); }
+    });
+  });
+
+  var poolA = [
+    'Implement a circular queue in an array with overflow and underflow detection.',
+    'Implement a deque in a circular array with insert and delete at both ends.',
+    'Implement a queue using two stacks.',
+    'Implement a stack using two queues.',
+    'Implement a stack and a queue using a singly linked list.',
+    'Singly linked list: insert at front, end and position; delete by value; reverse the list without recursion.',
+    'Doubly linked list: insert at both ends, delete a value, display forward and backward.',
+    'Implement two stacks in one array A[1..n] so neither overflows until n elements are stored.',
+    'Binary search tree: insert, delete, and all three traversals.',
+    'Binary search tree: inorder traversal without recursion using a stack, plus min, max, successor.'
+  ];
+  var poolB = [
+    'Max priority queue using a heap: insert, extract max, increase key.',
+    'Min priority queue using a heap: insert, extract min, decrease key.',
+    'Delete the element at index i from a max heap in O(lg n).',
+    'Convert an array into a min heap or max heap depending on user input.',
+    'Heap sort in ascending and descending order.',
+    'Quick sort with comparison count; compare with randomized quick sort.',
+    'Merge sort (without sentinels) and count the inversions in the input.',
+    'Binary search, iterative and recursive.',
+    'Fibonacci search on a sorted array.',
+    'Recursive insertion sort; check if two elements sum to a given x.'
+  ];
+  var qEl = document.getElementById('mkQ'), tEl = document.getElementById('mkTimer');
+  var left = 900, tick = null;
+  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+  document.getElementById('mkDraw').onclick = function () {
+    qEl.innerHTML = '<div><b>Question 1</b>' + pick(poolA) + '</div><div><b>Question 2</b>' + pick(poolB) + '</div>';
+  };
+  function show() { var m = Math.floor(left / 60), s = left % 60; tEl.textContent = m + ':' + (s < 10 ? '0' : '') + s; tEl.classList.toggle('low', left <= 120); }
+  var startBtn = document.getElementById('mkStart');
+  startBtn.onclick = function () {
+    if (tick) { clearInterval(tick); tick = null; startBtn.textContent = 'Resume'; return; }
+    startBtn.textContent = 'Pause';
+    tick = setInterval(function () { if (left > 0) { left--; show(); } else { clearInterval(tick); tick = null; startBtn.textContent = 'Start 15:00'; tEl.textContent = "Time's up"; } }, 1000);
+  };
+  document.getElementById('mkReset').onclick = function () { clearInterval(tick); tick = null; left = 900; startBtn.textContent = 'Start 15:00'; show(); };
+})();
+</script>

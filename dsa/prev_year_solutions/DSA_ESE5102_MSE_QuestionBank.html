@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DSA Mid-Sem Question Bank</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
+<style>
+:root{
+  --bg:#fbfaf7; --panel:#ffffff; --ink:#1d1d1f; --muted:#5f6368; --line:#e3e0d8;
+  --accent:#b4521f; --accent-soft:#fbeee6; --pyq:#1f6fb4; --pyq-soft:#e6f0fb;
+  --var:#2e7d4f; --var-soft:#e7f5ec; --extra:#7a4fb4; --extra-soft:#f0e9fb;
+  --code-bg:#f6f8fa; --warn:#9a6700; --warn-soft:#fff8e1;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#16171a; --panel:#1f2024; --ink:#e8e6e1; --muted:#a3a3a8; --line:#33343a;
+    --accent:#f08a4b; --accent-soft:#3a2518; --pyq:#6fb0f0; --pyq-soft:#18283a;
+    --var:#6fd39a; --var-soft:#17301f; --extra:#b593ef; --extra-soft:#2a2138;
+    --code-bg:#0d1117; --warn:#f2c14e; --warn-soft:#332a10;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.wrap{display:flex;max-width:1280px;margin:0 auto}
+nav{position:sticky;top:0;height:100vh;overflow:auto;width:270px;flex-shrink:0;padding:24px 16px;border-right:1px solid var(--line);font-size:14px}
+nav h3{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+nav a{display:block;color:var(--ink);text-decoration:none;padding:4px 8px;border-radius:6px}
+nav a:hover{background:var(--accent-soft);color:var(--accent)}
+nav a.sub{padding-left:22px;color:var(--muted);font-size:13px}
+main{flex:1;min-width:0;padding:28px 40px 80px}
+h1{font-size:30px;margin:0 0 4px}
+h2{font-size:24px;margin:56px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--accent)}
+h3{font-size:19px;margin:30px 0 8px}
+h4{font-size:16px;margin:20px 0 6px;color:var(--accent)}
+p{margin:8px 0}
+.subtitle{color:var(--muted);margin:0 0 20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:16px 0}
+.q{border-left:4px solid var(--pyq)}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;padding:2px 8px;border-radius:20px;margin-right:6px;vertical-align:middle;text-transform:uppercase}
+.t-pyq{background:var(--pyq-soft);color:var(--pyq)}
+.t-var{background:var(--var-soft);color:var(--var)}
+.t-extra{background:var(--extra-soft);color:var(--extra)}
+.qtext{font-weight:600;margin:6px 0}
+.note{background:var(--warn-soft);border-left:4px solid var(--warn);padding:10px 14px;border-radius:6px;margin:12px 0}
+.tip{background:var(--accent-soft);border-left:4px solid var(--accent);padding:10px 14px;border-radius:6px;margin:12px 0}
+pre{background:var(--code-bg);border:1px solid var(--line);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+pre code.hljs{background:transparent;padding:0}
+code{font-family:"JetBrains Mono",Consolas,"Courier New",monospace}
+p code,li code,td code{background:var(--code-bg);padding:1px 5px;border-radius:4px;font-size:.9em}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14.5px;background:var(--panel)}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--accent-soft)}
+.tablewrap{overflow-x:auto}
+ol.var li,ul.var li{margin:3px 0}
+svg text{fill:var(--ink);font:600 14px system-ui}
+svg .node{fill:var(--panel);stroke:var(--accent);stroke-width:2}
+svg .edge{stroke:var(--muted);stroke-width:1.6}
+.tree{max-width:700px;width:100%;height:auto;display:block;margin:10px auto}
+.mono{font-family:Consolas,monospace}
+@media (max-width:900px){nav{display:none}main{padding:20px 16px 60px}}
+@media print{nav{display:none}main{padding:0}h2{page-break-before:always}pre,table,.card{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+<h3>Contents</h3>
+<a href="#scope">0. Exam scope &amp; PYQ map</a>
+<a href="#perf">1. Performance analysis</a>
+<a class="sub" href="#perf-notation">Asymptotic notation</a>
+<a class="sub" href="#perf-loops">Analysing loops</a>
+<a class="sub" href="#perf-rec">Recurrences &amp; Master theorem</a>
+<a class="sub" href="#perf-rand">Randomized algorithms</a>
+<a href="#sll">2. Singly linked list</a>
+<a href="#dll">3. Doubly &amp; circular lists</a>
+<a href="#stack">4. Stack</a>
+<a class="sub" href="#stack-arr">Array stack</a>
+<a class="sub" href="#stack-ll">Linked stack</a>
+<a class="sub" href="#stack-app">Applications (worked)</a>
+<a href="#queue">5. Queue</a>
+<a class="sub" href="#queue-ll">Pointer (linked) queue</a>
+<a class="sub" href="#queue-circ">Circular queue</a>
+<a class="sub" href="#queue-pq">Priority queue / heap</a>
+<a href="#sort">6. Sorting</a>
+<a class="sub" href="#sort-ins">O(n²) worst / O(n) best</a>
+<a class="sub" href="#sort-merge">Merge sort</a>
+<a class="sub" href="#sort-quick">Quick sort</a>
+<a class="sub" href="#sort-heap">Heap sort</a>
+<a href="#search">7. Searching</a>
+<a href="#bst">8. Binary search tree</a>
+<a class="sub" href="#bst-build">Build from given list</a>
+<a class="sub" href="#bst-code">BST code</a>
+<a class="sub" href="#bst-del">Deletion cases</a>
+<a href="#tables">9. Complexity tables</a>
+<a href="#short">10. Short-answer / compare questions</a>
+<a href="#practice">11. Practice set with answers</a>
+</nav>
+
+<main>
+<h1>Data Structures &amp; Algorithms (ESE 5102)</h1>
+<p class="subtitle">Mid-Semester question bank — every variation of the previous-year questions, plus related questions from the lesson plan. MSIS Manipal, ME Embedded Systems, Sem I 2026–27.</p>
+
+<!-- ============================================================ -->
+<h2 id="scope">0. Exam scope &amp; how the previous paper maps</h2>
+<div class="card">
+<p><b>From the course plan:</b> MSE is 90 minutes, 50 marks, each question 3–10 marks, typology “Apply and Analyze”. Topics: <b>Algorithm performance measures, Lists, Queue, Sorting, Search</b>. CO1 carries 30 MSE marks and CO2 carries 20 MSE marks — so expect the BST/sorting/search part (CO2, lessons L13–L22) as well as CO1 (L1–L12).</p>
+<p>The bracket like <code>(2,4,4)</code> in the paper is usually <i>(CO, Bloom level, marks)</i> or similar — so “Design / Implement / Analyse” questions are 3–4 mark sub-parts. Write <b>structure definition + function + complexity line</b> for every code question.</p>
+</div>
+
+<div class="tablewrap"><table>
+<tr><th>#</th><th>Previous-year question (paraphrased)</th><th>Topic / lesson</th><th>Where solved</th></tr>
+<tr><td>1</td><td>Design SLL data structure; insert &amp; delete in O(1)</td><td>L7 SLL</td><td><a href="#sll">§2</a></td></tr>
+<tr><td>2</td><td>Define stack, list applications, array stack, push()/pop()</td><td>L9 Stacks</td><td><a href="#stack">§4</a></td></tr>
+<tr><td>3</td><td>BST properties, BST data structure, insert function</td><td>L22 BST</td><td><a href="#bst">§8</a></td></tr>
+<tr><td>4</td><td>Sort with O(n²) worst and O(n) best case, illustrate</td><td>Sorting</td><td><a href="#sort-ins">§6.1</a></td></tr>
+<tr><td>5</td><td>Queue; pointer implementation; enqueue/dequeue</td><td>L10 Queues</td><td><a href="#queue-ll">§5.2</a></td></tr>
+<tr><td>6</td><td>Build BST from 50,70,35,45,36,40,75,80,28,65,20; in/pre/post order</td><td>L21–L22</td><td><a href="#bst-build">§8.1</a></td></tr>
+<tr><td>7</td><td>Stack definition, 4 applications, delete from linked stack</td><td>L9 Stacks</td><td><a href="#stack-ll">§4.3</a></td></tr>
+<tr><td>8</td><td>Merge sort, derive time complexity, example</td><td>L15 Merge sort</td><td><a href="#sort-merge">§6.2</a></td></tr>
+</table></div>
+
+<div class="tip"><b>Answer-writing pattern that scores in “Apply/Analyze” papers:</b> (1) one-line definition, (2) diagram, (3) <code>struct</code> declaration, (4) function with comments, (5) a short trace on a small example, (6) complexity with one-line justification. Missing the complexity line is the most common way marks are lost on “analyse” questions.</div>
+
+<!-- ============================================================ -->
+<h2 id="perf">1. Performance analysis (L1–L6) <span class="tag t-extra">Extra</span></h2>
+<p>Not in last year's paper, but explicitly listed as an MSE topic (“Algorithm performance measures”) and 6 of the 12 CO1 lectures. Expect at least one short question.</p>
+
+<div class="card q">
+<span class="tag t-extra">Likely</span>
+<p class="qtext">What is an algorithm? List its characteristics. (2–3 marks)</p>
+<p>An algorithm is a finite sequence of well-defined instructions that solves a problem. Characteristics (Horowitz–Sahni):</p>
+<ul>
+<li><b>Input</b> – zero or more quantities supplied externally.</li>
+<li><b>Output</b> – at least one quantity produced.</li>
+<li><b>Definiteness</b> – each step is clear and unambiguous.</li>
+<li><b>Finiteness</b> – terminates after a finite number of steps for all inputs.</li>
+<li><b>Effectiveness</b> – each step is basic enough to be carried out (e.g., with pencil and paper).</li>
+</ul>
+</div>
+
+<div class="card q">
+<span class="tag t-extra">Likely</span>
+<p class="qtext">Define time complexity and space complexity. How is space complexity of a program computed?</p>
+<p><b>Time complexity</b>: amount of computer time an algorithm needs to run to completion, expressed as a function of input size <i>n</i> (counted in basic steps, not seconds).</p>
+<p><b>Space complexity</b>: amount of memory it needs. <code>S(P) = c + S<sub>P</sub>(instance)</code> where <code>c</code> is the fixed part (code, simple variables, constants) and <code>S<sub>P</sub></code> is the variable part (arrays whose size depends on n, recursion stack).</p>
+<p>Example: recursive sum of n elements uses a recursion stack of depth n+1 → S = O(n); iterative sum uses O(1).</p>
+<pre><code class="language-c">/* Iterative sum: time O(n), extra space O(1) */
+int sumIter(int a[], int n){
+    int s = 0;                 /* 1 step                    */
+    for(int i = 0; i &lt; n; i++) /* loop test runs n+1 times  */
+        s += a[i];             /* runs n times              */
+    return s;                  /* 1 step  -> total 2n+3     */
+}
+
+/* Recursive sum: time O(n), space O(n) because of n+1 stack frames */
+int sumRec(int a[], int n){
+    if(n == 0) return 0;               /* base case             */
+    return sumRec(a, n-1) + a[n-1];    /* T(n) = T(n-1) + c     */
+}</code></pre>
+</div>
+
+<h3 id="perf-notation">1.1 Asymptotic notation</h3>
+<div class="tablewrap"><table>
+<tr><th>Notation</th><th>Formal definition</th><th>Meaning</th></tr>
+<tr><td>f(n) = O(g(n))</td><td>∃ c&gt;0, n₀ such that f(n) ≤ c·g(n) for all n ≥ n₀</td><td>Upper bound (worst-case growth)</td></tr>
+<tr><td>f(n) = Ω(g(n))</td><td>∃ c&gt;0, n₀ such that f(n) ≥ c·g(n) for all n ≥ n₀</td><td>Lower bound</td></tr>
+<tr><td>f(n) = Θ(g(n))</td><td>∃ c₁,c₂&gt;0, n₀ such that c₁g(n) ≤ f(n) ≤ c₂g(n) for n ≥ n₀</td><td>Tight bound</td></tr>
+<tr><td>f(n) = o(g(n))</td><td>f(n)/g(n) → 0 as n → ∞</td><td>Strictly smaller growth</td></tr>
+</table></div>
+<div class="card">
+<p><b>Worked:</b> Show 3n² + 2n + 5 = O(n²).<br>For n ≥ 1: 3n² + 2n + 5 ≤ 3n² + 2n² + 5n² = 10n². So c = 10, n₀ = 1. ✔</p>
+<p><b>Worked:</b> Show 3n² + 2n + 5 = Ω(n²): 3n² + 2n + 5 ≥ 3n² for all n ≥ 1 → c = 3, n₀ = 1. Hence Θ(n²).</p>
+<p><b>Growth order:</b> 1 &lt; log n &lt; √n &lt; n &lt; n log n &lt; n² &lt; n³ &lt; 2ⁿ &lt; n!</p>
+<p><b>Best / worst / average case:</b> minimum, maximum and expected number of steps over all inputs of size n. E.g. linear search: best 1 comparison (key at index 0), worst n (key absent or last), average ≈ n/2.</p>
+</div>
+
+<h3 id="perf-loops">1.2 Analysing loops — common “find the complexity” fragments</h3>
+<div class="tablewrap"><table>
+<tr><th>Code fragment</th><th>Count</th><th>Complexity</th></tr>
+<tr><td><code>for(i=0;i&lt;n;i++) x++;</code></td><td>n</td><td>O(n)</td></tr>
+<tr><td><code>for(i=0;i&lt;n;i++) for(j=0;j&lt;n;j++) x++;</code></td><td>n²</td><td>O(n²)</td></tr>
+<tr><td><code>for(i=0;i&lt;n;i++) for(j=0;j&lt;i;j++) x++;</code></td><td>0+1+…+(n−1) = n(n−1)/2</td><td>O(n²)</td></tr>
+<tr><td><code>for(i=1;i&lt;n;i*=2) x++;</code></td><td>⌈log₂n⌉</td><td>O(log n)</td></tr>
+<tr><td><code>for(i=n;i&gt;0;i/=2) x++;</code></td><td>⌊log₂n⌋+1</td><td>O(log n)</td></tr>
+<tr><td><code>for(i=0;i&lt;n;i++) for(j=1;j&lt;n;j*=2) x++;</code></td><td>n·log n</td><td>O(n log n)</td></tr>
+<tr><td><code>for(i=1;i*i&lt;=n;i++) x++;</code></td><td>√n</td><td>O(√n)</td></tr>
+<tr><td><code>for(i=1;i&lt;=n;i++) for(j=1;j&lt;=n;j+=i) x++;</code></td><td>n(1+1/2+…+1/n)</td><td>O(n log n)</td></tr>
+</table></div>
+
+<h3 id="perf-rec">1.3 Analysis of recursive programs &amp; solving recurrences</h3>
+<div class="card">
+<p><b>Step 1</b> – write the recurrence from the code: (number of recursive calls) × T(size of each) + (work done outside the calls).</p>
+<p><b>Step 2</b> – solve by <i>substitution (iteration)</i>, <i>recursion tree</i>, or <i>Master theorem</i>.</p>
+<h4>Iteration (back-substitution) example: T(n) = T(n−1) + n, T(1)=1</h4>
+<p>T(n) = T(n−2) + (n−1) + n = T(n−3) + (n−2) + (n−1) + n = … = T(1) + 2 + 3 + … + n = n(n+1)/2 → <b>O(n²)</b>. (Recursive selection sort, quicksort worst case.)</p>
+<h4>Example: T(n) = T(n/2) + c (binary search)</h4>
+<p>T(n) = T(n/4) + 2c = … = T(n/2ᵏ) + kc. Put n = 2ᵏ → k = log₂n → T(n) = T(1) + c·log₂n = <b>O(log n)</b>.</p>
+<h4>Master theorem: T(n) = a·T(n/b) + f(n), a ≥ 1, b &gt; 1</h4>
+<p>Compare f(n) with n<sup>log<sub>b</sub>a</sup>:</p>
+<ul>
+<li><b>Case 1:</b> f(n) = O(n<sup>log<sub>b</sub>a − ε</sup>) → T(n) = Θ(n<sup>log<sub>b</sub>a</sup>)</li>
+<li><b>Case 2:</b> f(n) = Θ(n<sup>log<sub>b</sub>a</sup>) → T(n) = Θ(n<sup>log<sub>b</sub>a</sup> · log n)</li>
+<li><b>Case 3:</b> f(n) = Ω(n<sup>log<sub>b</sub>a + ε</sup>) and a·f(n/b) ≤ k·f(n) for some k&lt;1 → T(n) = Θ(f(n))</li>
+</ul>
+<p>“General solution for a large class of recurrences” (Aho–Ullman): for T(n) = a·T(n/b) + d(n) with d(n) = n<sup>k</sup>: if a &gt; bᵏ → O(n<sup>log<sub>b</sub>a</sup>); a = bᵏ → O(nᵏ log n); a &lt; bᵏ → O(nᵏ). This is the same result in simpler form.</p>
+</div>
+<div class="tablewrap"><table>
+<tr><th>Recurrence</th><th>Typical algorithm</th><th>Solution</th></tr>
+<tr><td>T(n) = T(n−1) + c</td><td>factorial, recursive linear search</td><td>O(n)</td></tr>
+<tr><td>T(n) = T(n−1) + n</td><td>selection/insertion sort (recursive), quicksort worst</td><td>O(n²)</td></tr>
+<tr><td>T(n) = T(n/2) + c</td><td>binary search</td><td>O(log n)</td></tr>
+<tr><td>T(n) = 2T(n/2) + c</td><td>tree traversal, max of array by halves</td><td>O(n)</td></tr>
+<tr><td>T(n) = 2T(n/2) + n</td><td>merge sort, quicksort best</td><td>O(n log n)</td></tr>
+<tr><td>T(n) = 2T(n−1) + c</td><td>Towers of Hanoi, naive Fibonacci (≈)</td><td>O(2ⁿ)</td></tr>
+<tr><td>T(n) = 7T(n/2) + n²</td><td>Strassen</td><td>O(n<sup>log₂7</sup>) ≈ O(n<sup>2.81</sup>)</td></tr>
+</table></div>
+
+<h3 id="perf-rand">1.4 Randomized algorithms</h3>
+<div class="card">
+<p>An algorithm that makes random choices during execution; its running time or output can vary between runs on the same input.</p>
+<ul>
+<li><b>Las Vegas</b> – always gives the correct answer; running time is random (e.g. randomized quicksort: expected O(n log n) for <i>every</i> input).</li>
+<li><b>Monte Carlo</b> – fixed running time; answer correct with high probability (e.g. Miller–Rabin primality test).</li>
+</ul>
+<p><b>Why randomize quicksort?</b> Picking the pivot at random means no particular input (e.g. already-sorted) can force the O(n²) worst case; the bad case now only happens with tiny probability.</p>
+<pre><code class="language-c">#include &lt;stdlib.h&gt;
+/* Randomized partition: swap a random element into the pivot position,
+   then use the normal Lomuto partition (see quicksort section). */
+int randomizedPartition(int a[], int low, int high){
+    int r = low + rand() % (high - low + 1);   /* random index in [low, high] */
+    int t = a[r]; a[r] = a[high]; a[high] = t; /* move it to the end          */
+    return partition(a, low, high);            /* pivot = a[high]             */
+}</code></pre>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="sll">2. Singly linked list (L7)</h2>
+
+<div class="card q">
+<span class="tag t-pyq">PYQ</span>
+<p class="qtext">Design a data structure for a singly linked list. Write functions to insert and delete an element in O(1) time. (Analyse, 4 marks)</p>
+<h4>Variations you can expect</h4>
+<ol class="var">
+<li>Insert at the beginning / at the end / after a given node / at position k — give the complexity of each.</li>
+<li>Delete first node / last node / node with a given key / a node given only a pointer to it.</li>
+<li>Why is deleting the last node <b>not</b> O(1) in an SLL? How do you make insert-at-end O(1)?</li>
+<li>Delete a node when only a pointer to that node is given (no head pointer).</li>
+<li>Reverse a singly linked list; count nodes; search for a key; find the middle node.</li>
+<li>Implement an SLL with a header (dummy) node and explain why it simplifies code.</li>
+<li>Compare arrays and linked lists.</li>
+</ol>
+</div>
+
+<h4>Key idea for O(1)</h4>
+<p>An operation is O(1) only if it never walks the list. In an SLL that is true for: insert at head, delete head, insert <i>after</i> a known node, insert at tail <i>if a tail pointer is kept</i>, and delete a given node (non-last) using the copy-next trick. Deleting the tail is O(n) because the new tail (the predecessor) can only be found by walking from the head.</p>
+
+<pre>
+ head                                         tail
+  |                                             |
+  v                                             v
+[ 10 | *-]--> [ 20 | *-]--> [ 30 | *-]--> [ 40 | NULL ]
+</pre>
+
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+/* ---------- Data structure design ---------- */
+/* One node = data field + link to the next node */
+typedef struct Node {
+    int data;
+    struct Node *next;
+} Node;
+
+/* The list keeps head AND tail so both ends can be reached in O(1).
+   size is maintained so length() is O(1) as well.                    */
+typedef struct {
+    Node *head;
+    Node *tail;
+    int   size;
+} SList;
+
+void initList(SList *L){
+    L-&gt;head = L-&gt;tail = NULL;   /* empty list: both pointers NULL */
+    L-&gt;size = 0;
+}
+
+/* Allocate a node and fill it. Exits if malloc fails. */
+Node *createNode(int x){
+    Node *n = (Node *)malloc(sizeof(Node));
+    if(n == NULL){ printf("Memory allocation failed\n"); exit(1); }
+    n-&gt;data = x;
+    n-&gt;next = NULL;
+    return n;
+}
+
+/* ---------- INSERT AT FRONT : O(1) ---------- */
+void insertFront(SList *L, int x){
+    Node *n = createNode(x);
+    n-&gt;next = L-&gt;head;          /* new node points to old first node   */
+    L-&gt;head = n;                /* head now points to new node          */
+    if(L-&gt;tail == NULL)         /* list was empty -&gt; new node is also tail */
+        L-&gt;tail = n;
+    L-&gt;size++;
+}
+
+/* ---------- INSERT AT REAR : O(1) (only because tail is kept) ---------- */
+void insertRear(SList *L, int x){
+    Node *n = createNode(x);
+    if(L-&gt;tail == NULL){        /* empty list */
+        L-&gt;head = L-&gt;tail = n;
+    } else {
+        L-&gt;tail-&gt;next = n;      /* link old last node to new node */
+        L-&gt;tail = n;            /* new node becomes the tail       */
+    }
+    L-&gt;size++;
+}
+
+/* ---------- INSERT AFTER A GIVEN NODE p : O(1) ---------- */
+void insertAfter(SList *L, Node *p, int x){
+    if(p == NULL) return;
+    Node *n = createNode(x);
+    n-&gt;next = p-&gt;next;          /* new node takes over p's successor */
+    p-&gt;next = n;                /* p now points to new node          */
+    if(p == L-&gt;tail)            /* inserted after last node          */
+        L-&gt;tail = n;
+    L-&gt;size++;
+}
+
+/* ---------- DELETE FROM FRONT : O(1) ----------
+   Returns 1 on success and puts the removed value in *out, 0 if empty. */
+int deleteFront(SList *L, int *out){
+    if(L-&gt;head == NULL){ printf("List empty\n"); return 0; }
+    Node *temp = L-&gt;head;       /* remember node to free           */
+    *out = temp-&gt;data;
+    L-&gt;head = temp-&gt;next;       /* second node becomes first       */
+    if(L-&gt;head == NULL)         /* list became empty               */
+        L-&gt;tail = NULL;
+    free(temp);
+    L-&gt;size--;
+    return 1;
+}
+
+/* ---------- DELETE A GIVEN NODE p (p is not the last node) : O(1) ----------
+   Trick: we cannot reach p's predecessor, so copy the NEXT node's data
+   into p and delete the next node instead.                             */
+int deleteGivenNode(SList *L, Node *p){
+    if(p == NULL || p-&gt;next == NULL){
+        printf("Cannot delete last node in O(1)\n");
+        return 0;
+    }
+    Node *q = p-&gt;next;          /* node that will be physically removed */
+    p-&gt;data = q-&gt;data;          /* copy successor's data into p         */
+    p-&gt;next = q-&gt;next;          /* bypass q                             */
+    if(q == L-&gt;tail)            /* if q was tail, p is the new tail     */
+        L-&gt;tail = p;
+    free(q);
+    L-&gt;size--;
+    return 1;
+}
+
+/* ---------- DELETE AFTER A GIVEN NODE p : O(1) ---------- */
+int deleteAfter(SList *L, Node *p, int *out){
+    if(p == NULL || p-&gt;next == NULL) return 0;
+    Node *q = p-&gt;next;
+    *out = q-&gt;data;
+    p-&gt;next = q-&gt;next;
+    if(q == L-&gt;tail) L-&gt;tail = p;
+    free(q);
+    L-&gt;size--;
+    return 1;
+}
+
+/* ---------- DELETE FROM REAR : O(n)  (needs the predecessor of tail) ---------- */
+int deleteRear(SList *L, int *out){
+    if(L-&gt;head == NULL) return 0;
+    if(L-&gt;head == L-&gt;tail){                 /* single node */
+        *out = L-&gt;head-&gt;data;
+        free(L-&gt;head);
+        L-&gt;head = L-&gt;tail = NULL;
+    } else {
+        Node *prev = L-&gt;head;
+        while(prev-&gt;next != L-&gt;tail)         /* walk to second-last node */
+            prev = prev-&gt;next;
+        *out = L-&gt;tail-&gt;data;
+        free(L-&gt;tail);
+        prev-&gt;next = NULL;
+        L-&gt;tail = prev;
+    }
+    L-&gt;size--;
+    return 1;
+}
+
+/* ---------- DELETE BY KEY : O(n) ---------- */
+int deleteKey(SList *L, int key){
+    Node *prev = NULL, *cur = L-&gt;head;
+    while(cur != NULL &amp;&amp; cur-&gt;data != key){ /* search, remembering prev */
+        prev = cur;
+        cur  = cur-&gt;next;
+    }
+    if(cur == NULL) return 0;                 /* key not found            */
+    if(prev == NULL) L-&gt;head = cur-&gt;next;     /* deleting first node      */
+    else             prev-&gt;next = cur-&gt;next;  /* bypass cur               */
+    if(cur == L-&gt;tail) L-&gt;tail = prev;        /* deleting last node       */
+    free(cur);
+    L-&gt;size--;
+    return 1;
+}
+
+/* ---------- INSERT AT POSITION pos (0-based) : O(pos) ---------- */
+void insertAt(SList *L, int pos, int x){
+    if(pos &lt;= 0){ insertFront(L, x); return; }
+    if(pos &gt;= L-&gt;size){ insertRear(L, x); return; }
+    Node *p = L-&gt;head;
+    for(int i = 0; i &lt; pos - 1; i++)  /* stop at node before the position */
+        p = p-&gt;next;
+    insertAfter(L, p, x);
+}
+
+/* ---------- SEARCH : O(n) ---------- */
+Node *search(SList *L, int key){
+    for(Node *p = L-&gt;head; p != NULL; p = p-&gt;next)
+        if(p-&gt;data == key) return p;
+    return NULL;
+}
+
+/* ---------- REVERSE (in place) : O(n) time, O(1) space ---------- */
+void reverse(SList *L){
+    Node *prev = NULL, *cur = L-&gt;head, *nxt;
+    L-&gt;tail = L-&gt;head;            /* old head becomes the tail */
+    while(cur != NULL){
+        nxt = cur-&gt;next;          /* save rest of list          */
+        cur-&gt;next = prev;         /* reverse this link          */
+        prev = cur;               /* move prev forward          */
+        cur = nxt;                /* move cur forward           */
+    }
+    L-&gt;head = prev;               /* last node is the new head  */
+}
+
+/* ---------- MIDDLE NODE : slow/fast pointers, O(n) ---------- */
+Node *middle(SList *L){
+    Node *slow = L-&gt;head, *fast = L-&gt;head;
+    while(fast != NULL &amp;&amp; fast-&gt;next != NULL){
+        slow = slow-&gt;next;        /* 1 step  */
+        fast = fast-&gt;next-&gt;next;  /* 2 steps */
+    }
+    return slow;
+}
+
+void display(SList *L){
+    for(Node *p = L-&gt;head; p != NULL; p = p-&gt;next)
+        printf("%d -&gt; ", p-&gt;data);
+    printf("NULL\n");
+}
+
+int main(void){
+    SList L; int v;
+    initList(&amp;L);
+    insertFront(&amp;L, 20);         /* 20                 */
+    insertFront(&amp;L, 10);         /* 10 20              */
+    insertRear(&amp;L, 40);          /* 10 20 40           */
+    insertAfter(&amp;L, search(&amp;L, 20), 30); /* 10 20 30 40 */
+    display(&amp;L);
+    deleteFront(&amp;L, &amp;v);         /* removes 10         */
+    deleteGivenNode(&amp;L, search(&amp;L, 30)); /* 20 40       */
+    display(&amp;L);
+    reverse(&amp;L);                 /* 40 20              */
+    display(&amp;L);
+    return 0;
+}</code></pre>
+
+<div class="tablewrap"><table>
+<tr><th>Operation (SLL with head + tail)</th><th>Complexity</th><th>Reason</th></tr>
+<tr><td>Insert at front</td><td>O(1)</td><td>only head pointer changes</td></tr>
+<tr><td>Insert at rear</td><td>O(1) with tail / O(n) without</td><td>tail gives direct access to last node</td></tr>
+<tr><td>Insert after given node</td><td>O(1)</td><td>two pointer assignments</td></tr>
+<tr><td>Insert at position k</td><td>O(k)</td><td>walk to position k−1</td></tr>
+<tr><td>Delete front</td><td>O(1)</td><td>head = head→next</td></tr>
+<tr><td>Delete given node (not last)</td><td>O(1)</td><td>copy-next trick</td></tr>
+<tr><td>Delete rear</td><td>O(n)</td><td>need predecessor of tail; no back link</td></tr>
+<tr><td>Delete by key / search</td><td>O(n)</td><td>linear scan</td></tr>
+</table></div>
+
+<div class="card q">
+<span class="tag t-var">Variation</span>
+<p class="qtext">SLL with a header (dummy) node — why use it?</p>
+<p>A header node is an extra node at the front that holds no data. The list is empty when <code>header-&gt;next == NULL</code>. Because every real node now has a predecessor, insert/delete at the front need no special case — the same “insert after p / delete after p” code works everywhere. This is the style used in Aho–Hopcroft–Ullman (your reference 2), where a position is represented by a pointer to the <i>previous</i> cell.</p>
+<pre><code class="language-c">/* With a header node, deleting the element at "position" p
+   (p points to the cell BEFORE the one being deleted) is always O(1). */
+void deleteAtPosition(Node *p){
+    Node *q = p-&gt;next;       /* cell to delete      */
+    p-&gt;next = q-&gt;next;       /* unlink it           */
+    free(q);
+}
+void insertAtPosition(Node *p, int x){   /* insert after p */
+    Node *n = createNode(x);
+    n-&gt;next = p-&gt;next;
+    p-&gt;next = n;
+}</code></pre>
+</div>
+
+<div class="card q">
+<span class="tag t-var">Variation</span>
+<p class="qtext">Detect a loop (cycle) in a singly linked list. <span class="tag t-extra">Extra</span></p>
+<pre><code class="language-c">/* Floyd's tortoise and hare: if a cycle exists, fast eventually meets slow.
+   Time O(n), space O(1). */
+int hasCycle(Node *head){
+    Node *slow = head, *fast = head;
+    while(fast != NULL &amp;&amp; fast-&gt;next != NULL){
+        slow = slow-&gt;next;
+        fast = fast-&gt;next-&gt;next;
+        if(slow == fast) return 1;   /* pointers met -&gt; cycle */
+    }
+    return 0;                        /* fast reached NULL -&gt; no cycle */
+}</code></pre>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="dll">3. Doubly linked &amp; circular lists (L8)</h2>
+<div class="card q">
+<span class="tag t-var">Variation</span>
+<p class="qtext">Design a DLL. Write functions to insert at front/rear and delete a given node in O(1). Why is delete-last O(1) in a DLL but O(n) in an SLL?</p>
+<p>Each DLL node has a <code>prev</code> link, so the predecessor of any node (including the tail) is available in O(1). That is exactly what an SLL lacks.</p>
+<pre>
+NULL &lt;-[prev|10|next]&lt;=&gt;[prev|20|next]&lt;=&gt;[prev|30|next]-&gt; NULL
+         ^head                                   ^tail
+</pre>
+<pre><code class="language-c">typedef struct DNode {
+    int data;
+    struct DNode *prev, *next;
+} DNode;
+
+typedef struct { DNode *head, *tail; } DList;
+
+DNode *newDNode(int x){
+    DNode *n = (DNode *)malloc(sizeof(DNode));
+    n-&gt;data = x; n-&gt;prev = n-&gt;next = NULL;
+    return n;
+}
+
+/* O(1) */
+void dInsertFront(DList *L, int x){
+    DNode *n = newDNode(x);
+    n-&gt;next = L-&gt;head;
+    if(L-&gt;head) L-&gt;head-&gt;prev = n;   /* old head points back to n */
+    else        L-&gt;tail = n;         /* list was empty            */
+    L-&gt;head = n;
+}
+
+/* O(1) */
+void dInsertRear(DList *L, int x){
+    DNode *n = newDNode(x);
+    n-&gt;prev = L-&gt;tail;
+    if(L-&gt;tail) L-&gt;tail-&gt;next = n;
+    else        L-&gt;head = n;
+    L-&gt;tail = n;
+}
+
+/* O(1): delete ANY node p, including first and last */
+void dDeleteNode(DList *L, DNode *p){
+    if(p-&gt;prev) p-&gt;prev-&gt;next = p-&gt;next;  /* bypass p going forward  */
+    else        L-&gt;head = p-&gt;next;        /* p was head              */
+    if(p-&gt;next) p-&gt;next-&gt;prev = p-&gt;prev;  /* bypass p going backward */
+    else        L-&gt;tail = p-&gt;prev;        /* p was tail              */
+    free(p);
+}
+
+/* O(1) delete last — possible because tail-&gt;prev is known */
+void dDeleteRear(DList *L){
+    if(L-&gt;tail) dDeleteNode(L, L-&gt;tail);
+}</code></pre>
+</div>
+
+<div class="card q">
+<span class="tag t-var">Variation</span>
+<p class="qtext">Circular singly linked list: insert at front and rear in O(1) using only a <i>last</i> pointer.</p>
+<p>In a circular list the last node points back to the first. Keeping only <code>last</code> gives both ends in O(1): first = <code>last-&gt;next</code>.</p>
+<pre><code class="language-c">/* last points to the last node; last-&gt;next is the first node */
+Node *cInsertFront(Node *last, int x){
+    Node *n = createNode(x);
+    if(last == NULL){ n-&gt;next = n; return n; }  /* single node points to itself */
+    n-&gt;next = last-&gt;next;     /* new node points to old first */
+    last-&gt;next = n;           /* last now points to new first */
+    return last;
+}
+Node *cInsertRear(Node *last, int x){
+    last = cInsertFront(last, x);  /* insert at front ...          */
+    return last-&gt;next;             /* ... then make it the new last */
+}</code></pre>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="stack">4. Stack (L9)</h2>
+
+<div class="card q">
+<span class="tag t-pyq">PYQ</span>
+<p class="qtext">Define stack data structure. List applications of stack. Provide data structure for an array-based stack. Implement push() and pop().</p>
+<span class="tag t-pyq">PYQ</span>
+<p class="qtext">Define stack. List any four applications. Write functions to delete elements from a linked-list-based stack.</p>
+<h4>Variations</h4>
+<ol class="var">
+<li>Array stack: push, pop, peek, isEmpty, isFull, display — with overflow/underflow handling.</li>
+<li>Linked stack: push, pop (delete), delete all elements, display.</li>
+<li>Compare array vs linked implementation of a stack.</li>
+<li>Convert infix to postfix using a stack (trace table).</li>
+<li>Evaluate a postfix expression using a stack.</li>
+<li>Check balanced parentheses using a stack.</li>
+<li>Reverse a string / number using a stack.</li>
+<li>Implement two stacks in one array.</li>
+<li>Show the stack contents after a sequence of push/pop operations.</li>
+</ol>
+</div>
+
+<div class="card">
+<p><b>Definition:</b> A stack is a linear list in which insertions (<b>push</b>) and deletions (<b>pop</b>) take place at one end only, called the <b>top</b>. It follows <b>LIFO</b> (Last In, First Out).</p>
+<p><b>Applications</b> (write any four, with one line each):</p>
+<ol>
+<li><b>Function calls &amp; recursion</b> — return address, parameters and local variables are kept in stack frames.</li>
+<li><b>Expression conversion</b> — infix → postfix/prefix.</li>
+<li><b>Expression evaluation</b> — postfix/prefix evaluation.</li>
+<li><b>Parenthesis/bracket matching</b> — compilers, editors.</li>
+<li><b>Undo/redo</b> in editors; <b>back</b> button in browsers.</li>
+<li><b>Backtracking</b> — maze solving, DFS of graphs, N-Queens.</li>
+<li><b>Reversing</b> a string or list.</li>
+<li><b>Interrupt handling</b> — CPU pushes context (PC, registers) on interrupt entry and pops on return (relevant in embedded systems; ARM Cortex-M does this automatically on exception entry).</li>
+</ol>
+</div>
+
+<h3 id="stack-arr">4.1 Array-based stack</h3>
+<pre>
+index:   0    1    2    3    4   ...  MAX-1
+       [ 5 ][ 8 ][ 3 ][   ][   ] ...
+                    ^ top = 2      (top = -1 means empty, top = MAX-1 means full)
+</pre>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#define MAX 100
+
+/* ---------- Data structure ---------- */
+typedef struct {
+    int items[MAX];   /* storage for elements                 */
+    int top;          /* index of top element; -1 when empty  */
+} Stack;
+
+void initStack(Stack *s){ s-&gt;top = -1; }
+
+int isEmpty(Stack *s){ return s-&gt;top == -1; }
+int isFull (Stack *s){ return s-&gt;top == MAX - 1; }
+
+/* ---------- PUSH : O(1) ---------- */
+void push(Stack *s, int x){
+    if(isFull(s)){                 /* no room -&gt; overflow */
+        printf("Stack Overflow\n");
+        return;
+    }
+    s-&gt;top++;                      /* move top up first   */
+    s-&gt;items[s-&gt;top] = x;          /* then store element  */
+}
+
+/* ---------- POP : O(1) ----------
+   Returns 1 and stores the popped value in *x; returns 0 on underflow. */
+int pop(Stack *s, int *x){
+    if(isEmpty(s)){                /* nothing to remove   */
+        printf("Stack Underflow\n");
+        return 0;
+    }
+    *x = s-&gt;items[s-&gt;top];         /* read top element    */
+    s-&gt;top--;                      /* then move top down  */
+    return 1;
+}
+
+/* ---------- PEEK : O(1) ---------- */
+int peek(Stack *s, int *x){
+    if(isEmpty(s)) return 0;
+    *x = s-&gt;items[s-&gt;top];         /* read without removing */
+    return 1;
+}
+
+void displayStack(Stack *s){
+    for(int i = s-&gt;top; i &gt;= 0; i--)   /* print from top to bottom */
+        printf("%d\n", s-&gt;items[i]);
+}
+
+int main(void){
+    Stack s; int v;
+    initStack(&amp;s);
+    push(&amp;s, 5); push(&amp;s, 8); push(&amp;s, 3);  /* stack: 5 8 3 (3 on top) */
+    pop(&amp;s, &amp;v);                             /* v = 3                    */
+    printf("Popped %d\n", v);
+    displayStack(&amp;s);                        /* 8 then 5                 */
+    return 0;
+}</code></pre>
+<p class="note">Write <code>items[++top] = x</code> for push and <code>return items[top--]</code> for pop — pre-increment for push, post-decrement for pop. Mixing these up is a classic mistake examiners look for.</p>
+
+<h3 id="stack-ll">4.2 &amp; 4.3 Linked-list-based stack (push, pop, delete all)</h3>
+<pre>
+top
+ |
+ v
+[ 3 | *]--&gt;[ 8 | *]--&gt;[ 5 | NULL]      push/pop happen at the head -&gt; O(1)
+</pre>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+typedef struct SNode {
+    int data;
+    struct SNode *next;
+} SNode;
+
+typedef struct {
+    SNode *top;      /* pointer to top node; NULL means empty stack */
+    int count;
+} LStack;
+
+void initLStack(LStack *s){ s-&gt;top = NULL; s-&gt;count = 0; }
+
+/* ---------- PUSH : insert at head, O(1). No "full" condition
+   except when malloc fails (heap exhausted). ---------- */
+void lpush(LStack *s, int x){
+    SNode *n = (SNode *)malloc(sizeof(SNode));
+    if(n == NULL){ printf("Overflow: heap full\n"); return; }
+    n-&gt;data = x;
+    n-&gt;next = s-&gt;top;     /* new node points to current top */
+    s-&gt;top  = n;          /* new node becomes top           */
+    s-&gt;count++;
+}
+
+/* ---------- POP (delete one element) : delete at head, O(1) ---------- */
+int lpop(LStack *s, int *x){
+    if(s-&gt;top == NULL){               /* empty -&gt; underflow             */
+        printf("Stack Underflow\n");
+        return 0;
+    }
+    SNode *temp = s-&gt;top;             /* node to delete                  */
+    *x = temp-&gt;data;                  /* save its value                  */
+    s-&gt;top = temp-&gt;next;              /* top moves to next node          */
+    free(temp);                       /* release memory (important!)     */
+    s-&gt;count--;
+    return 1;
+}
+
+/* ---------- DELETE ALL ELEMENTS : O(n) ---------- */
+void deleteAll(LStack *s){
+    int x;
+    while(s-&gt;top != NULL)             /* pop until empty, freeing each node */
+        lpop(s, &amp;x);
+}
+
+/* ---------- DELETE k ELEMENTS : O(k) ---------- */
+void popK(LStack *s, int k){
+    int x;
+    while(k-- &gt; 0 &amp;&amp; lpop(s, &amp;x))
+        printf("Deleted %d\n", x);
+}
+
+int lpeek(LStack *s, int *x){
+    if(s-&gt;top == NULL) return 0;
+    *x = s-&gt;top-&gt;data;
+    return 1;
+}
+
+void displayL(LStack *s){
+    for(SNode *p = s-&gt;top; p; p = p-&gt;next) printf("%d ", p-&gt;data);
+    printf("\n");
+}</code></pre>
+
+<div class="tablewrap"><table>
+<tr><th></th><th>Array stack</th><th>Linked stack</th></tr>
+<tr><td>Size</td><td>Fixed (MAX); overflow possible</td><td>Dynamic; limited only by heap</td></tr>
+<tr><td>Memory per element</td><td>Just the data</td><td>Data + pointer</td></tr>
+<tr><td>push/pop</td><td>O(1)</td><td>O(1)</td></tr>
+<tr><td>Cache / speed</td><td>Contiguous, faster</td><td>malloc/free overhead</td></tr>
+<tr><td>Embedded use</td><td>Preferred (no heap fragmentation)</td><td>Avoided in hard real-time code</td></tr>
+</table></div>
+
+<div class="card q">
+<span class="tag t-var">Variation</span>
+<p class="qtext">Two stacks in one array (space-efficient).</p>
+<pre><code class="language-c">/* Stack 1 grows from left (top1 starts at -1), stack 2 from right (top2 starts at MAX).
+   Overflow only when the two tops meet, so no space is wasted. */
+int arr[MAX], top1 = -1, top2 = MAX;
+void push1(int x){ if(top1 + 1 == top2) printf("Overflow\n"); else arr[++top1] = x; }
+void push2(int x){ if(top1 + 1 == top2) printf("Overflow\n"); else arr[--top2] = x; }
+int  pop1(void){ return (top1 == -1)  ? -1 : arr[top1--]; }
+int  pop2(void){ return (top2 == MAX) ? -1 : arr[top2++]; }</code></pre>
+</div>
+
+<h3 id="stack-app">4.4 Stack applications — worked examples</h3>
+
+<div class="card q">
+<span class="tag t-var">Variation</span>
+<p class="qtext">Convert <span class="mono">A + B * C - ( D / E )</span> to postfix using a stack.</p>
+<p>Rules: operand → output. <code>(</code> → push. <code>)</code> → pop to output until <code>(</code>. Operator → pop operators of higher or equal precedence (left-associative), then push. At the end, pop everything.</p>
+<div class="tablewrap"><table>
+<tr><th>Symbol</th><th>Stack (bottom→top)</th><th>Output</th></tr>
+<tr><td>A</td><td></td><td>A</td></tr>
+<tr><td>+</td><td>+</td><td>A</td></tr>
+<tr><td>B</td><td>+</td><td>A B</td></tr>
+<tr><td>*</td><td>+ *</td><td>A B</td></tr>
+<tr><td>C</td><td>+ *</td><td>A B C</td></tr>
+<tr><td>−</td><td>−</td><td>A B C * +</td></tr>
+<tr><td>(</td><td>− (</td><td>A B C * +</td></tr>
+<tr><td>D</td><td>− (</td><td>A B C * + D</td></tr>
+<tr><td>/</td><td>− ( /</td><td>A B C * + D</td></tr>
+<tr><td>E</td><td>− ( /</td><td>A B C * + D E</td></tr>
+<tr><td>)</td><td>−</td><td>A B C * + D E /</td></tr>
+<tr><td>end</td><td></td><td><b>A B C * + D E / −</b></td></tr>
+</table></div>
+<pre><code class="language-c">#include &lt;ctype.h&gt;
+/* precedence: higher number binds tighter */
+int prec(char op){
+    switch(op){
+        case '^': return 3;
+        case '*': case '/': case '%': return 2;
+        case '+': case '-': return 1;
+    }
+    return 0;          /* '(' has lowest precedence inside the stack */
+}
+
+void infixToPostfix(const char *in, char *out){
+    char st[100]; int top = -1, k = 0;
+    for(int i = 0; in[i]; i++){
+        char c = in[i];
+        if(c == ' ') continue;
+        if(isalnum(c))             out[k++] = c;           /* operand            */
+        else if(c == '(')          st[++top] = c;          /* push '('           */
+        else if(c == ')'){                                  /* pop until '('      */
+            while(top &gt;= 0 &amp;&amp; st[top] != '(') out[k++] = st[top--];
+            top--;                                          /* discard '('        */
+        } else {                                            /* operator           */
+            /* pop while top has higher precedence, or equal and left-assoc */
+            while(top &gt;= 0 &amp;&amp; st[top] != '(' &amp;&amp;
+                  (prec(st[top]) &gt; prec(c) ||
+                   (prec(st[top]) == prec(c) &amp;&amp; c != '^')))
+                out[k++] = st[top--];
+            st[++top] = c;
+        }
+    }
+    while(top &gt;= 0) out[k++] = st[top--];                   /* flush stack        */
+    out[k] = '\0';
+}</code></pre>
+</div>
+
+<div class="card q">
+<span class="tag t-var">Variation</span>
+<p class="qtext">Evaluate postfix <span class="mono">5 3 + 8 2 - *</span>.</p>
+<div class="tablewrap"><table>
+<tr><th>Symbol</th><th>Action</th><th>Stack</th></tr>
+<tr><td>5</td><td>push</td><td>5</td></tr>
+<tr><td>3</td><td>push</td><td>5 3</td></tr>
+<tr><td>+</td><td>pop 3, pop 5, push 5+3</td><td>8</td></tr>
+<tr><td>8</td><td>push</td><td>8 8</td></tr>
+<tr><td>2</td><td>push</td><td>8 8 2</td></tr>
+<tr><td>−</td><td>pop 2, pop 8, push 8−2</td><td>8 6</td></tr>
+<tr><td>*</td><td>pop 6, pop 8, push 8*6</td><td><b>48</b></td></tr>
+</table></div>
+<pre><code class="language-c">/* Single-digit operands. Note the ORDER: first pop is the RIGHT operand. */
+int evalPostfix(const char *e){
+    int st[100], top = -1;
+    for(int i = 0; e[i]; i++){
+        char c = e[i];
+        if(c == ' ') continue;
+        if(isdigit(c)) st[++top] = c - '0';     /* operand: push its value */
+        else {
+            int b = st[top--];                  /* right operand */
+            int a = st[top--];                  /* left operand  */
+            switch(c){
+                case '+': st[++top] = a + b; break;
+                case '-': st[++top] = a - b; break;
+                case '*': st[++top] = a * b; break;
+                case '/': st[++top] = a / b; break;
+            }
+        }
+    }
+    return st[top];                             /* final result */
+}</code></pre>
+</div>
+
+<div class="card q">
+<span class="tag t-var">Variation</span>
+<p class="qtext">Check whether brackets in an expression are balanced.</p>
+<pre><code class="language-c">int isBalanced(const char *e){
+    char st[100]; int top = -1;
+    for(int i = 0; e[i]; i++){
+        char c = e[i];
+        if(c == '(' || c == '[' || c == '{')
+            st[++top] = c;                          /* opening: push        */
+        else if(c == ')' || c == ']' || c == '}'){
+            if(top == -1) return 0;                 /* closing with nothing open */
+            char o = st[top--];                     /* must match last opened    */
+            if((c == ')' &amp;&amp; o != '(') || (c == ']' &amp;&amp; o != '[') ||
+               (c == '}' &amp;&amp; o != '{')) return 0;
+        }
+    }
+    return top == -1;                               /* nothing left open    */
+}
+/* "{[()]}" -&gt; 1 ,  "([)]" -&gt; 0 ,  "((" -&gt; 0 */</code></pre>
+</div>
+
+<div class="card q">
+<span class="tag t-var">Variation</span>
+<p class="qtext">Show the stack after: push(10), push(20), pop(), push(30), push(40), pop(), push(50). What is popped and what remains?</p>
+<p>[10] → [10,20] → pop 20 → [10] → [10,30] → [10,30,40] → pop 40 → [10,30] → [10,30,50]. Popped: 20, 40. Remaining (bottom→top): 10, 30, 50; top = 50.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="queue">5. Queue (L10–L12)</h2>
+
+<div class="card q">
+<span class="tag t-pyq">PYQ</span>
+<p class="qtext">What is a queue? Describe the pointer implementation of queues. Write the functions enqueue and dequeue for this implementation. (2,4,4)</p>
+<h4>Variations</h4>
+<ol class="var">
+<li>Array implementation of a linear queue; its drawback.</li>
+<li>Circular queue using array — enqueue, dequeue, full/empty conditions.</li>
+<li>Show front/rear after a sequence of operations on a circular queue of size 5.</li>
+<li>Priority queue — array and heap implementations; insert and deleteMin.</li>
+<li>Deque (double-ended queue) — operations.</li>
+<li>Applications of queues; compare stack and queue.</li>
+<li>Implement a queue using two stacks.</li>
+</ol>
+</div>
+
+<div class="card">
+<p><b>Definition:</b> A queue is a linear list in which insertion (<b>enqueue</b>) happens at one end, the <b>rear</b>, and deletion (<b>dequeue</b>) at the other end, the <b>front</b>. It follows <b>FIFO</b> (First In, First Out).</p>
+<p><b>Applications:</b> CPU/task scheduling (round-robin, RTOS ready queues), printer spooling, buffering between producer and consumer (UART RX buffer, keyboard buffer), BFS in graphs and level-order tree traversal, network packet queues, simulation of waiting lines.</p>
+</div>
+
+<h3 id="queue-ll">5.2 Pointer (linked) implementation of a queue</h3>
+<p>Keep two pointers: <code>front</code> (delete here) and <code>rear</code> (insert here). Both operations are O(1) and there is no fixed size.</p>
+<pre>
+front                         rear
+  |                             |
+  v                             v
+[ 10 | *]--&gt;[ 20 | *]--&gt;[ 30 | NULL]
+  dequeue here           enqueue here
+</pre>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+/* ---------- Data structure ---------- */
+typedef struct QNode {
+    int data;
+    struct QNode *next;
+} QNode;
+
+typedef struct {
+    QNode *front;   /* first node: deletions happen here  */
+    QNode *rear;    /* last node : insertions happen here */
+} Queue;
+
+void initQueue(Queue *q){ q-&gt;front = q-&gt;rear = NULL; }
+int  isQEmpty(Queue *q){ return q-&gt;front == NULL; }
+
+/* ---------- ENQUEUE : insert at rear, O(1) ---------- */
+void enqueue(Queue *q, int x){
+    QNode *n = (QNode *)malloc(sizeof(QNode));
+    if(n == NULL){ printf("Queue overflow (no memory)\n"); return; }
+    n-&gt;data = x;
+    n-&gt;next = NULL;               /* new node will be the last node   */
+    if(q-&gt;rear == NULL){          /* queue empty: node is front AND rear */
+        q-&gt;front = q-&gt;rear = n;
+        return;
+    }
+    q-&gt;rear-&gt;next = n;            /* link old rear to new node        */
+    q-&gt;rear = n;                  /* update rear                      */
+}
+
+/* ---------- DEQUEUE : delete at front, O(1) ---------- */
+int dequeue(Queue *q, int *x){
+    if(isQEmpty(q)){
+        printf("Queue underflow\n");
+        return 0;
+    }
+    QNode *temp = q-&gt;front;       /* node to remove                  */
+    *x = temp-&gt;data;
+    q-&gt;front = temp-&gt;next;        /* advance front                   */
+    if(q-&gt;front == NULL)          /* queue became empty -&gt;           */
+        q-&gt;rear = NULL;           /* rear must also be reset (bug if missed!) */
+    free(temp);
+    return 1;
+}
+
+int frontElem(Queue *q, int *x){
+    if(isQEmpty(q)) return 0;
+    *x = q-&gt;front-&gt;data;
+    return 1;
+}
+
+void displayQ(Queue *q){
+    for(QNode *p = q-&gt;front; p; p = p-&gt;next) printf("%d ", p-&gt;data);
+    printf("\n");
+}
+
+int main(void){
+    Queue q; int v;
+    initQueue(&amp;q);
+    enqueue(&amp;q, 10); enqueue(&amp;q, 20); enqueue(&amp;q, 30);
+    dequeue(&amp;q, &amp;v);              /* v = 10 (first in, first out) */
+    displayQ(&amp;q);                 /* 20 30                        */
+    return 0;
+}</code></pre>
+<p class="note"><b>Why insert at the tail and delete at the head?</b> In an SLL, deleting at the tail is O(n). Deleting at the head and inserting at the tail are both O(1), so the front must be the head.</p>
+<p class="tip"><b>Aho–Ullman version</b> (reference 2) uses a header cell: <code>front</code> always points to a dummy header, so the queue is empty when <code>front == rear</code>. Dequeue removes <code>front-&gt;next</code>. Either version is acceptable; mention whichever your lecturer used.</p>
+
+<h3>5.1 Array (linear) queue and its drawback</h3>
+<pre><code class="language-c">#define QMAX 5
+typedef struct { int a[QMAX]; int front, rear; } AQueue;   /* front = rear = -1 initially */
+
+void aEnqueue(AQueue *q, int x){
+    if(q-&gt;rear == QMAX - 1){ printf("Queue full\n"); return; }
+    if(q-&gt;front == -1) q-&gt;front = 0;     /* first insertion */
+    q-&gt;a[++q-&gt;rear] = x;
+}
+int aDequeue(AQueue *q, int *x){
+    if(q-&gt;front == -1 || q-&gt;front &gt; q-&gt;rear){ printf("Queue empty\n"); return 0; }
+    *x = q-&gt;a[q-&gt;front++];
+    return 1;
+}</code></pre>
+<p><b>Drawback:</b> once <code>rear</code> reaches QMAX−1 the queue reports “full” even if elements were dequeued from the front — those freed slots are never reused. The circular queue fixes this.</p>
+
+<h3 id="queue-circ">5.3 Circular queue (L12)</h3>
+<pre><code class="language-c">#define CQMAX 5
+typedef struct {
+    int a[CQMAX];
+    int front;      /* index of first element           */
+    int rear;       /* index of last element            */
+    int count;      /* number of elements (makes full/empty easy) */
+} CQueue;
+
+void initCQ(CQueue *q){ q-&gt;front = 0; q-&gt;rear = -1; q-&gt;count = 0; }
+
+int cqFull (CQueue *q){ return q-&gt;count == CQMAX; }
+int cqEmpty(CQueue *q){ return q-&gt;count == 0; }
+
+/* rear wraps around using modulo -&gt; freed slots at the start are reused */
+void cqEnqueue(CQueue *q, int x){
+    if(cqFull(q)){ printf("Circular queue full\n"); return; }
+    q-&gt;rear = (q-&gt;rear + 1) % CQMAX;
+    q-&gt;a[q-&gt;rear] = x;
+    q-&gt;count++;
+}
+
+int cqDequeue(CQueue *q, int *x){
+    if(cqEmpty(q)){ printf("Circular queue empty\n"); return 0; }
+    *x = q-&gt;a[q-&gt;front];
+    q-&gt;front = (q-&gt;front + 1) % CQMAX;   /* front also wraps around */
+    q-&gt;count--;
+    return 1;
+}
+
+void displayCQ(CQueue *q){
+    for(int i = 0, j = q-&gt;front; i &lt; q-&gt;count; i++, j = (j + 1) % CQMAX)
+        printf("%d ", q-&gt;a[j]);
+    printf("\n");
+}</code></pre>
+<p><b>Without a count variable</b> (common textbook version, front = rear = 0 initially, one slot left empty): empty when <code>front == rear</code>; full when <code>(rear + 1) % MAX == front</code>. Capacity is then MAX−1.</p>
+<div class="card q">
+<span class="tag t-var">Variation</span>
+<p class="qtext">Circular queue of size 5 (count version). Trace: enq 10, 20, 30, 40, 50; deq; deq; enq 60, 70; enq 80.</p>
+<div class="tablewrap"><table>
+<tr><th>Operation</th><th>Array [0..4]</th><th>front</th><th>rear</th><th>count</th></tr>
+<tr><td>enq 10..50</td><td>10 20 30 40 50</td><td>0</td><td>4</td><td>5 (full)</td></tr>
+<tr><td>deq → 10</td><td>– 20 30 40 50</td><td>1</td><td>4</td><td>4</td></tr>
+<tr><td>deq → 20</td><td>– – 30 40 50</td><td>2</td><td>4</td><td>3</td></tr>
+<tr><td>enq 60</td><td>60 – 30 40 50</td><td>2</td><td>0</td><td>4</td></tr>
+<tr><td>enq 70</td><td>60 70 30 40 50</td><td>2</td><td>1</td><td>5</td></tr>
+<tr><td>enq 80</td><td colspan="4">Queue full — rejected. Order of removal from here: 30 40 50 60 70</td></tr>
+</table></div>
+</div>
+
+<div class="card q">
+<span class="tag t-var">Variation</span>
+<p class="qtext">Deque (double-ended queue): insert/delete at both ends.</p>
+<p>Circular array version: insertFront → <code>front = (front − 1 + MAX) % MAX</code>; insertRear → <code>rear = (rear + 1) % MAX</code>; deleteFront → <code>front = (front + 1) % MAX</code>; deleteRear → <code>rear = (rear − 1 + MAX) % MAX</code>. All O(1). Input-restricted deque: insert at one end only; output-restricted: delete at one end only. A deque can act as both a stack and a queue.</p>
+</div>
+
+<div class="card q">
+<span class="tag t-var">Variation</span>
+<p class="qtext">Implement a queue using two stacks. <span class="tag t-extra">Extra</span></p>
+<p>Enqueue: push onto S1. Dequeue: if S2 is empty, pop everything from S1 and push into S2 (reverses order); then pop from S2. Each element moves at most twice → amortised O(1) per operation.</p>
+</div>
+
+<h3 id="queue-pq">5.4 Priority queue (L11)</h3>
+<div class="card">
+<p>A priority queue stores elements with priorities; <b>deleteMin</b> (or deleteMax) always removes the element with highest priority, regardless of insertion order.</p>
+<div class="tablewrap"><table>
+<tr><th>Implementation</th><th>insert</th><th>deleteMin</th></tr>
+<tr><td>Unsorted array / list</td><td>O(1)</td><td>O(n)</td></tr>
+<tr><td>Sorted array / list</td><td>O(n)</td><td>O(1)</td></tr>
+<tr><td>Binary heap</td><td>O(log n)</td><td>O(log n)</td></tr>
+</table></div>
+<p><b>Binary min-heap:</b> a complete binary tree stored in an array, where every parent ≤ its children. With 1-based indexing: parent(i) = i/2, left(i) = 2i, right(i) = 2i+1.</p>
+<pre><code class="language-c">#define HMAX 100
+typedef struct { int h[HMAX + 1]; int size; } MinHeap;   /* h[1..size] used */
+
+void initHeap(MinHeap *H){ H-&gt;size = 0; }
+
+/* INSERT: put at the end, then "percolate up" while smaller than parent. O(log n) */
+void heapInsert(MinHeap *H, int x){
+    if(H-&gt;size == HMAX){ printf("Heap full\n"); return; }
+    int i = ++H-&gt;size;                       /* new hole at the end   */
+    while(i &gt; 1 &amp;&amp; H-&gt;h[i/2] &gt; x){           /* parent bigger?        */
+        H-&gt;h[i] = H-&gt;h[i/2];                 /* move parent down      */
+        i /= 2;                              /* hole moves up         */
+    }
+    H-&gt;h[i] = x;                             /* place x in the hole   */
+}
+
+/* DELETEMIN: remove root, move last element to root, "percolate down". O(log n) */
+int heapDeleteMin(MinHeap *H, int *min){
+    if(H-&gt;size == 0){ printf("Heap empty\n"); return 0; }
+    *min = H-&gt;h[1];                          /* smallest is at the root */
+    int last = H-&gt;h[H-&gt;size--];              /* element to re-insert    */
+    int i = 1, child;
+    while(2 * i &lt;= H-&gt;size){                 /* while i has a child     */
+        child = 2 * i;
+        if(child + 1 &lt;= H-&gt;size &amp;&amp; H-&gt;h[child + 1] &lt; H-&gt;h[child])
+            child++;                         /* pick the smaller child  */
+        if(H-&gt;h[child] &lt; last){
+            H-&gt;h[i] = H-&gt;h[child];           /* move child up           */
+            i = child;
+        } else break;
+    }
+    H-&gt;h[i] = last;
+    return 1;
+}</code></pre>
+<p><b>Trace:</b> insert 40, 20, 30, 10 into an empty min-heap → array [10, 20, 30, 40]. deleteMin returns 10; 40 moves to root and sinks below 20 → [20, 40, 30].</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="sort">6. Sorting (L13–L15)</h2>
+
+<h3 id="sort-ins">6.1 Sort that is O(n²) worst case and O(n) best case</h3>
+<div class="card q">
+<span class="tag t-pyq">PYQ</span>
+<p class="qtext">Implement a sorting function that works in O(n²) in the worst case and O(n) in the best case. Illustrate with an example.</p>
+<h4>Variations</h4>
+<ol class="var">
+<li>Write insertion sort; trace it on a given list; count comparisons and shifts.</li>
+<li>Write bubble sort with an early-exit flag; show why its best case is O(n).</li>
+<li>Which input gives the best / worst case for insertion sort? Derive the counts.</li>
+<li>Why is selection sort O(n²) even in the best case?</li>
+<li>Show the array after each pass of bubble / selection / insertion sort.</li>
+<li>Which of these sorts are stable and in-place?</li>
+</ol>
+</div>
+<p><b>Answer: Insertion sort</b> (bubble sort with a swap flag is also accepted). On already-sorted input the inner loop never runs, so only n−1 comparisons are made → O(n). On reverse-sorted input element i is shifted i times → 1+2+…+(n−1) = n(n−1)/2 → O(n²).</p>
+<pre><code class="language-c">/* INSERTION SORT
+   Idea: a[0..i-1] is already sorted. Take key = a[i] and shift every
+   larger element of the sorted part one place right, then drop key
+   into the gap.                                                      */
+void insertionSort(int a[], int n){
+    for(int i = 1; i &lt; n; i++){
+        int key = a[i];          /* element to be inserted            */
+        int j = i - 1;
+        /* shift elements greater than key one position to the right */
+        while(j &gt;= 0 &amp;&amp; a[j] &gt; key){
+            a[j + 1] = a[j];
+            j--;
+        }
+        a[j + 1] = key;          /* insert key in its correct place   */
+    }
+}
+/* Best  (already sorted): while-test fails immediately -&gt; n-1 comparisons -&gt; O(n)
+   Worst (reverse sorted): i shifts for each i        -&gt; n(n-1)/2         -&gt; O(n^2)
+   Average: about n^2/4 -&gt; O(n^2). Stable: yes. In-place: yes (O(1) extra). */</code></pre>
+<div class="card">
+<p><b>Illustration:</b> a = [5, 2, 4, 6, 1, 3] (sorted part in bold)</p>
+<div class="tablewrap"><table>
+<tr><th>i</th><th>key</th><th>Array after pass</th><th>Shifts</th></tr>
+<tr><td>start</td><td></td><td><b>5</b> 2 4 6 1 3</td><td></td></tr>
+<tr><td>1</td><td>2</td><td><b>2 5</b> 4 6 1 3</td><td>1</td></tr>
+<tr><td>2</td><td>4</td><td><b>2 4 5</b> 6 1 3</td><td>1</td></tr>
+<tr><td>3</td><td>6</td><td><b>2 4 5 6</b> 1 3</td><td>0</td></tr>
+<tr><td>4</td><td>1</td><td><b>1 2 4 5 6</b> 3</td><td>4</td></tr>
+<tr><td>5</td><td>3</td><td><b>1 2 3 4 5 6</b></td><td>3</td></tr>
+</table></div>
+<p>Best case example: [1,2,3,4,5] → each pass compares once and shifts nothing → 4 comparisons total.<br>Worst case example: [5,4,3,2,1] → 1+2+3+4 = 10 comparisons and shifts.</p>
+</div>
+
+<pre><code class="language-c">/* BUBBLE SORT with early exit
+   Each pass bubbles the largest remaining element to the end.
+   If a whole pass makes no swap, the array is sorted -&gt; stop.        */
+void bubbleSort(int a[], int n){
+    for(int pass = 0; pass &lt; n - 1; pass++){
+        int swapped = 0;                       /* flag for this pass   */
+        for(int j = 0; j &lt; n - 1 - pass; j++){ /* last 'pass' items already in place */
+            if(a[j] &gt; a[j + 1]){
+                int t = a[j]; a[j] = a[j + 1]; a[j + 1] = t;
+                swapped = 1;
+            }
+        }
+        if(!swapped) break;    /* sorted input: one pass of n-1 comparisons -&gt; O(n) */
+    }
+}
+
+/* SELECTION SORT — for contrast: always O(n^2), even on sorted input,
+   because finding the minimum always scans the whole unsorted part.   */
+void selectionSort(int a[], int n){
+    for(int i = 0; i &lt; n - 1; i++){
+        int min = i;
+        for(int j = i + 1; j &lt; n; j++)        /* find smallest in a[i..n-1] */
+            if(a[j] &lt; a[min]) min = j;
+        int t = a[i]; a[i] = a[min]; a[min] = t;  /* at most n-1 swaps total */
+    }
+}</code></pre>
+<p><b>Bubble sort on [5, 1, 4, 2, 8]:</b> Pass 1 → [1, 4, 2, 5, 8]; Pass 2 → [1, 2, 4, 5, 8]; Pass 3 → no swaps → stop.<br><b>Selection sort on [64, 25, 12, 22, 11]:</b> [11,25,12,22,64] → [11,12,25,22,64] → [11,12,22,25,64] → [11,12,22,25,64].</p>
+
+<h3 id="sort-merge">6.2 Merge sort (L15)</h3>
+<div class="card q">
+<span class="tag t-pyq">PYQ</span>
+<p class="qtext">Implement merge sort, derive its time complexity, and give an example.</p>
+<h4>Variations</h4>
+<ol class="var">
+<li>Write only the <code>merge()</code> function for two sorted arrays/halves.</li>
+<li>Show the recursion tree (split and merge steps) for a given list.</li>
+<li>Derive T(n) = 2T(n/2) + n using substitution / recursion tree / Master theorem.</li>
+<li>What is the space complexity of merge sort and why?</li>
+<li>Merge two sorted linked lists.</li>
+<li>Count the number of comparisons while merging.</li>
+<li>Merge sort vs quick sort.</li>
+</ol>
+</div>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+/* MERGE: combine sorted a[low..mid] and a[mid+1..high] into one sorted run.
+   Uses a temporary array -&gt; O(n) extra space. Time O(high-low+1).       */
+void merge(int a[], int low, int mid, int high){
+    int temp[high - low + 1];
+    int i = low;        /* index into left half   */
+    int j = mid + 1;    /* index into right half  */
+    int k = 0;          /* index into temp        */
+
+    while(i &lt;= mid &amp;&amp; j &lt;= high){        /* pick the smaller front element    */
+        if(a[i] &lt;= a[j]) temp[k++] = a[i++]; /* '&lt;=' keeps equal keys in order -&gt; stable */
+        else             temp[k++] = a[j++];
+    }
+    while(i &lt;= mid)  temp[k++] = a[i++];  /* copy leftovers of left half  */
+    while(j &lt;= high) temp[k++] = a[j++];  /* copy leftovers of right half */
+
+    for(k = 0, i = low; i &lt;= high; i++, k++)   /* copy back into a[] */
+        a[i] = temp[k];
+}
+
+/* MERGE SORT: divide into halves, sort each recursively, then merge. */
+void mergeSort(int a[], int low, int high){
+    if(low &lt; high){                     /* 0 or 1 element: already sorted */
+        int mid = (low + high) / 2;     /* DIVIDE                         */
+        mergeSort(a, low, mid);         /* CONQUER left half              */
+        mergeSort(a, mid + 1, high);    /* CONQUER right half             */
+        merge(a, low, mid, high);       /* COMBINE                        */
+    }
+}
+
+int main(void){
+    int a[] = {38, 27, 43, 3, 9, 82, 10};
+    int n = sizeof(a) / sizeof(a[0]);
+    mergeSort(a, 0, n - 1);
+    for(int i = 0; i &lt; n; i++) printf("%d ", a[i]);   /* 3 9 10 27 38 43 82 */
+    return 0;
+}</code></pre>
+<div class="card">
+<p><b>Example:</b> [38, 27, 43, 3, 9, 82, 10]</p>
+<pre>
+Divide:            [38 27 43 3 9 82 10]
+                  /                    \
+          [38 27 43 3]              [9 82 10]
+          /         \               /       \
+      [38 27]     [43 3]        [9 82]     [10]
+      /    \      /    \        /    \
+    [38]  [27]  [43]  [3]     [9]  [82]
+
+Merge:
+    [27 38]     [3 43]          [9 82]     [10]
+         [3 27 38 43]              [9 10 82]
+                [3 9 10 27 38 43 82]
+</pre>
+<h4>Derivation of time complexity</h4>
+<p>Dividing takes O(1); two recursive calls on n/2 elements; merging n elements takes at most n−1 comparisons, i.e. cn. So</p>
+<p class="mono">T(n) = 2T(n/2) + cn,  T(1) = c</p>
+<p><b>Substitution:</b></p>
+<p class="mono">T(n) = 2[2T(n/4) + cn/2] + cn = 4T(n/4) + 2cn<br>
+     = 8T(n/8) + 3cn<br>
+     = 2ᵏ T(n/2ᵏ) + k·cn<br>
+Let n = 2ᵏ ⇒ k = log₂n:<br>
+T(n) = n·T(1) + cn·log₂n = cn + cn·log₂n = <b>O(n log n)</b></p>
+<p><b>Recursion tree:</b> level 0 costs cn; level 1 has 2 nodes of cn/2 = cn; every level costs cn; there are log₂n + 1 levels → cn(log₂n + 1) = O(n log n).</p>
+<p><b>Master theorem:</b> a = 2, b = 2, f(n) = n, n<sup>log₂2</sup> = n = f(n) → Case 2 → Θ(n log n).</p>
+<p>Best, average and worst are all Θ(n log n) because the split is always into halves regardless of the data. Space: O(n) for the temp array + O(log n) recursion stack. Stable: yes. In-place: no.</p>
+</div>
+<div class="card q">
+<span class="tag t-var">Variation</span>
+<p class="qtext">Merge two sorted singly linked lists.</p>
+<pre><code class="language-c">/* Uses a dummy node so the head needs no special case. O(m+n), no extra nodes. */
+Node *mergeLists(Node *a, Node *b){
+    Node dummy; Node *tail = &amp;dummy;
+    dummy.next = NULL;
+    while(a &amp;&amp; b){
+        if(a-&gt;data &lt;= b-&gt;data){ tail-&gt;next = a; a = a-&gt;next; }
+        else                   { tail-&gt;next = b; b = b-&gt;next; }
+        tail = tail-&gt;next;
+    }
+    tail-&gt;next = (a != NULL) ? a : b;   /* attach whatever remains */
+    return dummy.next;
+}</code></pre>
+</div>
+
+<h3 id="sort-quick">6.3 Quick sort (L13)</h3>
+<pre><code class="language-c">void swap(int *x, int *y){ int t = *x; *x = *y; *y = t; }
+
+/* LOMUTO PARTITION: pivot = last element.
+   After the loop, a[low..i] &lt;= pivot and a[i+1..high-1] &gt; pivot.
+   The pivot is then placed at i+1, its final sorted position.     */
+int partition(int a[], int low, int high){
+    int pivot = a[high];
+    int i = low - 1;                    /* end of the "&lt;= pivot" region */
+    for(int j = low; j &lt; high; j++){
+        if(a[j] &lt;= pivot){
+            i++;
+            swap(&amp;a[i], &amp;a[j]);         /* grow the "&lt;= pivot" region */
+        }
+    }
+    swap(&amp;a[i + 1], &amp;a[high]);          /* put pivot in place          */
+    return i + 1;
+}
+
+void quickSort(int a[], int low, int high){
+    if(low &lt; high){
+        int p = partition(a, low, high);   /* pivot now at index p      */
+        quickSort(a, low, p - 1);          /* sort elements before pivot */
+        quickSort(a, p + 1, high);         /* sort elements after pivot  */
+    }
+}</code></pre>
+<div class="card">
+<p><b>Trace of first partition:</b> [10, 80, 30, 90, 40, 50, 70], pivot = 70</p>
+<div class="tablewrap"><table>
+<tr><th>j</th><th>a[j]</th><th>≤ 70?</th><th>i</th><th>Array</th></tr>
+<tr><td>0</td><td>10</td><td>yes</td><td>0</td><td>10 80 30 90 40 50 70</td></tr>
+<tr><td>1</td><td>80</td><td>no</td><td>0</td><td>10 80 30 90 40 50 70</td></tr>
+<tr><td>2</td><td>30</td><td>yes</td><td>1</td><td>10 30 80 90 40 50 70</td></tr>
+<tr><td>3</td><td>90</td><td>no</td><td>1</td><td>10 30 80 90 40 50 70</td></tr>
+<tr><td>4</td><td>40</td><td>yes</td><td>2</td><td>10 30 40 90 80 50 70</td></tr>
+<tr><td>5</td><td>50</td><td>yes</td><td>3</td><td>10 30 40 50 80 90 70</td></tr>
+<tr><td colspan="4">swap a[4] and pivot</td><td><b>10 30 40 50 70 90 80</b> → pivot index 4</td></tr>
+</table></div>
+<p><b>Complexity:</b> Best/average — pivot splits roughly in half: T(n) = 2T(n/2) + n = O(n log n). Worst — pivot is always the smallest/largest (e.g. already sorted input with last-element pivot): T(n) = T(n−1) + n = O(n²). Space O(log n) average for recursion (O(n) worst). In-place: yes. Stable: no. Fix for the worst case: random pivot or median-of-three.</p>
+</div>
+
+<h3 id="sort-heap">6.4 Heap sort (L14)</h3>
+<pre><code class="language-c">/* Sift a[i] down in a MAX-heap of size n (0-based: children 2i+1, 2i+2). */
+void heapify(int a[], int n, int i){
+    int largest = i, l = 2*i + 1, r = 2*i + 2;
+    if(l &lt; n &amp;&amp; a[l] &gt; a[largest]) largest = l;
+    if(r &lt; n &amp;&amp; a[r] &gt; a[largest]) largest = r;
+    if(largest != i){
+        swap(&amp;a[i], &amp;a[largest]);   /* move larger child up         */
+        heapify(a, n, largest);     /* continue sifting down        */
+    }
+}
+
+void heapSort(int a[], int n){
+    for(int i = n/2 - 1; i &gt;= 0; i--)   /* 1. build max-heap: O(n)          */
+        heapify(a, n, i);
+    for(int i = n - 1; i &gt; 0; i--){     /* 2. repeatedly remove the max     */
+        swap(&amp;a[0], &amp;a[i]);             /*    max goes to its final place   */
+        heapify(a, i, 0);               /*    restore heap on a[0..i-1]     */
+    }
+}
+/* Time O(n log n) in all cases, O(1) extra space, not stable. */</code></pre>
+<div class="card">
+<p><b>Trace on [4, 10, 3, 5, 1]:</b></p>
+<p>Build heap: heapify(1): 10 &gt; 5,1 → no change. heapify(0): 4 &lt; 10 → swap → [10, 4, 3, 5, 1]; 4 &lt; 5 → swap → <b>[10, 5, 3, 4, 1]</b>.</p>
+<p>Swap 10↔1, heapify → [5, 4, 3, 1 | 10]<br>Swap 5↔1, heapify → [4, 1, 3 | 5, 10]<br>Swap 4↔3, heapify → [3, 1 | 4, 5, 10]<br>Swap 3↔1 → <b>[1, 3, 4, 5, 10]</b></p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="search">7. Searching (L16–L18)</h2>
+<div class="card q">
+<span class="tag t-var">Likely</span>
+<p class="qtext">Possible questions: write linear search and binary search (iterative and recursive); trace binary search for a key; derive binary search complexity; explain Fibonacci search; compare the three.</p>
+</div>
+<pre><code class="language-c">/* LINEAR SEARCH: works on unsorted data. Best O(1), worst/avg O(n). */
+int linearSearch(int a[], int n, int key){
+    for(int i = 0; i &lt; n; i++)
+        if(a[i] == key) return i;   /* found: return index */
+    return -1;                      /* not found           */
+}
+
+/* BINARY SEARCH (iterative): array must be SORTED.
+   Each comparison halves the search interval -&gt; O(log n). */
+int binarySearch(int a[], int n, int key){
+    int low = 0, high = n - 1;
+    while(low &lt;= high){
+        int mid = low + (high - low) / 2;   /* avoids int overflow of (low+high) */
+        if(a[mid] == key) return mid;
+        else if(a[mid] &lt; key) low = mid + 1;  /* key is in right half */
+        else                  high = mid - 1; /* key is in left half  */
+    }
+    return -1;
+}
+
+/* BINARY SEARCH (recursive): T(n) = T(n/2) + c = O(log n), stack O(log n) */
+int binarySearchRec(int a[], int low, int high, int key){
+    if(low &gt; high) return -1;                       /* empty interval */
+    int mid = low + (high - low) / 2;
+    if(a[mid] == key) return mid;
+    if(a[mid] &lt; key) return binarySearchRec(a, mid + 1, high, key);
+    return binarySearchRec(a, low, mid - 1, key);
+}</code></pre>
+<div class="card">
+<p><b>Trace:</b> a = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91], key = 23</p>
+<div class="tablewrap"><table>
+<tr><th>Step</th><th>low</th><th>high</th><th>mid</th><th>a[mid]</th><th>Action</th></tr>
+<tr><td>1</td><td>0</td><td>9</td><td>4</td><td>16</td><td>16 &lt; 23 → low = 5</td></tr>
+<tr><td>2</td><td>5</td><td>9</td><td>7</td><td>56</td><td>56 &gt; 23 → high = 6</td></tr>
+<tr><td>3</td><td>5</td><td>6</td><td>5</td><td>23</td><td>found at index 5</td></tr>
+</table></div>
+<p>Maximum comparisons for n elements = ⌊log₂n⌋ + 1 (for n = 10: 4).</p>
+</div>
+
+<div class="card">
+<h4>Fibonacci search (L18)</h4>
+<p>Works on a sorted array like binary search, but splits the range using consecutive Fibonacci numbers instead of halves. It needs only addition/subtraction to compute the split point (no division), which was historically an advantage and can still matter on small processors without hardware divide. Complexity O(log n).</p>
+<p><b>Idea:</b> find the smallest Fibonacci number F<sub>m</sub> ≥ n. Compare key with element at offset + F<sub>m−2</sub>. If key is larger, drop the front F<sub>m−2</sub> part (move down one Fibonacci number); if smaller, keep only the front part (move down two).</p>
+<pre><code class="language-c">int fibonacciSearch(int a[], int n, int key){
+    int f2 = 0, f1 = 1, f = f1 + f2;   /* F(m-2), F(m-1), F(m)            */
+    while(f &lt; n){                      /* smallest Fibonacci number &gt;= n  */
+        f2 = f1; f1 = f; f = f1 + f2;
+    }
+    int offset = -1;                   /* elements up to offset are eliminated */
+    while(f &gt; 1){
+        int i = (offset + f2 &lt; n - 1) ? offset + f2 : n - 1;  /* probe index */
+        if(a[i] &lt; key){                /* key is after i: shift window by F(m-2) */
+            f = f1; f1 = f2; f2 = f - f1;
+            offset = i;
+        } else if(a[i] &gt; key){         /* key is before i: shrink by two steps   */
+            f = f2; f1 = f1 - f2; f2 = f - f1;
+        } else return i;               /* found */
+    }
+    if(f1 &amp;&amp; offset + 1 &lt; n &amp;&amp; a[offset + 1] == key)  /* one element left */
+        return offset + 1;
+    return -1;
+}</code></pre>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="bst">8. Binary search tree (L19–L22)</h2>
+
+<div class="card q">
+<span class="tag t-pyq">PYQ</span>
+<p class="qtext">List the properties of a binary search tree. Define a data structure for a BST. Write a function to insert an element.</p>
+<span class="tag t-pyq">PYQ</span>
+<p class="qtext">For the list 50, 70, 35, 45, 36, 40, 75, 80, 28, 65, 20 build a BST and give inorder, preorder and postorder traversals.</p>
+<h4>Variations</h4>
+<ol class="var">
+<li>Write recursive and iterative insert; search; find min/max.</li>
+<li>Write inorder, preorder, postorder (recursive) and level-order traversal.</li>
+<li>Delete a leaf / a node with one child / a node with two children from the tree you built; draw the result.</li>
+<li>Find height, number of nodes, number of leaves.</li>
+<li>Given inorder + preorder (or postorder), reconstruct the tree.</li>
+<li>Why does inorder traversal of a BST give sorted output?</li>
+<li>Best/worst-case complexity of BST search; what happens when inserting sorted data (skewed tree)?</li>
+<li>Basic terminology: root, leaf, degree, depth, height, level, sibling, full/complete binary tree.</li>
+</ol>
+</div>
+
+<div class="card">
+<h4>Properties of a BST</h4>
+<ol>
+<li>It is a binary tree: each node has at most two children.</li>
+<li>Every key in the <b>left subtree</b> of a node is <b>less than</b> the node's key.</li>
+<li>Every key in the <b>right subtree</b> is <b>greater than</b> the node's key.</li>
+<li>Both left and right subtrees are themselves BSTs.</li>
+<li>No duplicate keys (usual convention).</li>
+<li>Inorder traversal visits keys in ascending order.</li>
+<li>Minimum is the leftmost node; maximum is the rightmost node.</li>
+<li>Search/insert/delete take O(h) where h = height: O(log n) if balanced, O(n) if skewed.</li>
+</ol>
+</div>
+
+<h3 id="bst-build">8.1 Building the BST from 50, 70, 35, 45, 36, 40, 75, 80, 28, 65, 20</h3>
+<div class="tablewrap"><table>
+<tr><th>Insert</th><th>Path followed</th><th>Placed as</th></tr>
+<tr><td>50</td><td>—</td><td>root</td></tr>
+<tr><td>70</td><td>70 &gt; 50</td><td>right of 50</td></tr>
+<tr><td>35</td><td>35 &lt; 50</td><td>left of 50</td></tr>
+<tr><td>45</td><td>&lt;50 → &gt;35</td><td>right of 35</td></tr>
+<tr><td>36</td><td>&lt;50 → &gt;35 → &lt;45</td><td>left of 45</td></tr>
+<tr><td>40</td><td>&lt;50 → &gt;35 → &lt;45 → &gt;36</td><td>right of 36</td></tr>
+<tr><td>75</td><td>&gt;50 → &gt;70</td><td>right of 70</td></tr>
+<tr><td>80</td><td>&gt;50 → &gt;70 → &gt;75</td><td>right of 75</td></tr>
+<tr><td>28</td><td>&lt;50 → &lt;35</td><td>left of 35</td></tr>
+<tr><td>65</td><td>&gt;50 → &lt;70</td><td>left of 70</td></tr>
+<tr><td>20</td><td>&lt;50 → &lt;35 → &lt;28</td><td>left of 28</td></tr>
+</table></div>
+
+<svg class="tree" viewBox="0 0 700 360" role="img" aria-label="BST built from the given list">
+  <line class="edge" x1="350" y1="40" x2="190" y2="110"/>
+  <line class="edge" x1="350" y1="40" x2="510" y2="110"/>
+  <line class="edge" x1="190" y1="110" x2="110" y2="180"/>
+  <line class="edge" x1="190" y1="110" x2="270" y2="180"/>
+  <line class="edge" x1="510" y1="110" x2="450" y2="180"/>
+  <line class="edge" x1="510" y1="110" x2="570" y2="180"/>
+  <line class="edge" x1="110" y1="180" x2="60" y2="250"/>
+  <line class="edge" x1="270" y1="180" x2="230" y2="250"/>
+  <line class="edge" x1="570" y1="180" x2="630" y2="250"/>
+  <line class="edge" x1="230" y1="250" x2="280" y2="320"/>
+  <g text-anchor="middle" dominant-baseline="central">
+    <circle class="node" cx="350" cy="40" r="20"/><text x="350" y="40">50</text>
+    <circle class="node" cx="190" cy="110" r="20"/><text x="190" y="110">35</text>
+    <circle class="node" cx="510" cy="110" r="20"/><text x="510" y="110">70</text>
+    <circle class="node" cx="110" cy="180" r="20"/><text x="110" y="180">28</text>
+    <circle class="node" cx="270" cy="180" r="20"/><text x="270" y="180">45</text>
+    <circle class="node" cx="450" cy="180" r="20"/><text x="450" y="180">65</text>
+    <circle class="node" cx="570" cy="180" r="20"/><text x="570" y="180">75</text>
+    <circle class="node" cx="60" cy="250" r="20"/><text x="60" y="250">20</text>
+    <circle class="node" cx="230" cy="250" r="20"/><text x="230" y="250">36</text>
+    <circle class="node" cx="630" cy="250" r="20"/><text x="630" y="250">80</text>
+    <circle class="node" cx="280" cy="320" r="20"/><text x="280" y="320">40</text>
+  </g>
+</svg>
+
+<div class="card">
+<div class="tablewrap"><table>
+<tr><th>Traversal</th><th>Rule</th><th>Result</th></tr>
+<tr><td>Inorder</td><td>Left, Root, Right</td><td class="mono">20 28 35 36 40 45 50 65 70 75 80</td></tr>
+<tr><td>Preorder</td><td>Root, Left, Right</td><td class="mono">50 35 28 20 45 36 40 70 65 75 80</td></tr>
+<tr><td>Postorder</td><td>Left, Right, Root</td><td class="mono">20 28 40 36 45 35 65 80 75 70 50</td></tr>
+<tr><td>Level order</td><td>Level by level, left to right</td><td class="mono">50 35 70 28 45 65 75 20 36 80 40</td></tr>
+</table></div>
+<p><b>Check:</b> inorder is sorted ✔. Preorder starts with the root, postorder ends with it ✔.</p>
+<p><b>Other facts examiners ask about this tree:</b> 11 nodes; height = 4 (edges on path 50→35→45→36→40); leaves = 20, 40, 65, 80 (4 leaves); min = 20, max = 80; searching 40 takes 5 comparisons (50, 35, 45, 36, 40); searching 60 fails after 3 comparisons (50, 70, 65 → left of 65 is NULL).</p>
+</div>
+
+<h3 id="bst-del">8.2 Deletion on the same tree</h3>
+<div class="card">
+<ul>
+<li><b>Case 1 – leaf (delete 20):</b> simply remove it; 28 now has no children.</li>
+<li><b>Case 2 – one child (delete 28, which has only left child 20):</b> replace 28 by its child → 20 becomes the left child of 35.</li>
+<li><b>Case 3 – two children (delete 35):</b> replace 35's key by its <b>inorder successor</b> = smallest key in its right subtree = 36 (go to 45, then left to 36, which has no left child). Then delete 36 from that subtree; 36 has one child (40), so 40 moves up as the left child of 45. Result: 35's position now holds 36, with left 28 (→20) and right 45 (→ left 40). Inorder: 20 28 36 40 45 50 65 70 75 80 ✔.</li>
+<li><b>Delete root 50:</b> inorder successor = 65 (min of right subtree 70→65). 65 is a leaf, so copy 65 into the root and remove the leaf. New preorder: 65 35 28 20 45 36 40 70 75 80.</li>
+</ul>
+<p>(Using the inorder <i>predecessor</i> — largest key in the left subtree — is equally correct; state which one you use.)</p>
+</div>
+
+<h3 id="bst-code">8.3 BST code</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+/* ---------- Data structure ---------- */
+typedef struct TreeNode {
+    int key;
+    struct TreeNode *left;    /* subtree with smaller keys */
+    struct TreeNode *right;   /* subtree with larger keys  */
+} TreeNode;
+
+TreeNode *newTreeNode(int key){
+    TreeNode *n = (TreeNode *)malloc(sizeof(TreeNode));
+    n-&gt;key = key;
+    n-&gt;left = n-&gt;right = NULL;   /* new node is always a leaf */
+    return n;
+}
+
+/* ---------- INSERT (recursive) : O(h) ----------
+   Go left if key is smaller, right if larger; attach at the NULL found. */
+TreeNode *insert(TreeNode *root, int key){
+    if(root == NULL)                       /* empty spot found        */
+        return newTreeNode(key);
+    if(key &lt; root-&gt;key)
+        root-&gt;left = insert(root-&gt;left, key);
+    else if(key &gt; root-&gt;key)
+        root-&gt;right = insert(root-&gt;right, key);
+    /* key == root-&gt;key : duplicate, ignore */
+    return root;                           /* root pointer unchanged  */
+}
+
+/* ---------- INSERT (iterative) : O(h), no recursion stack ---------- */
+TreeNode *insertIter(TreeNode *root, int key){
+    TreeNode *n = newTreeNode(key);
+    if(root == NULL) return n;
+    TreeNode *cur = root, *parent = NULL;
+    while(cur != NULL){                    /* walk down to a NULL link */
+        parent = cur;
+        if(key &lt; cur-&gt;key)      cur = cur-&gt;left;
+        else if(key &gt; cur-&gt;key) cur = cur-&gt;right;
+        else { free(n); return root; }     /* duplicate */
+    }
+    if(key &lt; parent-&gt;key) parent-&gt;left = n;   /* attach to parent */
+    else                  parent-&gt;right = n;
+    return root;
+}
+
+/* ---------- SEARCH : O(h) ---------- */
+TreeNode *search(TreeNode *root, int key){
+    while(root != NULL &amp;&amp; root-&gt;key != key)
+        root = (key &lt; root-&gt;key) ? root-&gt;left : root-&gt;right;
+    return root;                           /* NULL if not found */
+}
+
+/* ---------- MIN / MAX ---------- */
+TreeNode *findMin(TreeNode *root){
+    while(root &amp;&amp; root-&gt;left) root = root-&gt;left;    /* leftmost  */
+    return root;
+}
+TreeNode *findMax(TreeNode *root){
+    while(root &amp;&amp; root-&gt;right) root = root-&gt;right;  /* rightmost */
+    return root;
+}
+
+/* ---------- DELETE : O(h), handles all three cases ---------- */
+TreeNode *deleteNode(TreeNode *root, int key){
+    if(root == NULL) return NULL;                     /* key not present */
+    if(key &lt; root-&gt;key)
+        root-&gt;left = deleteNode(root-&gt;left, key);
+    else if(key &gt; root-&gt;key)
+        root-&gt;right = deleteNode(root-&gt;right, key);
+    else {                                            /* found the node  */
+        if(root-&gt;left == NULL){                       /* case 1 &amp; 2: 0 or 1 child */
+            TreeNode *r = root-&gt;right;
+            free(root);
+            return r;                                 /* child (or NULL) replaces it */
+        }
+        if(root-&gt;right == NULL){
+            TreeNode *l = root-&gt;left;
+            free(root);
+            return l;
+        }
+        /* case 3: two children -&gt; copy inorder successor, delete it from right subtree */
+        TreeNode *succ = findMin(root-&gt;right);
+        root-&gt;key = succ-&gt;key;
+        root-&gt;right = deleteNode(root-&gt;right, succ-&gt;key);
+    }
+    return root;
+}
+
+/* ---------- TRAVERSALS : each O(n) ---------- */
+void inorder(TreeNode *r){            /* Left, Root, Right -&gt; sorted order */
+    if(r){ inorder(r-&gt;left); printf("%d ", r-&gt;key); inorder(r-&gt;right); }
+}
+void preorder(TreeNode *r){           /* Root, Left, Right */
+    if(r){ printf("%d ", r-&gt;key); preorder(r-&gt;left); preorder(r-&gt;right); }
+}
+void postorder(TreeNode *r){          /* Left, Right, Root */
+    if(r){ postorder(r-&gt;left); postorder(r-&gt;right); printf("%d ", r-&gt;key); }
+}
+
+/* Level order uses a QUEUE (array-based here for brevity) */
+void levelOrder(TreeNode *root){
+    TreeNode *q[100]; int front = 0, rear = 0;
+    if(root) q[rear++] = root;
+    while(front &lt; rear){
+        TreeNode *t = q[front++];             /* dequeue          */
+        printf("%d ", t-&gt;key);
+        if(t-&gt;left)  q[rear++] = t-&gt;left;     /* enqueue children */
+        if(t-&gt;right) q[rear++] = t-&gt;right;
+    }
+}
+
+/* ---------- HEIGHT, COUNT, LEAVES ---------- */
+int height(TreeNode *r){              /* edges on longest path; empty tree = -1 */
+    if(r == NULL) return -1;
+    int lh = height(r-&gt;left), rh = height(r-&gt;right);
+    return 1 + (lh &gt; rh ? lh : rh);
+}
+int countNodes(TreeNode *r){ return r ? 1 + countNodes(r-&gt;left) + countNodes(r-&gt;right) : 0; }
+int countLeaves(TreeNode *r){
+    if(r == NULL) return 0;
+    if(!r-&gt;left &amp;&amp; !r-&gt;right) return 1;
+    return countLeaves(r-&gt;left) + countLeaves(r-&gt;right);
+}
+
+int main(void){
+    int keys[] = {50, 70, 35, 45, 36, 40, 75, 80, 28, 65, 20};
+    TreeNode *root = NULL;
+    for(int i = 0; i &lt; 11; i++) root = insert(root, keys[i]);
+    printf("Inorder  : "); inorder(root);   printf("\n");
+    printf("Preorder : "); preorder(root);  printf("\n");
+    printf("Postorder: "); postorder(root); printf("\n");
+    printf("Height=%d Nodes=%d Leaves=%d\n", height(root), countNodes(root), countLeaves(root));
+    root = deleteNode(root, 35);            /* two-child case */
+    printf("After deleting 35, inorder: "); inorder(root); printf("\n");
+    return 0;
+}</code></pre>
+
+<div class="card q">
+<span class="tag t-var">Variation</span>
+<p class="qtext">Construct the binary tree given Inorder: D B E A F C G and Preorder: A B D E C F G.</p>
+<p>Preorder's first element A is the root. In inorder, left of A = {D, B, E}, right = {F, C, G}. Next in preorder is B → root of left part; in inorder D is left of B and E right. Next C → root of right part; F left, G right.</p>
+<pre>
+        A
+      /   \
+     B     C
+    / \   / \
+   D   E F   G       Postorder: D E B F G C A
+</pre>
+<p>Note: preorder + postorder alone does <b>not</b> uniquely determine a general binary tree; inorder is required with either of them. For a BST, preorder alone is enough (just insert the keys in that order).</p>
+</div>
+
+<div class="card q">
+<span class="tag t-var">Variation</span>
+<p class="qtext">Insert 10, 20, 30, 40, 50 into an empty BST. What happens, and what is the search complexity?</p>
+<p>Each key is larger than all previous ones, so each goes to the right — the tree degenerates into a right-skewed “linked list” of height 4. Search becomes O(n). This is why balanced trees (AVL, red-black — L23) are used: they keep height O(log n) by rotations.</p>
+</div>
+
+<div class="card">
+<h4>Tree terminology (2-mark questions)</h4>
+<ul>
+<li><b>Root</b> – node with no parent. <b>Leaf</b> – node with no children. <b>Internal node</b> – has at least one child.</li>
+<li><b>Degree</b> of a node – number of children. <b>Siblings</b> – nodes with the same parent.</li>
+<li><b>Depth / level</b> of a node – number of edges from the root (root at level 0). <b>Height</b> of tree – max depth.</li>
+<li><b>Full (strict) binary tree</b> – every node has 0 or 2 children. <b>Complete binary tree</b> – all levels full except possibly the last, which is filled left to right (used by heaps). <b>Perfect</b> – all levels completely full.</li>
+<li>Maximum nodes in a binary tree of height h: 2<sup>h+1</sup> − 1. Minimum height with n nodes: ⌈log₂(n+1)⌉ − 1.</li>
+</ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="tables">9. Complexity tables</h2>
+<h3>9.1 Sorting algorithms</h3>
+<div class="tablewrap"><table>
+<tr><th>Algorithm</th><th>Best</th><th>Average</th><th>Worst</th><th>Extra space</th><th>Stable</th><th>In-place</th><th>Best/worst-case input</th></tr>
+<tr><td>Bubble (with flag)</td><td>O(n)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td><td>Yes</td><td>Yes</td><td>sorted / reverse sorted</td></tr>
+<tr><td>Selection</td><td>O(n²)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td><td>No</td><td>Yes</td><td>same for all inputs</td></tr>
+<tr><td>Insertion</td><td>O(n)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td><td>Yes</td><td>Yes</td><td>sorted / reverse sorted</td></tr>
+<tr><td>Merge</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n)</td><td>Yes</td><td>No</td><td>same for all inputs</td></tr>
+<tr><td>Quick</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n²)</td><td>O(log n) stack</td><td>No</td><td>Yes</td><td>balanced split / sorted input with end pivot</td></tr>
+<tr><td>Heap</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n log n)</td><td>O(1)</td><td>No</td><td>Yes</td><td>same for all inputs</td></tr>
+</table></div>
+<p>Number of swaps: selection sort does at most n−1 swaps (useful when writes are expensive, e.g. Flash/EEPROM). Comparison-based sorting has a lower bound of Ω(n log n) in the worst case.</p>
+
+<h3>9.2 Searching</h3>
+<div class="tablewrap"><table>
+<tr><th>Method</th><th>Precondition</th><th>Best</th><th>Average</th><th>Worst</th><th>Space</th></tr>
+<tr><td>Linear search</td><td>none</td><td>O(1)</td><td>O(n)</td><td>O(n)</td><td>O(1)</td></tr>
+<tr><td>Binary search (iterative)</td><td>sorted array</td><td>O(1)</td><td>O(log n)</td><td>O(log n)</td><td>O(1)</td></tr>
+<tr><td>Binary search (recursive)</td><td>sorted array</td><td>O(1)</td><td>O(log n)</td><td>O(log n)</td><td>O(log n)</td></tr>
+<tr><td>Fibonacci search</td><td>sorted array</td><td>O(1)</td><td>O(log n)</td><td>O(log n)</td><td>O(1)</td></tr>
+<tr><td>BST search</td><td>BST</td><td>O(1)</td><td>O(log n)</td><td>O(n) skewed</td><td>O(1) iterative</td></tr>
+<tr><td>Balanced BST (AVL)</td><td>AVL tree</td><td>O(1)</td><td>O(log n)</td><td>O(log n)</td><td>O(1)</td></tr>
+<tr><td>Hash table</td><td>hash function</td><td>O(1)</td><td>O(1)</td><td>O(n)</td><td>O(n)</td></tr>
+</table></div>
+
+<h3>9.3 Data-structure operations</h3>
+<div class="tablewrap"><table>
+<tr><th>Structure</th><th>Access k-th</th><th>Search</th><th>Insert</th><th>Delete</th><th>Notes</th></tr>
+<tr><td>Array (unsorted)</td><td>O(1)</td><td>O(n)</td><td>O(1) at end, O(n) middle</td><td>O(n)</td><td>shifting needed</td></tr>
+<tr><td>Sorted array</td><td>O(1)</td><td>O(log n)</td><td>O(n)</td><td>O(n)</td><td></td></tr>
+<tr><td>SLL (head+tail)</td><td>O(n)</td><td>O(n)</td><td>O(1) front/rear/after node</td><td>O(1) front; O(n) rear</td><td></td></tr>
+<tr><td>DLL</td><td>O(n)</td><td>O(n)</td><td>O(1)</td><td>O(1) given node</td><td>extra prev pointer</td></tr>
+<tr><td>Stack (array/list)</td><td>—</td><td>—</td><td>push O(1)</td><td>pop O(1)</td><td>LIFO</td></tr>
+<tr><td>Queue / circular queue</td><td>—</td><td>—</td><td>enqueue O(1)</td><td>dequeue O(1)</td><td>FIFO</td></tr>
+<tr><td>Binary heap (PQ)</td><td>min O(1)</td><td>O(n)</td><td>O(log n)</td><td>deleteMin O(log n)</td><td>build-heap O(n)</td></tr>
+<tr><td>BST</td><td>—</td><td>O(h)</td><td>O(h)</td><td>O(h)</td><td>h = log n … n</td></tr>
+</table></div>
+
+<!-- ============================================================ -->
+<h2 id="short">10. Short-answer &amp; comparison questions</h2>
+<div class="tablewrap"><table>
+<tr><th>Array</th><th>Linked list</th></tr>
+<tr><td>Contiguous memory, fixed size (static)</td><td>Nodes scattered in memory, grows/shrinks dynamically</td></tr>
+<tr><td>Random access O(1)</td><td>Sequential access O(n)</td></tr>
+<tr><td>Insert/delete in middle O(n) (shifting)</td><td>Insert/delete O(1) once position is known</td></tr>
+<tr><td>No pointer overhead, cache friendly</td><td>Extra memory for links</td></tr>
+</table></div>
+<div class="tablewrap"><table>
+<tr><th>Stack</th><th>Queue</th></tr>
+<tr><td>LIFO</td><td>FIFO</td></tr>
+<tr><td>One end (top) for insert and delete</td><td>Insert at rear, delete at front</td></tr>
+<tr><td>push / pop</td><td>enqueue / dequeue</td></tr>
+<tr><td>Recursion, expression evaluation, undo</td><td>Scheduling, buffering, BFS</td></tr>
+</table></div>
+<div class="tablewrap"><table>
+<tr><th>SLL</th><th>DLL</th></tr>
+<tr><td>One link per node</td><td>Two links (prev, next)</td></tr>
+<tr><td>Forward traversal only</td><td>Both directions</td></tr>
+<tr><td>Delete given node needs predecessor (O(n)) or copy trick</td><td>Delete given node O(1)</td></tr>
+<tr><td>Less memory</td><td>More memory, more pointer updates</td></tr>
+</table></div>
+<div class="tablewrap"><table>
+<tr><th>Merge sort</th><th>Quick sort</th></tr>
+<tr><td>Always O(n log n)</td><td>O(n log n) average, O(n²) worst</td></tr>
+<tr><td>O(n) extra space</td><td>In-place, O(log n) stack</td></tr>
+<tr><td>Stable</td><td>Not stable</td></tr>
+<tr><td>Work done in the combine (merge) step</td><td>Work done in the divide (partition) step</td></tr>
+<tr><td>Good for linked lists, external sorting</td><td>Usually faster in practice for arrays</td></tr>
+</table></div>
+<div class="tablewrap"><table>
+<tr><th>Linear search</th><th>Binary search</th></tr>
+<tr><td>Unsorted or sorted data</td><td>Sorted data only</td></tr>
+<tr><td>O(n)</td><td>O(log n)</td></tr>
+<tr><td>Works on linked lists</td><td>Needs random access (array)</td></tr>
+</table></div>
+<div class="card">
+<p><b>Stable sort:</b> equal keys keep their original relative order. Matters when sorting records by one field after sorting by another.</p>
+<p><b>In-place sort:</b> uses only O(1) (or O(log n)) extra memory besides the input.</p>
+<p><b>Divide and conquer:</b> divide the problem into smaller sub-problems, solve them recursively, combine the results (merge sort, quick sort, binary search).</p>
+<p><b>Abstract Data Type (ADT):</b> a data type defined by its operations (what), independent of implementation (how). E.g. Stack ADT = {push, pop, top, isEmpty}; it can be implemented with an array or a linked list.</p>
+<p><b>Overflow / underflow:</b> inserting into a full structure / deleting from an empty one.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="practice">11. Practice set (with answers)</h2>
+<div class="card">
+<ol>
+<li><p><b>Build a BST from 45, 15, 79, 90, 10, 55, 12, 20, 50 and give all traversals.</b></p>
+<pre>
+            45
+          /    \
+        15      79
+       /  \    /  \
+     10   20  55   90
+       \      /
+       12    50
+</pre>
+<p>Inorder: 10 12 15 20 45 50 55 79 90<br>Preorder: 45 15 10 12 20 79 55 50 90<br>Postorder: 12 10 20 15 50 55 90 79 45<br>Height 3, leaves: 12, 20, 50, 90.</p></li>
+
+<li><p><b>Insertion sort trace on [12, 11, 13, 5, 6].</b></p>
+<p>[11,12,13,5,6] → [11,12,13,5,6] → [5,11,12,13,6] → [5,6,11,12,13].</p></li>
+
+<li><p><b>Merge sort on [8, 3, 5, 4, 7, 6, 1, 2].</b></p>
+<p>Pairs: [3,8] [4,5] [6,7] [1,2] → [3,4,5,8] [1,2,6,7] → [1,2,3,4,5,6,7,8]. Depth = log₂8 = 3 merge levels.</p></li>
+
+<li><p><b>Convert (A + B) * (C − D) / E to postfix.</b></p>
+<p>A B + C D − * E /</p></li>
+
+<li><p><b>Evaluate postfix 6 2 3 + − 3 8 2 / + *.</b></p>
+<p>2+3=5 → 6−5=1 → 8/2=4 → 3+4=7 → 1*7 = <b>7</b>.</p></li>
+
+<li><p><b>Find the complexity:</b> <code>for(i=1;i&lt;=n;i++) for(j=1;j&lt;=n;j*=2) sum++;</code></p>
+<p>Outer n times, inner ⌊log₂n⌋+1 times → O(n log n).</p></li>
+
+<li><p><b>Solve T(n) = 2T(n/2) + 1.</b></p>
+<p>Master theorem: a=2, b=2, n<sup>log₂2</sup> = n, f(n)=1 is polynomially smaller → Case 1 → Θ(n).</p></li>
+
+<li><p><b>Solve T(n) = T(n/2) + n.</b></p>
+<p>a=1, b=2, n<sup>0</sup>=1, f(n)=n is larger → Case 3 → Θ(n). (By expansion: n + n/2 + n/4 + … ≤ 2n.)</p></li>
+
+<li><p><b>A circular queue (count version) of size 4: enq A, B, C; deq; enq D, E; enq F. State front, rear and whether F is inserted.</b></p>
+<p>After enq A,B,C: front=0, rear=2. deq A: front=1. enq D: rear=3. enq E: rear=0 (wraps). Count = 4 → full, F rejected. Final front=1, rear=0; removal order B C D E.</p></li>
+
+<li><p><b>Binary search for 40 in [10, 20, 30, 40, 50, 60, 70].</b></p>
+<p>mid=3 → a[3]=40 → found in 1 comparison (best case).</p></li>
+
+<li><p><b>Why can't binary search be applied efficiently to a linked list?</b></p>
+<p>Finding the middle element takes O(n) in a list (no random access), so the total becomes O(n) — no better than linear search.</p></li>
+
+<li><p><b>Which data structure checks whether a string is a palindrome efficiently?</b></p>
+<p>Push all characters onto a stack, then pop and compare with the string from the start (or use a deque comparing both ends). O(n).</p></li>
+</ol>
+</div>
+
+<p class="subtitle" style="margin-top:40px">Built from the ESE 5102 course plan (2026–27) and the previous-year CO1 questions. Code is standard C (C99); compile with <code>gcc -std=c99 file.c</code>.</p>
+</main>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>if(window.hljs){hljs.highlightAll();}</script>
+</body>
+</html>

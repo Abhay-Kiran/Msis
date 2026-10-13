@@ -1,0 +1,374 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}</style><style>:root{color-scheme:light dark;--md-bg:#fff;--md-text:rgba(0,0,0,.8);--md-muted:rgba(0,0,0,.6);--md-fill:rgba(0,0,0,.04);--md-fill-strong:rgba(0,0,0,.06);--md-rule:rgba(0,0,0,.1);--md-rule-strong:rgba(0,0,0,.16);--md-link:hsl(210 100% 45%)}@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){--md-bg:#0d0d0d;--md-text:rgba(255,255,255,.85);--md-muted:rgba(255,255,255,.6);--md-fill:rgba(255,255,255,.06);--md-fill-strong:rgba(255,255,255,.09);--md-rule:rgba(255,255,255,.14);--md-rule-strong:rgba(255,255,255,.22);--md-link:hsl(210 100% 72%)}}:root[data-theme="dark"]{color-scheme:dark;--md-bg:#0d0d0d;--md-text:rgba(255,255,255,.85);--md-muted:rgba(255,255,255,.6);--md-fill:rgba(255,255,255,.06);--md-fill-strong:rgba(255,255,255,.09);--md-rule:rgba(255,255,255,.14);--md-rule-strong:rgba(255,255,255,.22);--md-link:hsl(210 100% 72%)}:root[data-theme="light"]{color-scheme:light}@media print{:root,:root[data-theme="dark"]{color-scheme:light;--md-bg:#fff;--md-text:rgba(0,0,0,.8);--md-muted:rgba(0,0,0,.6);--md-fill:rgba(0,0,0,.04);--md-fill-strong:rgba(0,0,0,.06);--md-rule:rgba(0,0,0,.1);--md-rule-strong:rgba(0,0,0,.16);--md-link:hsl(210 100% 45%)}}body{background:var(--md-bg);color:var(--md-text);max-width:720px;margin:0 auto;padding:32px;display:flex;flex-direction:column;gap:10px;font:14px/1.55 -apple-system,BlinkMacSystemFont,'SF Pro','Segoe UI',sans-serif;overflow-wrap:break-word}body>:first-child{margin-top:0}h1,h2,h3,h4,h5,h6{margin:6px 0 0;line-height:1.25;font-weight:600;text-wrap:balance}h1{font-size:1.35em}h2{font-size:1.15em;color:var(--md-muted)}h3,h4,h5,h6{font-size:1em}p,ul,ol,blockquote,table,pre,hr{margin:0}strong{font-weight:600}a{color:var(--md-link);text-decoration:none}a:hover{text-decoration:underline}ul,ol{display:flex;flex-direction:column;gap:6px;padding-left:22px}ul{list-style:disc}ol{list-style:decimal}:is(li,td,th)>*+:is(p,ul,ol,blockquote){margin-top:6px}blockquote{display:flex;flex-direction:column;gap:10px;border-left:2px solid var(--md-rule);padding-left:10px;color:var(--md-muted)}:not(pre)>code{background:var(--md-fill);padding:1px 3px;border-radius:4px;font:.92em 'SF Mono',ui-monospace,Menlo,Consolas,monospace}a>code{background:none;color:inherit}pre{background:var(--md-fill);padding:10px 12px;border-radius:6px;overflow-x:auto;font:12px/1.5 'SF Mono',ui-monospace,Menlo,Consolas,monospace;margin-block:4px}pre code{background:none;padding:0;font:inherit}table{width:100%;border-collapse:separate;border-spacing:2px;font:inherit}th,td{padding:6px 8px;border-radius:3px;text-align:left;vertical-align:top}th{background:var(--md-fill-strong);font-weight:600}td{background:var(--md-fill)}:is(th,td) :not(pre)>code{background:transparent}hr{border:0;border-top:1px solid var(--md-rule-strong);margin-block:10px}img{max-width:100%;height:auto;border-radius:4px}</style>
+</head><body>
+<h1>ESE 5103 Microcontrollers (LPC2148): Question Bank</h1>
+<p>Compiled from 5 papers: Nov 2018, Feb 2021, Jan 2023, Dec 2023, Nov 2024. Tags show where a question appeared; <strong>x3</strong> means it came up three times. Left out as you asked: LCD, stepper/DC motor, relays, UART/baud-rate, ADC/DAC programming (theory only). 8051 questions are dropped because the course plan is ARM/LPC based.</p>
+<hr>
+<h1>PART A: Exam-style paper (CO order)</h1>
+<h2>CO1 (architecture, ARM7, LPC2148, memory, GPIO, interrupts)</h2>
+<ol>
+<li>Types of embedded boards and seven selection factors. (10) [2024]</li>
+<li>Toolchain for ARM code development, with diagram. (10) [Jan23]</li>
+<li>ARM philosophy; RISC vs CISC. (10) [2021]</li>
+<li>ARM7 processor modes with diagram. (10) <strong>x3</strong> [2021, Jan23, 2024]</li>
+<li>Data path organisation of ARM7 with block diagram. (7+3) [2018]</li>
+<li>Explain LDMIA R0!,{R2-R5}; STMDB R2,{R5-R9}; SWI; MRS; MSR. (10) [2018]</li>
+<li>LPC2148 architecture with block diagram. (10) <strong>x2</strong> [2018, Dec23]</li>
+<li>LPC2148 memory map with diagram. (10) <strong>x2</strong> [Dec23, 2024]</li>
+<li>Role of crystal oscillator and reset circuitry. (10) [2021]</li>
+<li>Role of PLL in LPC2148 with registers and a configuration. (10) [2021]</li>
+<li>GPIO ports and registers to control them. (10) <strong>x3</strong> [2018, Jan23, 2024]</li>
+<li>Interrupt vs polling; level vs edge triggered interrupts. (5+5) [2021, 2018]</li>
+<li>Pull-up and pull-down resistors. (5) [Dec23]</li>
+<li>C program to check whether a string is a palindrome, with comments. (10) [Jan23]</li>
+<li>EINT1 switch (normally high); on low turn on LED at P1.18 for 1 second. (10) [Dec23]</li>
+</ol>
+<h2>CO2 (timers, counters, ADC, DAC: theory only for ADC/DAC)</h2>
+<ol start="16">
+<li>Set up and configure LPC2148 timers; write functions for a millisecond delay. (10) [2024]</li>
+<li>Code for 1 ms and 1 us delay using the timer. (10) [Dec23]</li>
+<li>LED on P0.5: turn on and off for 50 ms using the timer, with circuit diagram. (10) [Jan23]</li>
+<li>DAC module and its registers; how to generate sawtooth, square and triangle waves. (10+10) [Dec23, Jan23]</li>
+<li>Ten key ADC characteristics for choosing an ADC; how AD1.7 is read in burst mode at PCLK = 60 MHz. (10+10) [2024]</li>
+</ol>
+<h2>CO3 (SPI, I2C, buses)</h2>
+<ol start="21">
+<li>Function of CPOL and CPHA in SPI with timing diagram. (10) [Jan23]</li>
+<li>SPI clock operation and multi-slave configuration with diagram. (10) [2021]</li>
+<li>Embedded C to send the character 'M' from SPI master to slave. (10) [2024]</li>
+<li>I2C working and data frame format, with timing diagram. (10) [Dec23, 2018]</li>
+<li>How arbitration is handled in I2C. (10) [Jan23]</li>
+<li>Bit banging. (5) [Dec23]</li>
+</ol>
+<h2>Extra practice: GPIO, LED and buttons (IODIR / IOSET / IOCLR / IOPIN)</h2>
+<ul>
+<li>X1. Blink an LED on P0.5 forever with a software delay.</li>
+<li>X2. Running light on 8 LEDs at P1.16 to P1.23.</li>
+<li>X3. Switch on P0.4 (active low): LED on P0.5 glows while pressed, off when released.</li>
+<li>X4. Toggle the LED on every button press, with debounce.</li>
+<li>X5. Two buttons: SW1 turns on 4 LEDs using IOSET, SW2 turns them off using IOCLR.</li>
+<li>X6. 8-bit binary counter (0 to 255) shown on 8 LEDs.</li>
+</ul>
+<hr>
+<h1>PART B: Answers (CO order)</h1>
+<h2>CO1</h2>
+<p><strong>Q1. Embedded boards.</strong> Types: microcontroller boards (LPC2148, Arduino, STM32 Nucleo), single-board computers (Raspberry Pi, BeagleBone), FPGA/CPLD boards, system-on-module boards, DSP boards, industrial/PLC boards. Seven factors: processing power and architecture, memory (flash/RAM), power consumption, peripherals and I/O count, connectivity (UART, SPI, I2C, USB, Ethernet), cost, tools/RTOS/community support. Also: form factor, operating temperature, reliability.</p>
+<p><strong>Q2. Toolchain.</strong> Source (.c/.s) -&gt; compiler/assembler -&gt; object files -&gt; linker (with startup code and linker script/scatter file) -&gt; .elf/.axf -&gt; hex/bin converter -&gt; flash programmer (ISP via UART bootloader, or JTAG) -&gt; debugger/simulator. Draw as a horizontal flow of boxes.</p>
+<p><strong>Q3. ARM philosophy.</strong> Load/store RISC architecture, fixed 32-bit instructions, large register file (16 visible registers), conditional execution on every instruction, barrel shifter, simple low-power design. RISC: few simple instructions, one cycle each, register-to-register operations, hard-wired control, more code size. CISC: many complex variable-length instructions, memory-to-memory operations, microcoded control, smaller code, slower per instruction.</p>
+<p><strong>Q4. ARM7 modes</strong> (all 7 share R0-R7, CPSR; the mode is in CPSR bits 4:0).</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Entered by</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User</td>
+<td>normal</td>
+<td>application code, unprivileged</td>
+</tr>
+<tr>
+<td>FIQ</td>
+<td>fast interrupt</td>
+<td>fast handling, banks R8-R14</td>
+</tr>
+<tr>
+<td>IRQ</td>
+<td>normal interrupt</td>
+<td>general interrupt handling</td>
+</tr>
+<tr>
+<td>Supervisor</td>
+<td>reset, SWI</td>
+<td>OS/kernel, default after reset</td>
+</tr>
+<tr>
+<td>Abort</td>
+<td>memory access fault</td>
+<td>data/prefetch abort</td>
+</tr>
+<tr>
+<td>Undefined</td>
+<td>undefined instruction</td>
+<td>emulation</td>
+</tr>
+<tr>
+<td>System</td>
+<td>software</td>
+<td>privileged, uses user registers</td>
+</tr>
+</tbody>
+</table>
+<p>Each exception mode has its own banked SP, LR, and SPSR. Only FIQ banks R8-R12 too. Draw CPSR with N Z C V, I F T bits and mode field.</p>
+<p><strong>Q5. Data path.</strong> 3-stage pipeline (fetch, decode, execute). Blocks: instruction pipeline and decoder, register bank (31 registers) with two read ports and one write port, barrel shifter on operand B, ALU, 32x8 multiplier, address register with incrementer, data-in and data-out registers, control logic. Flow: register bank -&gt; barrel shifter -&gt; ALU -&gt; result back to register bank or address register.</p>
+<p><strong>Q6. Instructions.</strong></p>
+<ul>
+<li><code>LDMIA R0!,{R2-R5}</code>: load multiple, increment after. R2=[R0], R3=[R0+4], R4=[R0+8], R5=[R0+12]. <code>!</code> writes back R0 = R0+16.</li>
+<li><code>STMDB R2,{R5-R9}</code>: store multiple, decrement before. Address starts at R2-20; R5 stored lowest, R9 highest. No writeback (no <code>!</code>), so R2 is unchanged.</li>
+<li><code>SWI</code>: software interrupt. Copies CPSR to SPSR_svc, saves return address in LR_svc, enters Supervisor mode, jumps to vector 0x08.</li>
+<li><code>MRS R0,CPSR</code>: copy CPSR (or SPSR) into a general register for reading.</li>
+<li><code>MSR CPSR_c,R0</code>: write to CPSR fields; used to change mode or mask IRQ/FIQ.</li>
+</ul>
+<p><strong>Q7. LPC2148 architecture.</strong> ARM7TDMI-S core, 512 KB flash, 32 KB SRAM (+8 KB USB RAM), VIC, PLL, two 10-bit ADCs (14 channels), 10-bit DAC, 2 timers, PWM, 2 UARTs, 2 I2C, SPI/SSP, RTC, watchdog, USB 2.0, up to 45 fast GPIO. Blocks connect over AHB (fast: flash, RAM, VIC) and the VPB bridge (slower peripherals).</p>
+<p><strong>Q8. Memory map.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flash 512 KB</td>
+<td>0x0000_0000 to 0x0007_FFFF</td>
+</tr>
+<tr>
+<td>On-chip SRAM 32 KB</td>
+<td>0x4000_0000 to 0x4000_7FFF</td>
+</tr>
+<tr>
+<td>USB DMA RAM 8 KB</td>
+<td>0x7FD0_0000 to 0x7FD0_1FFF</td>
+</tr>
+<tr>
+<td>Boot block 8 KB</td>
+<td>0x7FFF_E000 to 0x7FFF_FFFF</td>
+</tr>
+<tr>
+<td>VPB peripherals</td>
+<td>0xE000_0000 to 0xE00F_FFFF</td>
+</tr>
+<tr>
+<td>AHB peripherals (VIC at 0xFFFF_F000)</td>
+<td>0xF000_0000 to 0xFFFF_FFFF</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Q9. Crystal and reset.</strong> Crystal (10-25 MHz, typically 12 MHz) connects to XTAL1/XTAL2 with two ~22 pF capacitors to ground; the on-chip oscillator drives the PLL and CCLK. Reset: RST pin is active low with a Schmitt-trigger input; external RC (e.g. 10 k and 10 uF) gives power-on reset, and a push button to ground gives manual reset. After reset the PC = 0x0, core is in Supervisor mode, IRQ and FIQ are disabled, and the PLL is bypassed.</p>
+<p><strong>Q10. PLL</strong> multiplies the crystal to a higher CPU clock. Rules: CCLK = M x Fosc; FCCO = CCLK x 2 x P must lie between 156 and 320 MHz. For 12 MHz -&gt; 60 MHz: M = 5, P = 2, so FCCO = 240 MHz. Registers: PLL0CON (bit0 PLLE enable, bit1 PLLC connect), PLL0CFG (MSEL bits 4:0 = M-1, PSEL bits 6:5), PLL0STAT (bit 10 PLOCK), PLL0FEED (0xAA then 0x55 to make changes take effect).</p>
+<pre><code class="language-c">#include &lt;lpc214x.h&gt;
+
+void PLL_Init(void)
+{
+    PLL0CFG = 0x24;     // MSEL = M-1 = 4 (bits 4:0) -&gt; M = 5; PSEL = 01 (bits 6:5) -&gt; P = 2
+                        // so 0x04 | (0x01 &lt;&lt; 5) = 0x24; CCLK = 5 x 12 MHz = 60 MHz, FCCO = 240 MHz
+    PLL0CON = 0x01;     // PLLE = 1: enable the PLL (not yet connected to the CPU)
+    PLL0FEED = 0xAA;    // feed sequence part 1: the PLL ignores writes without both feeds
+    PLL0FEED = 0x55;    // feed sequence part 2: PLL0CFG and PLL0CON now take effect
+
+    while (!(PLL0STAT &amp; (1 &lt;&lt; 10)));  // wait for PLOCK (bit 10): PLL has locked on 240 MHz
+
+    PLL0CON = 0x03;     // PLLE = 1 and PLLC = 1: connect the PLL output as the system clock
+    PLL0FEED = 0xAA;    // feed again so the connect takes effect
+    PLL0FEED = 0x55;
+
+    VPBDIV = 0x01;      // peripheral clock = CCLK / 1 = 60 MHz (default is CCLK / 4 = 15 MHz)
+}
+</code></pre>
+<p>Order matters: configure, enable, feed, wait for lock, connect, feed. Connecting before lock crashes the clock.</p>
+<p><strong>Q11. GPIO.</strong> LPC2148 has Port 0 (P0.0-P0.31) and Port 1 (P1.16-P1.31). Pins are shared with peripherals, so select GPIO first.</p>
+<ul>
+<li>PINSELx: 2 bits per pin, <code>00</code> = GPIO.</li>
+<li>IODIRx: 1 = output, 0 = input.</li>
+<li>IOSETx: writing 1 drives the pin high; writing 0 does nothing.</li>
+<li>IOCLRx: writing 1 drives the pin low; writing 0 does nothing.</li>
+<li>IOPINx: reading gives the pin state; writing sets the whole port.</li>
+</ul>
+<p><strong>Q12. Interrupt vs polling.</strong> Polling: CPU repeatedly checks a flag, simple but wastes cycles and reacts late. Interrupt: device signals the CPU, which runs an ISR then resumes; efficient and fast response, needs VIC setup. Level-triggered: the interrupt stays active while the line is at the level (low/high), so the source must be cleared or it re-fires. Edge-triggered: fires once on a transition (rising/falling), latched, so short pulses are not missed.</p>
+<p><strong>Q13. Pull-up/pull-down.</strong> A pull-up resistor ties an input to Vcc so it reads 1 when the switch is open (switch to ground reads 0, active low). A pull-down ties it to ground so it reads 0 when open (switch to Vcc reads 1). They prevent a floating input picking up noise. Typical values 4.7 k to 10 k.</p>
+<p><strong>Q14. Palindrome.</strong></p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int isPalindrome(char *s)
+{
+    int i = 0, j = 0;
+    while (s[j] != &#39;\0&#39;) j++;      // move j to the end to find the string length
+    j--;                           // j now points at the last real character
+    while (i &lt; j)                  // compare from both ends toward the middle
+    {
+        if (s[i] != s[j])          // first mismatch means not a palindrome
+            return 0;
+        i++;                       // move left pointer right
+        j--;                       // move right pointer left
+    }
+    return 1;                      // all pairs matched
+}
+
+int main(void)
+{
+    char str[] = &#34;madam&#34;;          // received string (stored in a buffer)
+    if (isPalindrome(str)) { /* palindrome */ }
+    else                   { /* not palindrome */ }
+    while (1);
+}
+</code></pre>
+<p><strong>Q15. EINT1 switch with LED P1.18.</strong> EINT1 is on P0.3 (PINSEL0 bits 7:6 = 11) and VIC channel 15. Switch is normally high, so use falling-edge sensitivity.</p>
+<pre><code class="language-c">#include &lt;lpc214x.h&gt;
+
+void delay_ms(unsigned int ms);          // defined in Q16
+
+void EINT1_ISR(void) __irq               // __irq makes the compiler save/restore registers
+{
+    IOSET1 = (1 &lt;&lt; 18);                  // LED on (P1.18 active high)
+    delay_ms(1000);                      // stay on for one second
+    IOCLR1 = (1 &lt;&lt; 18);                  // LED off
+    EXTINT = 0x02;                       // write 1 to bit 1 to clear the EINT1 flag
+    VICVectAddr = 0;                     // tell the VIC the interrupt is finished
+}
+
+int main(void)
+{
+    PLL_Init();                          // Q10: 60 MHz CCLK and PCLK
+    IODIR1 |= (1 &lt;&lt; 18);                 // P1.18 as output
+    IOCLR1  = (1 &lt;&lt; 18);                 // LED starts off
+    PINSEL0 |= (3 &lt;&lt; 6);                 // P0.3 -&gt; function 11 = EINT1
+    EXTMODE  |= 0x02;                    // EINT1 edge sensitive
+    EXTPOLAR &amp;= ~0x02;                   // falling edge (switch press pulls line low)
+    VICIntSelect &amp;= ~(1 &lt;&lt; 15);          // channel 15 is IRQ, not FIQ
+    VICVectCntl0 = 0x20 | 15;            // slot 0 enabled (bit 5) and mapped to channel 15
+    VICVectAddr0 = (unsigned long)EINT1_ISR; // slot 0 jumps to our ISR
+    VICIntEnable = (1 &lt;&lt; 15);            // enable the EINT1 interrupt in the VIC
+    while (1);                           // idle; all work is in the ISR
+}
+</code></pre>
+<h2>CO2</h2>
+<p><strong>Q16. Timers.</strong> LPC2148 Timer0/Timer1 are 32-bit with a prescaler. Registers: TCR (bit0 enable, bit1 reset), CTCR (0 = timer mode), PR (prescaler maximum), TC (timer counter, counts +1 every PR+1 PCLK cycles), MCR/MR0 (match actions), IR (flags). With PCLK = 60 MHz, set PR = 59 so TC counts once per 1 us.</p>
+<pre><code class="language-c">#include &lt;lpc214x.h&gt;
+
+void delay_us(unsigned int us)
+{
+    T0CTCR = 0x00;          // timer mode: TC increments from the prescaled PCLK
+    T0PR   = 59;            // PR = 60 MHz/1 MHz - 1 = 59 -&gt; 1 tick = 1 us
+    T0TCR  = 0x02;          // bit1 = 1: hold TC and PC in reset
+    T0TCR  = 0x01;          // bit0 = 1, bit1 = 0: release reset and start counting
+    while (T0TC &lt; us);      // busy-wait until TC reaches the requested microseconds
+    T0TCR  = 0x00;          // stop the timer
+}
+
+void delay_ms(unsigned int ms)
+{
+    while (ms--)            // repeat once per millisecond
+        delay_us(1000);     // 1000 us = 1 ms
+}
+</code></pre>
+<p><strong>Q17. 1 ms and 1 us:</strong> <code>delay_us(1)</code> gives 1 us (function overhead means very short values are approximate) and <code>delay_ms(1)</code> gives 1 ms, both using the code above. For a more exact ms delay, set <code>T0PR = 59999</code> so one tick is 1 ms and wait for <code>T0TC &lt; ms</code>.</p>
+<p><strong>Q18. LED P0.5, 50 ms on / 50 ms off.</strong> Circuit: P0.5 -&gt; 330 ohm resistor -&gt; LED anode; LED cathode -&gt; GND (active high).</p>
+<pre><code class="language-c">int main(void)
+{
+    PLL_Init();                  // 60 MHz CCLK/PCLK (Q10) so the timer maths is right
+    PINSEL0 &amp;= ~(3 &lt;&lt; 10);       // P0.5 uses bits 11:10; 00 = GPIO
+    IODIR0  |=  (1 &lt;&lt; 5);        // P0.5 as output
+    while (1)
+    {
+        IOSET0 = (1 &lt;&lt; 5);       // LED on
+        delay_ms(50);            // 50 ms from Q16
+        IOCLR0 = (1 &lt;&lt; 5);       // LED off
+        delay_ms(50);
+    }
+}
+</code></pre>
+<p><strong>Q19. DAC (theory).</strong> 10-bit resistor-string DAC, output AOUT on P0.25 (PINSEL1 bits 19:18 = 10). One register, DACR: VALUE in bits 15:6, BIAS bit 16 (0 = settling 1 us, 700 uA; 1 = 2.5 us, 350 uA). Output: Vout = (VALUE / 1024) x VREF. Waveforms by changing VALUE in a loop: sawtooth: count 0 to 1023 and wrap to 0; square: alternate between 0 and 1023 with a delay; triangle: count up to 1023, then down to 0. Frequency is set by the delay between steps.</p>
+<p><strong>Q20. ADC (theory).</strong> Ten characteristics: resolution, sampling rate, conversion time, input voltage range/VREF, accuracy (offset and gain error), INL, DNL, quantisation error, SNR/ENOB, number of channels, power consumption, input impedance, architecture (SAR, flash, sigma-delta), interface. LPC2148 has 10-bit SAR ADCs. Burst mode: ADCR is set with SEL = channel 7 mask (bit 7), CLKDIV so ADC clock is at most 4.5 MHz (60/(13+1) = 4.3 MHz), BURST bit 16 = 1 (repeated conversions without START), CLKS = 000 (10-bit, 11 clocks), PDN bit 21 = 1, START bits 26:24 = 000. Result is read from AD1DR7 (bits 15:6), valid when DONE bit 31 = 1.</p>
+<h2>CO3</h2>
+<p><strong>Q21. CPOL and CPHA.</strong> CPOL sets the idle clock level: 0 = low, 1 = high. CPHA sets the sampling edge: 0 = data sampled on the first (leading) clock edge, 1 = on the second (trailing) edge. This gives modes 0 to 3; master and slave must use the same mode. LPC2148: S0SPCR bit 3 = CPHA, bit 4 = CPOL. Draw SCK, MOSI, MISO for each mode with sampling arrows.</p>
+<p><strong>Q22. SPI clock and multi-slave.</strong> Master generates SCK = PCLK / S0SPCCR (value even, at least 8). Master has one shared SCK, MOSI, MISO and one slave-select line per slave (active low). Only the selected slave drives MISO; others tri-state. Diagram: one master with three slaves, SS1/SS2/SS3 from three GPIO pins.</p>
+<p><strong>Q23. SPI master sends 'M'.</strong> SPI0 pins: SCK0 P0.4, MISO0 P0.5, MOSI0 P0.6, chip select on P0.7 used as plain GPIO.</p>
+<pre><code class="language-c">void SPI_MasterInit(void)
+{
+    PINSEL0 |= 0x00005500;      // 01 on bits 15:8: P0.4 SCK0, P0.5 MISO0, P0.6 MOSI0, P0.7 SSEL0
+    PINSEL0 &amp;= ~(3 &lt;&lt; 14);      // override P0.7 back to GPIO, used as manual chip select
+    IODIR0  |= (1 &lt;&lt; 7);        // P0.7 output
+    IOSET0   = (1 &lt;&lt; 7);        // slave deselected (active low)
+    S0SPCCR  = 8;               // SCK = 60 MHz / 8 = 7.5 MHz (8 is the minimum, must be even)
+    S0SPCR   = 0x20;            // bit5 MSTR = 1 master; CPOL = 0, CPHA = 0 (mode 0)
+}
+
+void SPI_Send(char c)
+{
+    IOCLR0 = (1 &lt;&lt; 7);          // select slave
+    S0SPDR = c;                 // writing the data register starts the transfer
+    while (!(S0SPSR &amp; 0x80));   // wait for SPIF (bit 7): transfer complete
+    (void)S0SPDR;               // reading SPSR then SPDR clears SPIF
+    IOSET0 = (1 &lt;&lt; 7);          // deselect slave
+}
+
+int main(void) { PLL_Init(); SPI_MasterInit(); SPI_Send(&#39;M&#39;); while (1); }
+</code></pre>
+<p>Slave side:</p>
+<pre><code class="language-c">S0SPCR = 0x00;                  // MSTR = 0: slave mode, same CPOL/CPHA as master
+while (!(S0SPSR &amp; 0x80));       // wait for the master&#39;s clock to shift in a byte
+char r = S0SPDR;                // read the received &#39;M&#39; (also clears SPIF)
+</code></pre>
+<p><strong>Q24. I2C.</strong> Two open-drain wires, SDA and SCL, each with a pull-up (about 4.7 k). Multi-master, addressed protocol. Frame: START (SDA falls while SCL high) -&gt; 7-bit address + R/W bit -&gt; ACK from slave (SDA pulled low) -&gt; data byte -&gt; ACK ... -&gt; STOP (SDA rises while SCL high). Data on SDA changes only while SCL is low and is sampled while SCL is high. Speeds: 100 kHz, 400 kHz, 3.4 MHz.</p>
+<p><strong>Q25. Arbitration.</strong> Bus is wired-AND, so a 0 always wins. Two masters start together; each sends bits and reads SDA back. A master that sends 1 but reads 0 has lost: it stops driving and switches to slave/listening, with no data corrupted. The master with the lower address/data wins. Clocks are also synchronised: SCL is low as long as the slowest master holds it low.</p>
+<p><strong>Q26. Bit banging.</strong> Implementing a serial protocol (SPI, I2C) in software by toggling GPIO pins with delays instead of using the hardware peripheral. Useful when pins or peripherals are unavailable; slower and uses CPU time.</p>
+<pre><code class="language-c">void SPI_BitBang(unsigned char d)
+{
+    for (int i = 0; i &lt; 8; i++)
+    {
+        if (d &amp; 0x80) IOSET0 = (1 &lt;&lt; 6); else IOCLR0 = (1 &lt;&lt; 6); // put MSB on MOSI (P0.6)
+        IOSET0 = (1 &lt;&lt; 4);                                       // SCK high: slave samples the bit
+        IOCLR0 = (1 &lt;&lt; 4);                                       // SCK low
+        d &lt;&lt;= 1;                                                 // next bit
+    }
+}
+</code></pre>
+<h2>Extra practice solutions</h2>
+<p><strong>X1. Blink P0.5 (software delay).</strong></p>
+<pre><code class="language-c">#include &lt;lpc214x.h&gt;
+
+void delay(void) { volatile unsigned long i; for (i = 0; i &lt; 500000; i++); } // volatile stops the compiler removing the loop
+
+int main(void)
+{
+    PINSEL0 &amp;= ~(3 &lt;&lt; 10);   // P0.5 as GPIO
+    IODIR0  |=  (1 &lt;&lt; 5);    // bit 5 = 1: output
+    while (1)
+    {
+        IOSET0 = (1 &lt;&lt; 5);   // writing 1 to IOSET sets P0.5 high; other pins untouched
+        delay();
+        IOCLR0 = (1 &lt;&lt; 5);   // writing 1 to IOCLR sets P0.5 low; other pins untouched
+        delay();
+    }
+}
+</code></pre>
+<p><strong>X3. Switch P0.4 (active low) controls LED P0.5.</strong></p>
+<pre><code class="language-c">int main(void)
+{
+    PINSEL0 &amp;= ~((3 &lt;&lt; 8) | (3 &lt;&lt; 10));  // P0.4 and P0.5 as GPIO
+    IODIR0  &amp;= ~(1 &lt;&lt; 4);                // P0.4 input (switch)
+    IODIR0  |=  (1 &lt;&lt; 5);                // P0.5 output (LED)
+    while (1)
+    {
+        if (!(IOPIN0 &amp; (1 &lt;&lt; 4)))        // IOPIN0 reads pin levels; bit 4 low = pressed
+            IOSET0 = (1 &lt;&lt; 5);           // pressed: LED on
+        else
+            IOCLR0 = (1 &lt;&lt; 5);           // released: LED off
+    }
+}
+</code></pre>
+<p><strong>X4. Toggle on press with debounce.</strong></p>
+<pre><code class="language-c">int main(void)
+{
+    IODIR0 &amp;= ~(1 &lt;&lt; 4);  IODIR0 |= (1 &lt;&lt; 5);   // P0.4 in, P0.5 out
+    while (1)
+    {
+        if (!(IOPIN0 &amp; (1 &lt;&lt; 4)))               // press detected
+        {
+            delay_ms(20);                       // wait out contact bounce
+            if (!(IOPIN0 &amp; (1 &lt;&lt; 4)))           // still low: a real press
+            {
+                if (IOPIN0 &amp; (1 &lt;&lt; 5)) IOCLR0 = (1 &lt;&lt; 5);   // LED on -&gt; turn off
+                else                   IOSET0 = (1 &lt;&lt; 5);   // LED off -&gt; turn on
+                while (!(IOPIN0 &amp; (1 &lt;&lt; 4)));   // wait for release so one press = one toggle
+            }
+        }
+    }
+}
+</code></pre>
+<p>Hints: X2: <code>IODIR1 = 0x00FF0000</code>, then for each LED <code>IOSET1 = (1&lt;&lt;(16+i)); delay; IOCLR1 = (1&lt;&lt;(16+i));</code>. X5: <code>IOSET1 = 0x000F0000</code> / <code>IOCLR1 = 0x000F0000</code>. X6: <code>IOCLR1 = 0x00FF0000; IOSET1 = (count &lt;&lt; 16);</code> for count = 0 to 255, clearing first so stale bits go away.</p>
+
+</body></html>

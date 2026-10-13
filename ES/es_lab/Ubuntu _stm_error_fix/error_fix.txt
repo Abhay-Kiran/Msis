@@ -1,0 +1,13 @@
+cd ~/Downloads
+wget https://archive.ubuntu.com/ubuntu/pool/universe/n/ncurses/libncurses5_6.3-2ubuntu0.3_amd64.deb
+wget https://archive.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubuntu0.3_amd64.deb
+ls -lh libncurses5*.deb libtinfo5*.deb [output of this given below]
+      libncurses5_6.3-2ubuntu0.3_amd64.deb
+      libtinfo5_6.3-2ubuntu0.3_amd64.deb
+
+sudo dpkg -i libtinfo5_6.3-2ubuntu0.3_amd64.deb libncurses5_6.3-2ubuntu0.3_amd64.deb
+sudo ldconfig
+ldd "$GDB" | grep "not found"   [shoudl produce nothing]
+
+"$GDB" --version
+

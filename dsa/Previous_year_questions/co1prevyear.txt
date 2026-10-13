@@ -1,0 +1,15 @@
+Design data structure for a single linked list. Write function to insert and delete element in O(1) time ( analyze co1 2,4,4)
+
+Define stack data structure. List applications of stack.Provide Data structure for arrray based stack. Implement push(),pop() funcitons. (c02,1,1,2,3,3))
+
+List the properties of binary search tree . Define data strucutre for binary search tree.Write a function to insert element in binary search tree.
+
+Implement a sorting funciotn that works on o(n^2) in worst case and O(n) in best case. Illustrate with an example.
+
+What is a queue? Describe the pointer implementation of queues . Write the funcitons on enqueue and de queue associated with this implementation. (2,4,4)
+
+For given list 50,70,35,45,36,40,75,80,28,65,20 build bst and provide the in order and re order and post order traversals.
+
+Define stack data structure . List any four applications of stack data structure . Write funcitons to delete elements from linked list based stack.
+
+Implement merge sort derive its time complexity. Give and example.

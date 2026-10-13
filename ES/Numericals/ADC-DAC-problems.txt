@@ -7,9 +7,9 @@ b) What analog voltage corresponds to the digital code 0x800 (hex)? Show your wo
 
 ---
 
-2. A 14-bit ADC is used to sample a full-scale sinewave.
-a) Compute the quantization SNR in dB (assume an ideal ADC and a full-scale sine).
-b) If the measured SNR of the system is 77.0 dB, compute the Effective Number Of Bits (ENOB).
+	2. A 14-bit ADC is used to sample a full-scale sinewave.
+	a) Compute the quantization SNR in dB (assume an ideal ADC and a full-scale sine).
+	b) If the measured SNR of the system is 77.0 dB, compute the Effective Number Of Bits (ENOB).
 
 ---
 
@@ -21,10 +21,10 @@ b) If the measured SNR of the system is 77.0 dB, compute the Effective Number Of
 
 ---
 
-5.An 8-bit ADC with a unipolar input range of 0–2.56 V is used.
-a) Calculate the LSB size.
-b) What digital output (in decimal and binary) corresponds to an input of 1.28 V?
-c) What analog voltage corresponds to the digital code 11000000₂?
+	5.An 8-bit ADC with a unipolar input range of 0–2.56 V is used.
+	a) Calculate the LSB size.
+	b) What digital output (in decimal and binary) corresponds to an input of 1.28 V?
+	c) What analog voltage corresponds to the digital code 11000000₂?
 
 ---
 
@@ -116,6 +116,7 @@ What minimum ADC resolution (in bits) is required?
 Assume unipolar straight binary output and no noise.
 
 ---
+
 
 21. A 16-bit ADC with ±10 V range is used to measure a 2.5 V rms sinewave.
 Calculate the SNR limited by quantization noise, and determine if the ADC’s 96 dB theoretical SNR matches the input’s dynamic range.
