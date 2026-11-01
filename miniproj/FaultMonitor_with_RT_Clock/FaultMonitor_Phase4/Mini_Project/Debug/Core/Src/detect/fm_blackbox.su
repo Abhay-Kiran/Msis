@@ -1,0 +1,13 @@
+../Core/Src/detect/fm_blackbox.c:22:37:slot_ptr	16	static
+../Core/Src/detect/fm_blackbox.c:27:13:report_valid	16	static
+../Core/Src/detect/fm_blackbox.c:33:6:fm_bb_init	16	static
+../Core/Src/detect/fm_blackbox.c:53:10:fm_bb_count	4	static
+../Core/Src/detect/fm_blackbox.c:54:10:fm_bb_next_seq	4	static
+../Core/Src/detect/fm_blackbox.c:56:13:erase_sector	48	static
+../Core/Src/detect/fm_blackbox.c:73:13:program_words	48	static
+../Core/Src/detect/fm_blackbox.c:89:6:fm_bb_append	24	static
+../Core/Src/detect/fm_blackbox.c:117:6:fm_bb_read	24	static
+../Core/Src/detect/fm_blackbox.c:130:6:fm_bb_clear	16	static
+../Core/Src/detect/fm_blackbox.c:139:6:fm_bb_load_baseline	24	static
+../Core/Src/detect/fm_blackbox.c:151:6:fm_bb_save_baseline	16	static
+../Core/Src/detect/fm_blackbox.c:160:6:fm_bb_erase_baseline	8	static

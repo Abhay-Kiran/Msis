@@ -1,0 +1,10 @@
+../Core/Src/monitor/fm_sigout.c:26:28:fm_monitor_print_status	8	static
+../Core/Src/monitor/fm_sigout.c:30:32:fm_monitor_ram_bytes	4	static
+../Core/Src/monitor/fm_sigout.c:45:17:cyc_to_us	16	static
+../Core/Src/monitor/fm_sigout.c:53:15:append	24	static
+../Core/Src/monitor/fm_sigout.c:69:13:print_csv	96	static
+../Core/Src/monitor/fm_sigout.c:110:13:printer_task_fn	24	static
+../Core/Src/monitor/fm_sigout.c:130:6:fm_sigout_publish	16	static
+../Core/Src/monitor/fm_sigout.c:142:13:cmd_status	128	static
+../Core/Src/monitor/fm_sigout.c:196:13:cmd_stream	16	static
+../Core/Src/monitor/fm_sigout.c:203:6:fm_sigout_init	16	static

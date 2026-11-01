@@ -1,0 +1,36 @@
+PHASE 0 - all three: freeze event_t, fault_report_t, inject API, IDs
+      |
+      +------------------------+------------------------+
+      v                        v                        v
+PHASE 1 - parallel, nobody waits
+ABHAY                    ARFAN                    ABHISHEK
+CAP-1, CAP-2             DET-1, DET-2, DET-3      INJ-1 (push first)
+DWT + ring buffer        detector + baseline      then INJ-2, INJ-3
+(PC-tested)              script on fake data      workload + UART shell
+      |                        |                        |
+      v                        |                        |
+PHASE 2 - first handoffs       |                        |
+CAP-3, CAP-4  ------> INJ-5: collect clean CSVs         |
+trace hooks + dump             |                        |
+                               v                        |
+                     DET-3: real CSVs -> baseline.h     |
+                               |                        |
+                               v                        |
+                     DET-4: on-chip compare task <------+
+                               |              INJ-4: stuck-loop fault
+                               v
+        *** MVP-1: inject stuck task -> board flags it ***
+                               |
+PHASE 3                        v
+CAP-5                    DET-5, DET-6, DET-7      INJ-4 (2nd fault), INJ-6
+MPU stack guard          localize, recover,       eval script
+                         report
+                               |
+                               v
+   *** MVP-2: inject -> detect -> localize -> recover -> report ***
+                               |
+PHASE 4                        v
+CAP-6, CAP-7, CAP-8      threshold tuning         INJ-7: all faults + trials
+remaining signals
+                               |
+PHASE 5 - all: metrics, overhead, Isolation Forest (optional), report

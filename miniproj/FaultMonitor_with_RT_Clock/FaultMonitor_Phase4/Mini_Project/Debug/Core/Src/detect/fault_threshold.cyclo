@@ -1,0 +1,3 @@
+../Core/Src/detect/fault_threshold.c:7:6:threshold_band_violation	3
+../Core/Src/detect/fault_threshold.c:12:9:threshold_band_confidence	5
+../Core/Src/detect/fault_threshold.c:28:6:threshold_liveness_violation	1

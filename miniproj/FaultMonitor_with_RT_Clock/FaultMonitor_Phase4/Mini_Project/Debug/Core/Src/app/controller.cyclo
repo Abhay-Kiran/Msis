@@ -1,0 +1,13 @@
+../Drivers/CMSIS/Include/core_cm4.h:1684:22:__NVIC_EnableIRQ	2
+../Drivers/CMSIS/Include/core_cm4.h:1722:22:__NVIC_DisableIRQ	2
+../Core/Src/app/controller.c:43:21:app_cfg	1
+../Core/Src/app/controller.c:68:13:compare_step	5
+../Core/Src/app/controller.c:80:13:ctrl_task_fn	7
+../Core/Src/app/controller.c:127:13:report_task_fn	6
+../Core/Src/app/controller.c:164:6:HAL_GPIO_EXTI_Callback	5
+../Core/Src/app/controller.c:187:13:cmd_limit	3
+../Core/Src/app/controller.c:201:13:cmd_telemetry	2
+../Core/Src/app/controller.c:208:6:controller_restart	5
+../Core/Src/app/controller.c:232:10:app_task_period_ms	3
+../Core/Src/app/controller.c:241:7:app_task_handle	5
+../Core/Src/app/controller.c:251:6:controller_init	2

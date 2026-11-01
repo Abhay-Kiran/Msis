@@ -1,0 +1,6 @@
+../Core/Src/monitor/ring_buffer.c:15:6:rb_init	1
+../Core/Src/monitor/ring_buffer.c:22:6:rb_push	2
+../Core/Src/monitor/ring_buffer.c:39:5:rb_pop	2
+../Core/Src/monitor/ring_buffer.c:49:10:rb_count	1
+../Core/Src/monitor/ring_buffer.c:54:5:rb_peek	2
+../Core/Src/monitor/ring_buffer.c:63:10:rb_copy_last	3

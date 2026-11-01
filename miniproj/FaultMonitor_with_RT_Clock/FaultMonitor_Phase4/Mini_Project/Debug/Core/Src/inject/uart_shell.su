@@ -1,0 +1,9 @@
+../Core/Src/inject/uart_shell.c:34:6:fm_shell_register	24	static
+../Core/Src/inject/uart_shell.c:50:12:hexval	24	static
+../Core/Src/inject/uart_shell.c:60:13:unframe	40	static
+../Core/Src/inject/uart_shell.c:81:13:dispatch	32	static
+../Core/Src/inject/uart_shell.c:101:13:shell_task_fn	128	static
+../Core/Src/inject/uart_shell.c:136:13:cmd_help	16	static
+../Core/Src/inject/uart_shell.c:161:7:uart_shell_task_handle	4	static
+../Core/Src/inject/uart_shell.c:163:6:uart_shell_restart	16	static
+../Core/Src/inject/uart_shell.c:174:6:uart_shell_init	8	static

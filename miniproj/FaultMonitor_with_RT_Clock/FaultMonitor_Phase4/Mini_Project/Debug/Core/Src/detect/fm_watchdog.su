@@ -1,0 +1,4 @@
+../Core/Src/detect/fm_watchdog.c:18:13:iwdg_start	4	static
+../Core/Src/detect/fm_watchdog.c:33:13:feeder_task_fn	16	static
+../Core/Src/detect/fm_watchdog.c:45:6:fm_watchdog_checkin	8	static
+../Core/Src/detect/fm_watchdog.c:50:6:fm_watchdog_init	24	static

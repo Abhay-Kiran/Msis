@@ -1,0 +1,17 @@
+../Drivers/CMSIS/Include/core_cm4.h:1938:34:__NVIC_SystemReset	1
+../Core/Src/monitor/fm_capture.c:27:6:fm_capture_boot	10
+../Core/Src/monitor/fm_capture.c:50:10:fm_reset_cause	1
+../Core/Src/monitor/fm_capture.c:55:13:fm_reset_cause_str	8
+../Core/Src/monitor/fm_capture.c:90:13:mpu_set	1
+../Core/Src/monitor/fm_capture.c:102:17:size_field	2
+../Core/Src/monitor/fm_capture.c:112:6:fm_mpu_init	2
+../Core/Src/monitor/fm_capture.c:150:6:fm_mpu_protect_ro	5
+../Core/Src/monitor/fm_capture.c:161:6:fm_mpu_guard_task	9
+../Core/Src/monitor/fm_capture.c:193:12:guard_slot_of	3
+../Core/Src/monitor/fm_capture.c:201:6:fm_mpu_unguard_task	2
+../Core/Src/monitor/fm_capture.c:212:10:fm_stack_free_words	6
+../Core/Src/monitor/fm_capture.c:230:10:fm_task_pc	7
+../Core/Src/monitor/fm_capture.c:254:13:addr_in_guard	5
+../Core/Src/monitor/fm_capture.c:266:13:finish_crash_record	1
+../Core/Src/monitor/fm_capture.c:280:6:fm_trap	6
+../Core/Src/monitor/fm_capture.c:320:6:fm_trap_stack_hook	2

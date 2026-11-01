@@ -1,0 +1,4 @@
+../Core/Src/app/idle_stats.c:13:6:idle_stats_init	1
+../Core/Src/app/idle_stats.c:19:6:idle_stats_on_idle_hook	1
+../Core/Src/app/idle_stats.c:24:10:idle_stats_get_count	1
+../Core/Src/app/idle_stats.c:29:10:idle_stats_get_uptime_ms	1

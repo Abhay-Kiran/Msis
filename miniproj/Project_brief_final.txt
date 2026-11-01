@@ -1,0 +1,14 @@
+Our project runs on a small STM32 board that performs a simple real-time task. Every 10 milliseconds it reads a sensor voltage, checks it against a limit, and switches a warning LED on or off. That application must keep this rhythm without ever falling behind.
+
+Alongside it, we built a monitor that runs on the same chip. For the first few seconds it simply observes and learns what normal behaviour looks like: which tasks run, how often, for how long, and in what order. After that, every 100 milliseconds, it compares what is happening against that learned picture.
+
+When something goes wrong, the monitor detects it on its own: a task gets stuck, memory is overrun, or a hardware setting is corrupted. It identifies the most likely cause and reports how confident it is, for example “85 % sure it is the sensor task.” It then recovers automatically by restarting the failed part or, if necessary, the whole board. It also records the event in a fault log stored in flash, which survives even a power loss. None of this needs a PC or a debugger.
+
+We quickly found that the monitor recovers so fast, within a fraction of a second, that the impact of a fault was invisible. To make it measurable, we added a real-time clock. It keeps time by counting the sensor readings and checks itself against a second, independent clock:
+
+If a fault stops the readings, the clock falls behind.
+If a fault speeds them up, it runs ahead.
+If a faulty task takes over the processor, the clock records the deadlines it missed.
+If the whole system freezes, its heartbeat LED stops blinking.
+
+So whenever we inject a fault, we can show two things: the monitor detecting, localizing and recovering from it, and the clock showing exactly what that fault cost the application.

@@ -1,0 +1,13 @@
+../Core/Src/detect/fm_blackbox.c:22:37:slot_ptr	1
+../Core/Src/detect/fm_blackbox.c:27:13:report_valid	3
+../Core/Src/detect/fm_blackbox.c:33:6:fm_bb_init	5
+../Core/Src/detect/fm_blackbox.c:53:10:fm_bb_count	1
+../Core/Src/detect/fm_blackbox.c:54:10:fm_bb_next_seq	1
+../Core/Src/detect/fm_blackbox.c:56:13:erase_sector	1
+../Core/Src/detect/fm_blackbox.c:73:13:program_words	3
+../Core/Src/detect/fm_blackbox.c:89:6:fm_bb_append	6
+../Core/Src/detect/fm_blackbox.c:117:6:fm_bb_read	3
+../Core/Src/detect/fm_blackbox.c:130:6:fm_bb_clear	1
+../Core/Src/detect/fm_blackbox.c:139:6:fm_bb_load_baseline	5
+../Core/Src/detect/fm_blackbox.c:151:6:fm_bb_save_baseline	2
+../Core/Src/detect/fm_blackbox.c:160:6:fm_bb_erase_baseline	1
